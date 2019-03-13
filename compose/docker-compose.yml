@@ -1,0 +1,80 @@
+version: '2'
+services:    
+  portainer:
+    image: portainer/portainer:1.20.0
+    container_name: portainer
+    restart: always
+    ports:
+      - "9000:9000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+  
+  zookeeper:
+    image: zookeeper:3.5.3-beta
+    container_name: zookeeper_dev
+    restart: always
+    ports:
+      - "2181:2181"  
+    volumes:
+      - ../data/zookeeper/conf/zoo.cfg:/conf/zoo.cfg:Z
+  zoonavigator_web:
+    image: elkozmon/zoonavigator-web:latest
+    container_name: zoonavigator-web
+    ports:
+     - "8000:8000"
+    environment:
+      API_HOST: "zoonavigator_api"
+      API_PORT: 9000
+    links:
+     - zoonavigator_api
+    depends_on:
+     - zoonavigator_api
+    restart: always
+  zoonavigator_api:
+    image: elkozmon/zoonavigator-api:latest
+    container_name: zoonavigator-api
+    environment:
+      SERVER_HTTP_PORT: 9000
+    restart: always
+  activemq:
+    image: rmohr/activemq:latest
+    container_name: activemq
+    ports:
+      - "61616:61616"
+      - "8161:8161"
+    restart: always
+  mqtt:
+    image: eclipse-mosquitto
+    container_name: mqtt_broker
+    ports:
+      - "1883:1883"
+      - "9001:9001"    
+    volumes:
+      - ../data/mosquitto/config/mosquitto.conf:/mosquitto/config/mosquitto.conf:Z
+    restart: always
+  camunda:
+    image: camunda/camunda-bpm-platform:latest
+    container_name: camunda
+    ports:
+        - "8080:8080"
+    restart: always
+#  basys-process-dashboard:
+#    image: dfki/basys-process-dashboard:latest
+#    container_name: basys-process-dashboard
+#    command: --camunda.rest.base.url=http://camunda:8080/engine-rest/engine/default
+#    ports:
+#        - "8081:8000"
+#    links:
+#        - camunda
+#    restart: always
+#  basys-dashboard:
+#    image: dfki/basys-dashboard:latest
+#    container_name: basys-dashboard
+#    ports:
+#        - "8082:8080"
+#    environment:
+#      BASYS_REST_URL: http://localhost:8080
+#      MQTT_BROKER_IP: 192.168.133.128
+#      MQTT_BROKER_PORT: 9001
+#      CAMUNDA_REST_URL: http://192.168.133.128:8080
+#    restart: always
