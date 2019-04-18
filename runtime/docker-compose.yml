@@ -5,7 +5,7 @@ services:
     container_name: portainer
     restart: always
     ports:
-      - "9000:9000"
+      - "9090:9000"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
   
@@ -21,7 +21,7 @@ services:
     image: elkozmon/zoonavigator-web:latest
     container_name: zoonavigator-web
     ports:
-     - "8000:8000"
+     - "9091:8000"
     environment:
       API_HOST: "zoonavigator_api"
       API_PORT: 9000
@@ -56,25 +56,25 @@ services:
     image: camunda/camunda-bpm-platform:latest
     container_name: camunda
     ports:
-        - "8080:8080"
+        - "9080:8080"
     restart: always
-  process-dashboard:
-    image: dfkibasys/process-dashboard:latest
-    container_name: process-dashboard
-    command: --camunda.rest.base.url=http://camunda:8080/engine-rest/engine/default
-    ports:
-        - "8081:8000"
-    links:
-        - camunda
-    restart: always
-#  basys-dashboard:
-#    image: dfki/basys-dashboard:latest
-#    container_name: basys-dashboard
+#  component-dashboard:
+#    image: dfkibasys/component-dashboard:latest
+#    container_name: component-dashboard
 #    ports:
-#        - "8082:8080"
+#        - "9081:8080"
 #    environment:
 #      BASYS_REST_URL: http://localhost:8080
 #      MQTT_BROKER_IP: 192.168.133.128
 #      MQTT_BROKER_PORT: 9001
 #      CAMUNDA_REST_URL: http://192.168.133.128:8080
 #    restart: always
+  process-dashboard:
+    image: dfkibasys/process-dashboard:latest
+    container_name: process-dashboard
+    command: --camunda.rest.base.url=http://camunda:8080/engine-rest/engine/default
+    ports:
+        - "9082:8000"
+    links:
+        - camunda
+    restart: always
