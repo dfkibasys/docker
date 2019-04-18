@@ -1,7 +1,7 @@
 version: '2'
 services:    
   portainer:
-    image: portainer/portainer:1.20.0
+    image: portainer/portainer:latest
     container_name: portainer
     restart: always
     ports:
@@ -10,7 +10,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
   
   zookeeper:
-    image: zookeeper:3.5.3-beta
+    image: zookeeper:3.5
     container_name: zookeeper_dev
     restart: always
     ports:
@@ -44,7 +44,7 @@ services:
       - "8161:8161"
     restart: always
   mqtt:
-    image: eclipse-mosquitto
+    image: eclipse-mosquitto:latest
     container_name: mqtt_broker
     ports:
       - "1883:1883"
@@ -58,15 +58,15 @@ services:
     ports:
         - "8080:8080"
     restart: always
-#  basys-process-dashboard:
-#    image: dfki/basys-process-dashboard:latest
-#    container_name: basys-process-dashboard
-#    command: --camunda.rest.base.url=http://camunda:8080/engine-rest/engine/default
-#    ports:
-#        - "8081:8000"
-#    links:
-#        - camunda
-#    restart: always
+  basys-process-dashboard:
+    image: dfkibasys/process-dashboard:latest
+    container_name: process-dashboard
+    command: --camunda.rest.base.url=http://camunda:8080/engine-rest/engine/default
+    ports:
+        - "8081:8000"
+    links:
+        - camunda
+    restart: always
 #  basys-dashboard:
 #    image: dfki/basys-dashboard:latest
 #    container_name: basys-dashboard
