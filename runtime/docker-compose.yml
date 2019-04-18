@@ -58,7 +58,7 @@ services:
     ports:
         - "8080:8080"
     restart: always
-  basys-process-dashboard:
+  process-dashboard:
     image: dfkibasys/process-dashboard:latest
     container_name: process-dashboard
     command: --camunda.rest.base.url=http://camunda:8080/engine-rest/engine/default
