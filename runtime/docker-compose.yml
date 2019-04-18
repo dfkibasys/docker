@@ -11,7 +11,7 @@ services:
   
   zookeeper:
     image: zookeeper:3.5
-    container_name: zookeeper_dev
+    container_name: zookeeper
     restart: always
     ports:
       - "2181:2181"  
@@ -38,6 +38,7 @@ services:
     restart: always
   kafka:
     image: bitnami/kafka:2
+    container_name: kafka
     ports:
       - "9092:9092"
     environment:
