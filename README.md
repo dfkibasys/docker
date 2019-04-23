@@ -35,3 +35,17 @@ After installation, the following services are available.
 | Camunda BPM Platform        | http://[ip]:9080/camunda | 
 | BaSys 4.0 Process Dashboard | http://[ip]:9082 |
 
+## Downloads
+
+A pre-installed Ubuntu Server 18.04.02 LTS VM can be downloaded
+*  for [VMware](https://my.vmware.com/en/web/vmware/free#desktop_end_user_computing/vmware_workstation_player/15_0): https://cloud.dfki.de/owncloud/index.php/s/cTS7zyWTm7TFWfs
+*  for [VirtualBox](https://www.virtualbox.org/wiki/Downloads): https://cloud.dfki.de/owncloud/index.php/s/SQr46mr4SsKS8Gs
+
+The login is `basys / basys`.
+
+The keyboard layout is set to German. Here, the keys for `y` and `z` are flipped, so pay attention when typing in `basys`. In order to change the keyboard layout, follow [this description](https://askubuntu.com/questions/342066/how-to-permanently-configure-keyboard).
+
+If you use the VM for VirtualBox in NAT mode, you should configure port forwardings:
+
+<img src='/readme/virtualbox-port-forwardings.png?raw=true' width='50%' height='50%'>
+
