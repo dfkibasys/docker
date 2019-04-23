@@ -43,7 +43,7 @@ A pre-installed Ubuntu Server 18.04.02 LTS VM can be downloaded
 
 The login is `basys / basys`.
 
-The keyboard layout is set to German. Here, the keys for `y` and `z` are flipped, so pay attention when typing in `basys`. In order to change the keyboard layout, follow [this description](https://askubuntu.com/questions/342066/how-to-permanently-configure-keyboard).
+The keyboard layout is set to German. Here, the keys for `y` and `z` are swapped, so pay attention when typing in `basys`. In order to change the keyboard layout, follow [this description](https://askubuntu.com/questions/342066/how-to-permanently-configure-keyboard).
 
 If you use the VM for VirtualBox in NAT mode, you should configure port forwardings:
 
