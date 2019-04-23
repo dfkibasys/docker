@@ -47,5 +47,5 @@ The keyboard layout is set to German. Here, the keys for `y` and `z` are flipped
 
 If you use the VM for VirtualBox in NAT mode, you should configure port forwardings:
 
-<img src='/readme/virtualbox-port-forwardings.png?raw=true' width='50%' height='50%'>
+<img src='/readme/virtualbox-port-forwardings.png?raw=true'>
 
