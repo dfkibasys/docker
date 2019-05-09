@@ -16,7 +16,7 @@ services:
     ports:
       - "2181:2181"  
     volumes:
-      - ../data/zookeeper/conf/zoo.cfg:/conf/zoo.cfg:Z
+      - ./data/zookeeper/conf/zoo.cfg:/conf/zoo.cfg:Z
   zoonavigator_web:
     image: elkozmon/zoonavigator-web:latest
     container_name: zoonavigator-web
@@ -58,7 +58,7 @@ services:
       - "1883:1883"
       - "9001:9001"    
     volumes:
-      - ../data/mosquitto/config/mosquitto.conf:/mosquitto/config/mosquitto.conf:Z
+      - ./data/mosquitto/config/mosquitto.conf:/mosquitto/config/mosquitto.conf:Z
     restart: always
   camunda:
     image: camunda/camunda-bpm-platform:latest
