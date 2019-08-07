@@ -12,12 +12,16 @@ This repository contains a Docker-Compose file that setup (mostly 3rd party) bac
 
 1) Clone this repo
 2) Navigate into the subfolder 'runtime'
-3) Create the Docker stack
+3) Inside the .env file, specify the `HOSTNAME` variable. This is used in the docker-compose.yml file for the following environment variables
+   * `KAFKA_CFG_ADVERTISED_LISTENERS`
+   * `MQTT_BROKER_IP`
+   * `CAMUNDA_REST_URL`
+4) Create the Docker stack
 
 ```bash
 git clone https://github.com/BaSys-PC1/docker.git
 cd docker/runtime
-docker-compose up -d
+docker-compose pull && docker-compose up -d
 ```
 
 ## Usage
@@ -33,6 +37,7 @@ After installation, the following services are available.
 | Apache ActiveMQ             | 61616, 8161 | 
 | MQTT Broker                 | 1883, 9001 | 
 | Camunda BPM Platform        | http://[ip]:9080/camunda | 
+| BaSys 4.0 Component Dashboard | http://[ip]:9081 |
 | BaSys 4.0 Process Dashboard | http://[ip]:9082 |
 
 ## Downloads
@@ -47,5 +52,5 @@ The keyboard layout is set to German. Here, the keys for `y` and `z` are swapped
 
 If you use the VM for VirtualBox in NAT mode, you should configure port forwardings:
 
-<img src='/readme/virtualbox-port-forwardings.png?raw=true' width='75%' height='75%'>
+<img src='/docs/virtualbox-port-forwardings.png?raw=true' width='75%' height='75%'>
 
