@@ -45,6 +45,7 @@ services:
       - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
       - ALLOW_PLAINTEXT_LISTENER=yes 
       - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://${HOSTNAME}:9092
+    restart: always
   activemq:
     image: rmohr/activemq:latest
     container_name: activemq
