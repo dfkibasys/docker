@@ -188,4 +188,29 @@ services:
     links:
       - kafka
       - schema-registry
-    restart: always  
+    restart: always
+
+  jobmanager:
+    image: flink:1.10.0-scala_2.12
+    container_name: jobmanager
+    expose:
+      - "6123"
+    ports:
+      - "9094:8081"
+    command: jobmanager
+    environment:
+      - JOB_MANAGER_RPC_ADDRESS=jobmanager
+
+  taskmanager:
+    image: flink:1.10.0-scala_2.12
+    container_name: taskmanager
+    expose:
+      - "6121"
+      - "6122"
+    depends_on:
+      - jobmanager
+    command: taskmanager
+    links:
+      - "jobmanager:jobmanager"
+    environment:
+      - JOB_MANAGER_RPC_ADDRESS=jobmanager

@@ -34,6 +34,9 @@ After installation, the following services are available.
 | Apache Zookeeper            | 2181 | 
 | Zoonavigator                | http://[ip]:9091 | 
 | Apache Kafka                | 9092 | 
+| Kafka HQ WebUI              | http://[ip]:9093 | 
+| Apache Flink Jobmanger      | 6123 | 
+| Apache Flink WebUI/REST     | http://[ip]:9094 | 
 | Apache ActiveMQ             | 61616, 8161 | 
 | MQTT Broker                 | 1883, 9001 | 
 | Camunda BPM Platform        | http://[ip]:9080/camunda | 
