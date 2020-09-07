@@ -214,3 +214,13 @@ services:
       - "jobmanager:jobmanager"
     environment:
       - JOB_MANAGER_RPC_ADDRESS=jobmanager
+  
+  aas-registry:
+    image: dfkibasys/aas-registry:latest
+    container_name: ass-registry
+    ports:
+      - "4999:8080"
+    links:
+      - zookeeper
+    command: -zk zookeeper:2181
+    restart: always

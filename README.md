@@ -4,9 +4,12 @@ This repository contains a Docker-Compose file that setup (mostly 3rd party) bac
 
 ## Prerequisites
 
- 1) Install [Docker](https://docs.docker.com/install/), e.g., in a [Ubuntu VM](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
-    * If you [add your user to the docker group](https://docs.docker.com/install/linux/linux-postinstall/), you don't have to prefix your docker/docker-compose commands with sudo.
+ 1) Install [Docker](https://docs.docker.com/install/), 
+    * e.g., in a [Ubuntu VM](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
+      * If you [add your user to the docker group](https://docs.docker.com/install/linux/linux-postinstall/), you don't have to prefix your docker/docker-compose commands with sudo.
+	* or in [Windows using WSL2 and Docker Desktop](https://nickjanetakis.com/blog/a-linux-dev-environment-on-windows-with-wsl-2-docker-desktop-and-more)
  2) Install [Docker-Compose](https://docs.docker.com/compose/install/)
+    * Docker-Compose is already available in Docker Desktop.
 
 ## Installation
 
@@ -40,8 +43,9 @@ After installation, the following services are available.
 | Apache ActiveMQ             | 61616, 8161 | 
 | MQTT Broker                 | 1883, 9001 | 
 | Camunda BPM Platform        | http://[ip]:9080/camunda | 
-| BaSys 4.0 Component Dashboard | http://[ip]:9081 |
-| BaSys 4.0 Process Dashboard | http://[ip]:9082 |
+| BaSys Component Dashboard   | http://[ip]:9081 |
+| BaSys Process Dashboard     | http://[ip]:9082 |
+| BaSys AAS Registry          | http://[ip]:4999 |
 
 ## Downloads
 
@@ -53,7 +57,7 @@ The login is `basys / basys`.
 
 The keyboard layout is set to German. Here, the keys for `y` and `z` are swapped, so pay attention when typing in `basys`. In order to change the keyboard layout, follow [this description](https://askubuntu.com/questions/342066/how-to-permanently-configure-keyboard).
 
-If you use the VM for VirtualBox in NAT mode, you should configure port forwardings:
+If you use the VM for VirtualBox in NAT mode, you should configure port forwardings according to the table above:
 
 <img src='/docs/virtualbox-port-forwardings.png?raw=true' width='75%' height='75%'>
 
