@@ -46,6 +46,8 @@ After installation, the following services are available.
 | BaSys Component Dashboard   | http://[ip]:9081 |
 | BaSys Process Dashboard     | http://[ip]:9082 |
 | BaSys AAS Registry          | http://[ip]:4999 |
+| BaSys AAS Aggregator Service| http://[ip]:5080 |
+| BaSys AAS Hosting Service   | http://[ip]:5081 |
 
 ## Downloads
 

@@ -215,12 +215,17 @@ services:
     environment:
       - JOB_MANAGER_RPC_ADDRESS=jobmanager
   
-  aas-registry:
-    image: dfkibasys/aas-registry:latest
-    container_name: ass-registry
+  aas-services:
+    image: dfkibasys/aas-services:latest
+    container_name: aas-services
     ports:
-      - "4999:8080"
+      - "4999:4999"
+      - "5080:5080"
+      - "5081:5081"
     links:
       - zookeeper
+    volumes:
+      - ./data/aas-services/config:/app/config
+      - ./data/aas-services/components:/app/components
     command: -zk zookeeper:2181
     restart: always
