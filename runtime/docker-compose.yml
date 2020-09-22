@@ -228,4 +228,6 @@ services:
       - ./data/aas-services/config:/app/config
       - ./data/aas-services/components:/app/components
     command: -zk zookeeper:2181
+    environment:
+      AAS_HOST_ACCESSIBLE_ENDPOINT: "http://${HOSTNAME}:5081"
     restart: always
