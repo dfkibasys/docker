@@ -252,7 +252,7 @@ services:
     restart: always
   
   service-platform:
-    image: dfkibasys/platform:latest
+    image: dfkibasys/service-platform:latest
     container_name: service-platform
     ports:
       - "5083:5083"
