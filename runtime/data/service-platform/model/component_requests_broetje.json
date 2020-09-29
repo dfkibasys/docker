@@ -1,0 +1,194 @@
+{
+  "eClass" : "http://www.dfki.de/iui/basys/model/component#//ComponentRequestCollection",
+  "componentRequests" : [ {
+    "eClass" : "http://www.dfki.de/iui/basys/model/component#//ChangeModeRequest",
+    "mode" : "CHANGE_OVER"
+  }, {
+    "eClass" : "http://www.dfki.de/iui/basys/model/component#//ChangeModeRequest",
+    "mode" : "PRODUCTION"
+  }, {
+    "eClass" : "http://www.dfki.de/iui/basys/model/component#//ChangeModeRequest",
+    "mode" : "SIMULATION"
+  }, {
+    "eClass" : "http://www.dfki.de/iui/basys/model/component#//CommandRequest",
+    "controlCommand" : "RESET"
+  }, {
+    "eClass" : "http://www.dfki.de/iui/basys/model/component#//CommandRequest",
+    "controlCommand" : "STOP"
+  }, {
+    "eClass" : "http://www.dfki.de/iui/basys/model/component#//CapabilityRequest",
+    "capabilityVariant" : {
+      "eClass" : "http://www.dfki.de/iui/basys/model/resourceinstance#//GeneralCapabilityVariant",
+      "id" : "_AVNdU_PeEei3sNJG4Bmkrw",
+      "name" : "Goto Home Position",
+      "capability" : {
+        "eClass" : "http://www.dfki.de/iui/basys/model/capability#//MoveToLocation",
+        "id" : "_BiGHSPPeEei3sNJG4Bmkrw",
+        "name" : "HOME_POSE"
+      }
+    }
+  }, {
+    "eClass" : "http://www.dfki.de/iui/basys/model/component#//CapabilityRequest",
+    "capabilityVariant" : {
+      "eClass" : "http://www.dfki.de/iui/basys/model/resourceinstance#//GeneralCapabilityVariant",
+      "id" : "_Pe9ygzBqEem8P9knmM6g-Q",
+      "name" : "Goto Home From Safe Position",
+      "capability" : {
+        "eClass" : "http://www.dfki.de/iui/basys/model/capability#//MoveToLocation",
+        "id" : "_QwedyDBqEem8P9knmM6g-Q",
+        "name" : "SAFE_HOME_POSE"
+      }
+    }
+  }, {
+    "eClass" : "http://www.dfki.de/iui/basys/model/component#//CapabilityRequest",
+    "capabilityVariant" : {
+      "eClass" : "http://www.dfki.de/iui/basys/model/resourceinstance#//GeneralCapabilityVariant",
+      "binding" : "",
+      "id" : "_cKKSwzBqEem8P9knmM6g-Q",
+      "name" : "Goto Safe Position",
+      "capability" : {
+        "eClass" : "http://www.dfki.de/iui/basys/model/capability#//MoveToLocation",
+        "id" : "_ciFqqDBqEem8P9knmM6g-Q",
+        "name" : "SAFE_POSE"
+      }
+    }
+  }, {
+    "eClass" : "http://www.dfki.de/iui/basys/model/component#//CapabilityRequest",
+    "inputParameters" : [ {
+      "name" : "count",
+      "value" : "${count}",
+      "type" : "INTEGER"
+    }, {
+      "name" : "sector",
+      "value" : "${sector}",
+      "type" : "STRING"
+    } ],
+    "capabilityVariant" : {
+      "eClass" : "http://www.dfki.de/iui/basys/model/resourceinstance#//ManufacturingCapabilityVariant",
+      "id" : "_9ZlhgTBpEem8P9knmM6g-Q",
+      "name" : "Perform Riveting",
+      "capability" : {
+        "eClass" : "http://www.dfki.de/iui/basys/model/capability#//Fügen",
+        "id" : "__VQkBDBpEem8P9knmM6g-Q"
+      }
+    }
+  }, {
+    "eClass" : "http://www.dfki.de/iui/basys/model/component#//CapabilityRequest",
+    "inputParameters" : [ {
+      "name" : "count",
+      "value" : "${count}",
+      "type" : "INTEGER"
+    }, {
+      "name" : "sector",
+      "value" : "${sector}",
+      "type" : "STRING"
+    } ],
+    "capabilityVariant" : {
+      "eClass" : "http://www.dfki.de/iui/basys/model/resourceinstance#//ManufacturingCapabilityVariant",
+      "id" : "_EJNbMTBqEem8P9knmM6g-Q",
+      "name" : "Perform Sealing",
+      "capability" : {
+        "eClass" : "http://www.dfki.de/iui/basys/model/capability#//Beschichten",
+        "id" : "_E3kWCjBqEem8P9knmM6g-Q"
+      }
+    }
+  }, {
+    "eClass" : "http://www.dfki.de/iui/basys/model/component#//CapabilityRequest",
+    "inputParameters" : [ {
+      "name" : "count",
+      "value" : "${count}",
+      "type" : "INTEGER"
+    }, {
+      "name" : "sector",
+      "value" : "${sector}",
+      "type" : "STRING"
+    } ],
+    "capabilityVariant" : {
+      "eClass" : "http://www.dfki.de/iui/basys/model/resourceinstance#//GeneralCapabilityVariant",
+      "id" : "_erwWszBzEem8P9knmM6g-Q",
+      "name" : "Check Rivet Positions",
+      "capability" : {
+        "eClass" : "http://www.dfki.de/iui/basys/model/capability#//Checking",
+        "id" : "_gFo64jBzEem8P9knmM6g-Q"
+      }
+    }
+  }, {
+    "eClass" : "http://www.dfki.de/iui/basys/model/component#//CapabilityRequest",
+    "capabilityVariant" : {
+      "eClass" : "http://www.dfki.de/iui/basys/model/resourceinstance#//GeneralCapabilityVariant",
+      "id" : "_88MX4-6fEei8pumxNykfZQ",
+      "name" : "Move to Left",
+      "capability" : {
+        "eClass" : "http://www.dfki.de/iui/basys/model/capability#//MoveToLocation",
+        "id" : "_9Yw_OO6fEei8pumxNykfZQ",
+        "name" : "",
+        "targetLocation" : {
+          "eClass" : "http://www.dfki.de/iui/basys/model/topology#//AGVStation",
+          "$ref" : "http://localhost:8080/services/entity/_HM3kBDBrEem8P9knmM6g-Q"
+        }
+      }
+    }
+  }, {
+    "eClass" : "http://www.dfki.de/iui/basys/model/component#//CapabilityRequest",
+    "capabilityVariant" : {
+      "eClass" : "http://www.dfki.de/iui/basys/model/resourceinstance#//GeneralCapabilityVariant",
+      "id" : "_qjpEUzBrEem8P9knmM6g-Q",
+      "name" : "Move to Center",
+      "capability" : {
+        "eClass" : "http://www.dfki.de/iui/basys/model/capability#//MoveToLocation",
+        "id" : "_tcW97zBrEem8P9knmM6g-Q",
+        "targetLocation" : {
+          "eClass" : "http://www.dfki.de/iui/basys/model/topology#//AGVStation",
+          "$ref" : "http://localhost:8080/services/entity/_HzUgBTBrEem8P9knmM6g-Q"
+        }
+      }
+    }
+  }, {
+    "eClass" : "http://www.dfki.de/iui/basys/model/component#//CapabilityRequest",
+    "capabilityVariant" : {
+      "eClass" : "http://www.dfki.de/iui/basys/model/resourceinstance#//GeneralCapabilityVariant",
+      "id" : "_rDDkMzBrEem8P9knmM6g-Q",
+      "name" : "Move to Right",
+      "capability" : {
+        "eClass" : "http://www.dfki.de/iui/basys/model/capability#//MoveToLocation",
+        "id" : "_u4KNmDBrEem8P9knmM6g-Q",
+        "targetLocation" : {
+          "eClass" : "http://www.dfki.de/iui/basys/model/topology#//AGVStation",
+          "$ref" : "http://localhost:8080/services/entity/_IO3MhTBrEem8P9knmM6g-Q"
+        }
+      }
+    }
+  }, {
+    "eClass" : "http://www.dfki.de/iui/basys/model/component#//CapabilityRequest",
+    "capabilityVariant" : {
+      "eClass" : "http://www.dfki.de/iui/basys/model/resourceinstance#//GeneralCapabilityVariant",
+      "id" : "_rv2_0zBrEem8P9knmM6g-Q",
+      "name" : "Move to Wait-1",
+      "capability" : {
+        "eClass" : "http://www.dfki.de/iui/basys/model/capability#//MoveToLocation",
+        "id" : "_vmujyDBrEem8P9knmM6g-Q",
+        "targetLocation" : {
+          "eClass" : "http://www.dfki.de/iui/basys/model/topology#//AGVStation",
+          "$ref" : "http://localhost:8080/services/entity/_IqVnlTBrEem8P9knmM6g-Q"
+        }
+      }
+    }
+  }, {
+    "eClass" : "http://www.dfki.de/iui/basys/model/component#//CapabilityRequest",
+    "capabilityVariant" : {
+      "eClass" : "http://www.dfki.de/iui/basys/model/resourceinstance#//GeneralCapabilityVariant",
+      "binding" : "",
+      "id" : "_sJRlYzBrEem8P9knmM6g-Q",
+      "name" : "Move to Wait-2",
+      "capability" : {
+        "eClass" : "http://www.dfki.de/iui/basys/model/capability#//MoveToLocation",
+        "id" : "_wN54iDBrEem8P9knmM6g-Q",
+        "name" : "",
+        "targetLocation" : {
+          "eClass" : "http://www.dfki.de/iui/basys/model/topology#//AGVStation",
+          "$ref" : "http://localhost:8080/services/entity/_JJfoxTBrEem8P9knmM6g-Q"
+        }
+      }
+    }
+  } ]
+}

@@ -1,0 +1,9 @@
+{
+  "id": "baxter-robot-1",
+  "name": "Baxter-Robot-1",
+  "serviceConnectionString": "",
+  "implementationJavaClass": "de.dfki.cos.basys.p4p.controlcomponent.baxter.BaxterRobotControlComponent",
+  "executionMode": "SIMULATION",
+  "disableExecutionModeChange" : "true",
+  "disableOccupationCheck" : "true"
+}

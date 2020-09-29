@@ -1,0 +1,13 @@
+{
+  "id": "drone-1",
+  "name": "Drone-1",
+  "serviceConnectionString": "tcp://10.2.10.1:1883",
+  "serviceImplementationJavaClass": "de.dfki.cos.basys.p4p.controlcomponent.drone.service.DroneServiceImplMqtt",
+  "implementationJavaClass": "de.dfki.cos.basys.p4p.controlcomponent.drone.DroneControlComponent",
+  "executionMode": "AUTO",
+  "disableExecutionModeChange" : "true",
+  "disableOccupationCheck" : "true",
+  "asset.id":"urn:de.dfki:devices.mrk40.cos:asset:1.0:1:drone#1",
+  "aas.id":"urn:de.dfki:devices.mrk40.cos:aas:1.0:1:drone#1",
+  "submodel.id":"urn:de.dfki:devices.mrk40.cos:control-component:1.0:1:drone#1"
+}

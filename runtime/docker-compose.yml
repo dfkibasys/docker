@@ -74,9 +74,9 @@ services:
       - "61616:61616"
       - "8161:8161"
     restart: always
-  mqtt:
+  mqtt-broker:
     image: eclipse-mosquitto:latest
-    container_name: mqtt_broker
+    container_name: mqtt-broker
     ports:
       - "1883:1883"
       - "9001:9001"    
@@ -200,6 +200,7 @@ services:
     command: jobmanager
     environment:
       - JOB_MANAGER_RPC_ADDRESS=jobmanager
+    restart: always
 
   taskmanager:
     image: flink:1.10.0-scala_2.12
@@ -214,6 +215,7 @@ services:
       - "jobmanager:jobmanager"
     environment:
       - JOB_MANAGER_RPC_ADDRESS=jobmanager
+    restart: always
   
   aas-services:
     image: dfkibasys/aas-services:latest
@@ -230,4 +232,43 @@ services:
     command: -zk zookeeper:2181
     environment:
       AAS_HOST_ACCESSIBLE_ENDPOINT: "http://${HOSTNAME}:5081"
+    restart: always
+
+  cc-server:
+    image: dfkibasys/control-component-server:latest
+    container_name: control-component-server
+    ports:
+      - "5082:5082" #submodel host
+      - "12685:12685" #opc-ua
+    links:
+      - aas-services
+    volumes:
+      - ./data/cc-server/config:/app/config
+      - ./data/cc-server/certs:/app/certs
+      - ./data/cc-server/components:/app/components
+    command: -r http://aas-services:4999
+    environment:
+      AAS_HOST_ACCESSIBLE_ENDPOINT: "http://${HOSTNAME}:5082"
+    restart: always
+  
+  service-platform:
+    image: dfkibasys/platform:latest
+    container_name: service-platform
+    ports:
+      - "5083:5083"
+    links:
+      - zookeeper
+      - activemq
+      - mqtt-broker
+      - camunda
+      - aas-services
+      - cc-server
+    volumes:
+      - ./data/service-platform/config:/app/config
+      - ./data/service-platform/components:/app/components
+      - ./data/service-platform/processes:/app/processes
+      - ./data/service-platform/model:/app/model
+    command: -c config/ -zk zookeeper:2181 -r http://aas-services:4999 -cs tcp://activemq:61616
+    environment:
+      AAS_HOST_ACCESSIBLE_ENDPOINT: "http://${HOSTNAME}:5083"
     restart: always

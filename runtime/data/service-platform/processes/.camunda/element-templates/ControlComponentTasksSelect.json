@@ -1,0 +1,323 @@
+[
+{
+	"name": "Execution Command Request (Select Component)",
+	"id": "de.dfki.cos.basys.executionCommand.select",
+	"appliesTo": [
+		"bpmn:ServiceTask"
+	],
+	"properties": [
+		{
+			"label": "camunda:type",
+			"type": "Hidden",
+			"value": "external",
+			"editable": false,
+			"binding": {
+				"type": "property",
+				"name": "camunda:type"
+			}
+		},
+		{
+			"label": "camunda:topic",
+			"type": "Hidden",
+			"value": "ControlComponent",
+			"editable": false,
+			"binding": {
+				"type": "property",
+				"name": "camunda:topic"
+			}
+		},
+		{
+			"label": "RequestType",
+			"type": "Hidden",
+			"value": "ExecutionCommandRequest",
+			"editable": false,
+			"binding": {
+				"type": "camunda:inputParameter",
+				"name": "requestType"
+			}
+		},
+		{
+			"label": "Component",
+			"type": "Dropdown",
+			"choices": [
+			  { "name": "-", "value": "" },
+			  { "name": "MiR 100", "value": "a-guid" },
+			  { "name": "UR 10", "value": "b-guid" }
+			],
+			"binding": {
+				"type": "camunda:inputParameter",
+				"name": "componentId"
+			},
+			"constraints": {
+				"notEmpty": true
+			}
+		},
+		{
+			"label": "Execution Command",
+			"type": "Dropdown",
+			"choices": [
+			  { "name": "RESET", "value": "RESET" },
+			  { "name": "START", "value": "START" },
+			  { "name": "STOP", "value": "STOP" },
+			  { "name": "HOLD", "value": "HOLD" },
+			  { "name": "UNHOLD", "value": "UNHOLD" },
+			  { "name": "SUSPEND", "value": "SUSPEND" },
+			  { "name": "UNSUSPEND", "value": "UNSUSPEND" },
+			  { "name": "ABORT", "value": "ABORT" },
+			  { "name": "CLEAR", "value": "CLEAR" }
+			],
+			"binding": {
+				"type": "camunda:inputParameter",
+				"name": "token"
+			},
+			"constraints": {
+				"notEmpty": true
+			}
+		}
+	],
+	"entriesVisible": {
+      "_all": false,
+	  "name" : true
+    }
+},
+{
+	"name": "Execution Mode Request (Select Component)",
+	"id": "de.dfki.cos.basys.executionMode.select",
+	"appliesTo": [
+		"bpmn:ServiceTask"
+	],
+	"properties": [
+		{
+			"label": "camunda:type",
+			"type": "Hidden",
+			"value": "external",
+			"editable": false,
+			"binding": {
+				"type": "property",
+				"name": "camunda:type"
+			}
+		},
+		{
+			"label": "camunda:topic",
+			"type": "Hidden",
+			"value": "ControlComponent",
+			"editable": false,
+			"binding": {
+				"type": "property",
+				"name": "camunda:topic"
+			}
+		},
+		{
+			"label": "RequestType",
+			"type": "Hidden",
+			"value": "ExecutionModeRequest",
+			"editable": false,
+			"binding": {
+				"type": "camunda:inputParameter",
+				"name": "requestType"
+			}
+		},
+		{
+			"label": "Component",
+			"type": "Dropdown",
+			"choices": [
+			  { "name": "-", "value": "" },
+			  { "name": "MiR 100", "value": "a-guid" },
+			  { "name": "UR 10", "value": "b-guid" }
+			],
+			"binding": {
+				"type": "camunda:inputParameter",
+				"name": "componentId"
+			},
+			"constraints": {
+				"notEmpty": true
+			}
+		},
+		{
+			"label": "Execution Mode",
+			"type": "Dropdown",
+			"choices": [
+			  { "name": "PRODUCTION", "value": "PRODUCTION" },
+			  { "name": "SIMULATION", "value": "SIMULATION" }
+			],
+			"binding": {
+				"type": "camunda:inputParameter",
+				"name": "token"
+			},
+			"constraints": {
+				"notEmpty": true
+			}
+		}
+	],
+	"entriesVisible": {
+      "_all": false,
+	  "name" : true
+    }
+},
+{
+	"name": "Occupation Command Request (Select Component)",
+	"id": "de.dfki.cos.basys.occupationCommand.select",
+	"appliesTo": [
+		"bpmn:ServiceTask"
+	],
+	"properties": [
+		{
+			"label": "camunda:type",
+			"type": "Hidden",
+			"value": "external",
+			"editable": false,
+			"binding": {
+				"type": "property",
+				"name": "camunda:type"
+			}
+		},
+		{
+			"label": "camunda:topic",
+			"type": "Hidden",
+			"value": "ControlComponent",
+			"editable": false,
+			"binding": {
+				"type": "property",
+				"name": "camunda:topic"
+			}
+		},
+		{
+			"label": "RequestType",
+			"type": "Hidden",
+			"value": "OccupationCommandRequest",
+			"editable": false,
+			"binding": {
+				"type": "camunda:inputParameter",
+				"name": "requestType"
+			}
+		},
+		{
+			"label": "Component",
+			"type": "Dropdown",
+			"choices": [
+			  { "name": "-", "value": "" },
+			  { "name": "MiR 100", "value": "a-guid" },
+			  { "name": "UR 10", "value": "b-guid" }
+			],
+			"binding": {
+				"type": "camunda:inputParameter",
+				"name": "componentId"
+			},
+			"constraints": {
+				"notEmpty": true
+			}
+		},
+		{
+			"label": "Occupation Command",
+			"type": "Dropdown",
+			"choices": [
+			  { "name": "FREE", "value": "FREE" },
+			  { "name": "OCCUPY", "value": "OCCUPY" },
+			  { "name": "PRIO", "value": "PRIO" }
+			],
+			"binding": {
+				"type": "camunda:inputParameter",
+				"name": "token"
+			},
+			"constraints": {
+				"notEmpty": true
+			}
+		}
+	],
+	"entriesVisible": {
+      "_all": false,
+	  "name" : true
+    }
+},
+{
+	"name": "Operation Mode Request (Select Component)",
+	"id": "de.dfki.cos.basys.operationMode.select",
+	"appliesTo": [
+		"bpmn:ServiceTask"
+	],
+	"properties": [
+		{
+			"label": "camunda:type",
+			"type": "Hidden",
+			"value": "external",
+			"editable": false,
+			"binding": {
+				"type": "property",
+				"name": "camunda:type"
+			}
+		},
+		{
+			"label": "camunda:topic",
+			"type": "Hidden",
+			"value": "ControlComponent",
+			"editable": false,
+			"binding": {
+				"type": "property",
+				"name": "camunda:topic"
+			}
+		},
+		{
+			"label": "RequestType",
+			"type": "Hidden",
+			"value": "OperationModeRequest",
+			"editable": false,
+			"binding": {
+				"type": "camunda:inputParameter",
+				"name": "requestType"
+			}
+		},		
+		{
+			"label": "Component",
+			"type": "Dropdown",
+			"choices": [
+			  { "name": "-", "value": "" },
+			  { "name": "MiR 100", "value": "a-guid" },
+			  { "name": "UR 10", "value": "b-guid" }
+			],
+			"binding": {
+				"type": "camunda:inputParameter",
+				"name": "componentId"
+			},
+			"constraints": {
+				"notEmpty": true
+			}
+		},
+		{
+			"label": "Operation Mode",
+			"type": "String",
+			"binding": {
+				"type": "camunda:inputParameter",
+				"name": "token"
+			},
+			"constraints": {
+				"notEmpty": true
+			}
+		},
+		{
+			"label": "Input Parameters",
+			"type": "Text",
+			"description": "Enter a JSON array containing input parameters with properties 'name', 'type' and 'valueString'. You can also use variables, e.g. ${paramValue}, here.",
+			"value" : "[]",
+			"binding": {
+				"name": "inputParameters",
+				"type": "camunda:inputParameter",
+				"scriptFormat": "freemarker"
+			}
+		},
+		{
+			"label": "Output Parameters",
+			"type": "Text",
+			"description": "Enter a JSON array containing expected output parameters with properties 'name' and 'type'.",
+			"value" : "[]",
+			"binding": {
+				"name": "outputParameters",
+				"type": "camunda:inputParameter"
+			}
+		}
+	],
+	"entriesVisible": {
+      "_all": false,
+	  "name": true
+    }
+}
+]

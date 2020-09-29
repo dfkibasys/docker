@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_149hkfo" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.4.1">
+  <bpmn:process id="TestProcess" name="TestProcess" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_0oafi8e" name="Test&#10;Process">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="componentId1" label="Component ID 1" type="string" defaultValue="math-component-1" />
+          <camunda:formField id="componentId2" label="Component ID 2" type="string" defaultValue="math-component-2" />
+          <camunda:formField id="sideA" label="Length Side A" type="string" defaultValue="3" />
+          <camunda:formField id="sideB" label="Length Side B" type="string" defaultValue="4" />
+          <camunda:formField id="fibN" label="Fibonacci Number" type="string" defaultValue="10" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:outgoing>SequenceFlow_0yz5vxy</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:serviceTask id="ServiceTask_0hrz46c" name="component-1&#10;calculate&#10;hypothenuse" camunda:modelerTemplate="de.dfki.cos.basys.operationMode" camunda:type="external" camunda:topic="ControlComponent">
+      <bpmn:extensionElements>
+        <camunda:field name="_componentId" />
+        <camunda:inputOutput>
+          <camunda:inputParameter name="requestType">OperationModeRequest</camunda:inputParameter>
+          <camunda:inputParameter name="componentId">
+            <camunda:script scriptFormat="freemarker">${componentId1}</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="token">pythargoras</camunda:inputParameter>
+          <camunda:inputParameter name="outputParameters">[
+{"name": "pyt_c" , "type" : "DOUBLE"},
+{"name": "pyt_calculation" , "type" : "STRING"},
+{"name": "pyt_duration" , "type" : "INTEGER"}
+]
+</camunda:inputParameter>
+          <camunda:inputParameter name="inputParameters">
+            <camunda:script scriptFormat="freemarker">[
+{"name": "pyt_a" , "type" : "DOUBLE", "value" : ${sideA}},
+{"name": "pyt_b" , "type" : "DOUBLE", "value" : ${sideB}}
+]
+</camunda:script>
+          </camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0yz5vxy</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1gtmuen</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="ServiceTask_1lq6i1l" name="component-1&#10;calculate&#10;fibonacci" camunda:modelerTemplate="de.dfki.cos.basys.operationMode" camunda:type="external" camunda:topic="ControlComponent">
+      <bpmn:extensionElements>
+        <camunda:field name="_componentId" />
+        <camunda:inputOutput>
+          <camunda:inputParameter name="requestType">OperationModeRequest</camunda:inputParameter>
+          <camunda:inputParameter name="componentId">
+            <camunda:script scriptFormat="freemarker">${componentId1}</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="token">fibonacci</camunda:inputParameter>
+          <camunda:inputParameter name="inputParameters">
+            <camunda:script scriptFormat="freemarker">[
+{"name": "fib_n" , "type" : "INTEGER", "value" : ${fibN}}
+]
+</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="outputParameters">[
+{"name": "fib_result" , "type" : "LONG"},
+{"name": "fib_calculation" , "type" : "STRING"},
+{"name": "fib_duration" , "type" : "INTEGER"}
+]
+</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_1gtmuen</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_12f9ht6</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="ServiceTask_1kh50ny" name="component-2&#10;calculate&#10;fibonacci" camunda:modelerTemplate="de.dfki.cos.basys.operationMode" camunda:type="external" camunda:topic="ControlComponent">
+      <bpmn:extensionElements>
+        <camunda:field name="_componentId" />
+        <camunda:inputOutput>
+          <camunda:inputParameter name="requestType">OperationModeRequest</camunda:inputParameter>
+          <camunda:inputParameter name="componentId">
+            <camunda:script scriptFormat="freemarker">${componentId2}</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="token">fibonacci</camunda:inputParameter>
+          <camunda:inputParameter name="inputParameters">
+            <camunda:script scriptFormat="freemarker">[
+{"name": "fib_n" , "type" : "INTEGER", "value" : ${fibN}}
+]
+</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="outputParameters">[
+{"name": "fib_result" , "type" : "LONG"},
+{"name": "fib_calculation" , "type" : "STRING"},
+{"name": "fib_duration" , "type" : "INTEGER"}
+]
+</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0fpl8yn</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_18htxpl</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="SequenceFlow_1gtmuen" sourceRef="ServiceTask_0hrz46c" targetRef="ServiceTask_1lq6i1l" />
+    <bpmn:sequenceFlow id="SequenceFlow_12f9ht6" sourceRef="ServiceTask_1lq6i1l" targetRef="ServiceTask_03x9l95" />
+    <bpmn:endEvent id="EndEvent_1dd2a21">
+      <bpmn:incoming>SequenceFlow_18htxpl</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_18htxpl" sourceRef="ServiceTask_1kh50ny" targetRef="EndEvent_1dd2a21" />
+    <bpmn:sequenceFlow id="SequenceFlow_0yz5vxy" sourceRef="StartEvent_0oafi8e" targetRef="ServiceTask_0hrz46c" />
+    <bpmn:serviceTask id="ServiceTask_03x9l95" name="component-2&#10;calculate&#10;hypothenuse" camunda:modelerTemplate="de.dfki.cos.basys.operationMode" camunda:type="external" camunda:topic="ControlComponent">
+      <bpmn:extensionElements>
+        <camunda:field name="_componentId" />
+        <camunda:inputOutput>
+          <camunda:inputParameter name="requestType">OperationModeRequest</camunda:inputParameter>
+          <camunda:inputParameter name="componentId">
+            <camunda:script scriptFormat="freemarker">${componentId2}</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="token">pythargoras</camunda:inputParameter>
+          <camunda:inputParameter name="outputParameters">[
+{"name": "pyt_c" , "type" : "DOUBLE"},
+{"name": "pyt_calculation" , "type" : "STRING"},
+{"name": "pyt_duration" , "type" : "INTEGER"}
+]
+</camunda:inputParameter>
+          <camunda:inputParameter name="inputParameters">
+            <camunda:script scriptFormat="freemarker">[
+{"name": "pyt_a" , "type" : "DOUBLE", "value" : ${sideA}},
+{"name": "pyt_b" , "type" : "DOUBLE", "value" : ${sideB}}
+]
+</camunda:script>
+          </camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_12f9ht6</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0fpl8yn</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="SequenceFlow_0fpl8yn" sourceRef="ServiceTask_03x9l95" targetRef="ServiceTask_1kh50ny" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="TestProcess">
+      <bpmndi:BPMNShape id="StartEvent_0oafi8e_di" bpmnElement="StartEvent_0oafi8e">
+        <dc:Bounds x="162" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="161" y="145" width="41" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_0hrz46c_di" bpmnElement="ServiceTask_0hrz46c" bioc:stroke="#8E24AA" bioc:fill="#E1BEE7">
+        <dc:Bounds x="260" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_1lq6i1l_di" bpmnElement="ServiceTask_1lq6i1l" bioc:stroke="#8E24AA" bioc:fill="#E1BEE7">
+        <dc:Bounds x="410" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_1kh50ny_di" bpmnElement="ServiceTask_1kh50ny" bioc:stroke="#8E24AA" bioc:fill="#E1BEE7">
+        <dc:Bounds x="710" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1gtmuen_di" bpmnElement="SequenceFlow_1gtmuen">
+        <di:waypoint x="360" y="120" />
+        <di:waypoint x="410" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_12f9ht6_di" bpmnElement="SequenceFlow_12f9ht6">
+        <di:waypoint x="510" y="120" />
+        <di:waypoint x="560" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="EndEvent_1dd2a21_di" bpmnElement="EndEvent_1dd2a21">
+        <dc:Bounds x="862" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_18htxpl_di" bpmnElement="SequenceFlow_18htxpl">
+        <di:waypoint x="810" y="120" />
+        <di:waypoint x="862" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0yz5vxy_di" bpmnElement="SequenceFlow_0yz5vxy">
+        <di:waypoint x="198" y="120" />
+        <di:waypoint x="260" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ServiceTask_03x9l95_di" bpmnElement="ServiceTask_03x9l95" bioc:stroke="#8E24AA" bioc:fill="#E1BEE7">
+        <dc:Bounds x="560" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0fpl8yn_di" bpmnElement="SequenceFlow_0fpl8yn">
+        <di:waypoint x="660" y="120" />
+        <di:waypoint x="710" y="120" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

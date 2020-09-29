@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<productdefinition:ProductCatalogue xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:productdefinition="http://www.dfki.de/iui/basys/model/productdefinition">
+  <productGroups id="_3LKfkOHJEeieRbude1ENJg" name="Wings">
+    <productVariants id="_5GiAEOHJEeieRbude1ENJg" name="Left Wing">
+      <bom id="_9JGdoOHJEeieRbude1ENJg">
+        <entries xsi:type="productdefinition:MaterialEntry" id="_9rG-geHJEeieRbude1ENJg" name="">
+          <material href="model.material#_EigUIeHKEeieRbude1ENJg"/>
+        </entries>
+        <entries xsi:type="productdefinition:MaterialEntry" id="_bgJlQe6nEeiRCMnnQ5xACA">
+          <material href="model.material#_b9ZKAxMxEeiF0dM90lRpcg"/>
+        </entries>
+      </bom>
+    </productVariants>
+    <productVariants id="_8PyQAOHJEeieRbude1ENJg" name="Right Wing">
+      <bom id="_9aQfEOHJEeieRbude1ENJg">
+        <entries xsi:type="productdefinition:MaterialEntry" id="_9_R3seHJEeieRbude1ENJg">
+          <material href="model.material#_EigUIeHKEeieRbude1ENJg"/>
+        </entries>
+        <entries xsi:type="productdefinition:MaterialEntry" id="_dh1JIe6nEeiRCMnnQ5xACA" name="">
+          <material href="model.material#_b9ZKAxMxEeiF0dM90lRpcg"/>
+        </entries>
+      </bom>
+    </productVariants>
+  </productGroups>
+</productdefinition:ProductCatalogue>

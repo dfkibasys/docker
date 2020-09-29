@@ -1,0 +1,9 @@
+{
+  "id": "baxter-platform-1",
+  "name": "Baxter-Platform-1",
+  "serviceConnectionString": "",
+  "implementationJavaClass": "de.dfki.cos.basys.p4p.controlcomponent.baxter.BaxterPlatformControlComponent",
+  "executionMode": "SIMULATION",
+  "disableExecutionModeChange" : "true",
+  "disableOccupationCheck" : "true"
+}

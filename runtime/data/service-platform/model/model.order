@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<order:OrderStore xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:order="http://www.dfki.de/iui/basys/model/order" xmlns:productdefinition="http://www.dfki.de/iui/basys/model/productdefinition">
+  <orders id="_CcNFcFIAEeivcqRF4-9YHA" quantity="1" customer="">
+    <manufacturedComponent xsi:type="productdefinition:AssemblyGroup" href="model.productdefinition#_XAQLUUjLEei9sPQ0bCp2Ew"/>
+  </orders>
+  <orders id="_LQrLwFIAEeivcqRF4-9YHA" quantity="1">
+    <manufacturedComponent xsi:type="productdefinition:ProductVariant" href="model.productdefinition#_6odhQEjIEei9sPQ0bCp2Ew"/>
+  </orders>
+</order:OrderStore>

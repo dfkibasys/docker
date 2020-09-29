@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<material:MaterialCatalogue xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:material="http://www.dfki.de/iui/basys/model/material">
+  <materialGroups id="_b9ZKAhMxEeiF0dM90lRpcg" name="Screws">
+    <materials id="_b9ZKAxMxEeiF0dM90lRpcg" name="Screw 4x6"/>
+    <materials id="_b9ZKAxMxEeiF0dM30lRpcg" name="Screw 4x8"/>
+    <materials id="_b9ZKAxMxEeiF0dM40lRpcg" name="Screw 4x10"/>
+  </materialGroups>
+  <materialGroups id="_AtLoYOHKEeieRbude1ENJg" name="Raceways">
+    <materials id="_EigUIeHKEeieRbude1ENJg" name="Raceway A"/>
+  </materialGroups>
+</material:MaterialCatalogue>
