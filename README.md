@@ -29,8 +29,7 @@ cd docker/backend
 docker-compose pull && docker-compose up -d
 cd ../demonstrator
 docker-compose pull && docker-compose up -d
-docker-compose stop service-platform
-docker-compose stop cc-server
+docker-compose stop service-platform cc-server
 ```
 
 ## Usage
