@@ -1,0 +1,89 @@
+version: '3.6'
+
+networks:
+  backend_basys:
+    external: true
+  basys:
+    internal: false
+
+services:    
+
+  component-dashboard:
+    image: dfkibasys/component-dashboard:latest
+    container_name: component-dashboard
+    ports:
+        - "9081:8080"
+    environment:
+      BASYS_REST_URL: http://localhost:8080
+      MQTT_BROKER_IP: ${HOSTNAME}
+      MQTT_BROKER_PORT: 9001
+      CAMUNDA_REST_URL: http://${HOSTNAME}:9080
+    restart: always
+    networks:
+      - backend_basys
+      - basys
+  
+  process-dashboard:
+    image: dfkibasys/process-dashboard:latest
+    container_name: process-dashboard
+    command: --camunda.rest.base.url=http://camunda:8080/engine-rest/engine/default
+    ports:
+        - "9082:8000"
+    restart: always
+    networks:
+      - backend_basys
+      - basys
+
+  aas-services:
+    image: dfkibasys/aas-services:latest
+    container_name: aas-services
+    ports:
+      - "4999:4999"
+      - "5080:5080"
+      - "5081:5081"
+    volumes:
+      - ./data/aas-services/config:/app/config
+      - ./data/aas-services/components:/app/components
+    command: -zk zookeeper:2181
+    environment:
+      AAS_HOST_ACCESSIBLE_ENDPOINT: "http://${HOSTNAME}:5081"
+    restart: always
+    networks:
+      - backend_basys
+      - basys
+
+  cc-server:
+    image: dfkibasys/control-component-server:latest
+    container_name: control-component-server
+    ports:
+      - "5082:5082" #submodel host
+      - "12685:12685" #opc-ua
+    volumes:
+      - ./data/cc-server/config:/app/config
+      - ./data/cc-server/certs:/app/certs
+      - ./data/cc-server/components:/app/components
+    command: -r http://aas-services:4999
+    environment:
+      AAS_HOST_ACCESSIBLE_ENDPOINT: "http://${HOSTNAME}:5082"
+    #restart: always
+    networks:
+      - backend_basys
+      - basys
+
+  service-platform:
+    image: dfkibasys/service-platform:latest
+    container_name: service-platform
+    ports:
+      - "5083:5083"
+    volumes:
+      - ./data/service-platform/config:/app/config
+      - ./data/service-platform/components:/app/components
+      - ./data/service-platform/processes:/app/processes
+      - ./data/service-platform/model:/app/model
+    command: -c config/ -zk zookeeper:2181 -r http://aas-services:4999 -cs tcp://activemq:61616
+    environment:
+      AAS_HOST_ACCESSIBLE_ENDPOINT: "http://${HOSTNAME}:5083"
+    #restart: always
+    networks:
+      - backend_basys
+      - basys

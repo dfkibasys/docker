@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component:ComponentRequestCollection xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:capability="http://www.dfki.de/iui/basys/model/capability" xmlns:component="http://www.dfki.de/iui/basys/model/component" xmlns:resourceinstance="http://www.dfki.de/iui/basys/model/resourceinstance" xmlns:topology="http://www.dfki.de/iui/basys/model/topology">
+  <componentRequests xsi:type="component:ChangeModeRequest" mode="CHANGE_OVER"/>
+  <componentRequests xsi:type="component:ChangeModeRequest" mode="PRODUCTION"/>
+  <componentRequests xsi:type="component:ChangeModeRequest" mode="SIMULATION"/>
+  <componentRequests xsi:type="component:CommandRequest" controlCommand="RESET"/>
+  <componentRequests xsi:type="component:CommandRequest" controlCommand="STOP"/>
+  <componentRequests xsi:type="component:CapabilityRequest">
+    <capabilityVariant xsi:type="resourceinstance:GeneralCapabilityVariant" id="_AVNdU_PeEei3sNJG4Bmkrw" name="Goto Home Position">
+      <capability xsi:type="capability:MoveToLocation" id="_BiGHSPPeEei3sNJG4Bmkrw" name="HOME_POSE"/>
+    </capabilityVariant>
+  </componentRequests>
+  <componentRequests xsi:type="component:CapabilityRequest">
+    <capabilityVariant xsi:type="resourceinstance:GeneralCapabilityVariant" id="_Pe9ygzBqEem8P9knmM6g-Q" name="Goto Home From Safe Position">
+      <capability xsi:type="capability:MoveToLocation" id="_QwedyDBqEem8P9knmM6g-Q" name="SAFE_HOME_POSE"/>
+    </capabilityVariant>
+  </componentRequests>
+  <componentRequests xsi:type="component:CapabilityRequest">
+    <capabilityVariant xsi:type="resourceinstance:GeneralCapabilityVariant" binding="" id="_cKKSwzBqEem8P9knmM6g-Q" name="Goto Safe Position">
+      <capability xsi:type="capability:MoveToLocation" id="_ciFqqDBqEem8P9knmM6g-Q" name="SAFE_POSE"/>
+    </capabilityVariant>
+  </componentRequests>
+  <componentRequests xsi:type="component:CapabilityRequest">
+    <inputParameters name="count" value="${count}" type="INTEGER"/>
+    <inputParameters name="sector" value="${sector}" type="STRING"/>
+    <capabilityVariant xsi:type="resourceinstance:ManufacturingCapabilityVariant" id="_9ZlhgTBpEem8P9knmM6g-Q" name="Perform Riveting">
+      <capability xsi:type="capability:Fügen" id="__VQkBDBpEem8P9knmM6g-Q"/>
+    </capabilityVariant>
+  </componentRequests>
+  <componentRequests xsi:type="component:CapabilityRequest">
+    <inputParameters name="count" value="${count}" type="INTEGER"/>
+    <inputParameters name="sector" value="${sector}" type="STRING"/>
+    <capabilityVariant xsi:type="resourceinstance:ManufacturingCapabilityVariant" id="_EJNbMTBqEem8P9knmM6g-Q" name="Perform Sealing">
+      <capability xsi:type="capability:Beschichten" id="_E3kWCjBqEem8P9knmM6g-Q"/>
+    </capabilityVariant>
+  </componentRequests>
+  <componentRequests xsi:type="component:CapabilityRequest">
+    <inputParameters name="count" value="${count}" type="INTEGER"/>
+    <inputParameters name="sector" value="${sector}" type="STRING"/>
+    <capabilityVariant xsi:type="resourceinstance:GeneralCapabilityVariant" id="_erwWszBzEem8P9knmM6g-Q" name="Check Rivet Positions">
+      <capability xsi:type="capability:Checking" id="_gFo64jBzEem8P9knmM6g-Q"/>
+    </capabilityVariant>
+  </componentRequests>
+  <componentRequests xsi:type="component:CapabilityRequest">
+    <capabilityVariant xsi:type="resourceinstance:GeneralCapabilityVariant" id="_88MX4-6fEei8pumxNykfZQ" name="Move to Left">
+      <capability xsi:type="capability:MoveToLocation" id="_9Yw_OO6fEei8pumxNykfZQ" name="">
+        <targetLocation xsi:type="topology:AGVStation" href="model.topology#_HM3kBDBrEem8P9knmM6g-Q"/>
+      </capability>
+    </capabilityVariant>
+  </componentRequests>
+  <componentRequests xsi:type="component:CapabilityRequest">
+    <capabilityVariant xsi:type="resourceinstance:GeneralCapabilityVariant" id="_qjpEUzBrEem8P9knmM6g-Q" name="Move to Center">
+      <capability xsi:type="capability:MoveToLocation" id="_tcW97zBrEem8P9knmM6g-Q">
+        <targetLocation xsi:type="topology:AGVStation" href="model.topology#_HzUgBTBrEem8P9knmM6g-Q"/>
+      </capability>
+    </capabilityVariant>
+  </componentRequests>
+  <componentRequests xsi:type="component:CapabilityRequest">
+    <capabilityVariant xsi:type="resourceinstance:GeneralCapabilityVariant" id="_rDDkMzBrEem8P9knmM6g-Q" name="Move to Right">
+      <capability xsi:type="capability:MoveToLocation" id="_u4KNmDBrEem8P9knmM6g-Q">
+        <targetLocation xsi:type="topology:AGVStation" href="model.topology#_IO3MhTBrEem8P9knmM6g-Q"/>
+      </capability>
+    </capabilityVariant>
+  </componentRequests>
+  <componentRequests xsi:type="component:CapabilityRequest">
+    <capabilityVariant xsi:type="resourceinstance:GeneralCapabilityVariant" id="_rv2_0zBrEem8P9knmM6g-Q" name="Move to Wait-1">
+      <capability xsi:type="capability:MoveToLocation" id="_vmujyDBrEem8P9knmM6g-Q">
+        <targetLocation xsi:type="topology:AGVStation" href="model.topology#_IqVnlTBrEem8P9knmM6g-Q"/>
+      </capability>
+    </capabilityVariant>
+  </componentRequests>
+  <componentRequests xsi:type="component:CapabilityRequest">
+    <capabilityVariant xsi:type="resourceinstance:GeneralCapabilityVariant" binding="" id="_sJRlYzBrEem8P9knmM6g-Q" name="Move to Wait-2">
+      <capability xsi:type="capability:MoveToLocation" id="_wN54iDBrEem8P9knmM6g-Q" name="">
+        <targetLocation xsi:type="topology:AGVStation" href="model.topology#_JJfoxTBrEem8P9knmM6g-Q"/>
+      </capability>
+    </capabilityVariant>
+  </componentRequests>
+</component:ComponentRequestCollection>

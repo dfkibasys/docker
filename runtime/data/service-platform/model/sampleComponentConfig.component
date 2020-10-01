@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<component:ComponentConfiguration xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:component="http://www.dfki.de/iui/basys/model/component" componentId="sampleId" componentName="My Sample Component" componentCategory="DEVICE_COMPONENT" componentImplementationJavaClass="de.dfki.iui.basys.runtime.component.device.TestDeviceComponent" inChannelName="sampleId#in" outChannelName="sampleId#out">
-  <properties key="simulated" value="true"/>
-  <simulationConfiguration onResettingDuration="1750" onStartingDuration="1250" onExecuteDuration="2500" onCompletingDuration="500">
-    <onCompletingVariables name="qaResult" value="true" type="BOOLEAN"/>
-  </simulationConfiguration>
-</component:ComponentConfiguration>

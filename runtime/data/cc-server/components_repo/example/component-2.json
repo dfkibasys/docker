@@ -1,7 +1,0 @@
-{
-  "id": "component-2",
-  "name": "component-2",
-  "serviceConnectionString": "-",
-  "implementationJavaClass": "de.dfki.cos.basys.controlcomponent.test.TestControlComponent",
-  "testRegisterOperationModes": "true"
-}

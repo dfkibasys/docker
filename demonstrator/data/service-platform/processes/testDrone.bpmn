@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_149hkfo" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.6.0">
+  <bpmn:process id="TestProcess" name="TestProcess" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_0oafi8e" name="Test&#10;Process">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="droneId" label="Drone ID" type="string" defaultValue="drone-1" />
+          <camunda:formField id="baxterId" label="Baxter ID" type="string" defaultValue="baxter-1" />
+          <camunda:formField id="workerId" label="Worker ID" type="string" defaultValue="heinz" />
+          <camunda:formField id="mirId" label="MiR ID" type="string" defaultValue="mir-1" />
+          <camunda:formField id="position" label="Position" type="string" defaultValue="somewhere" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:outgoing>SequenceFlow_0yz5vxy</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:endEvent id="EndEvent_1dd2a21">
+      <bpmn:incoming>SequenceFlow_0b3q6zg</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_0yz5vxy" sourceRef="StartEvent_0oafi8e" targetRef="ServiceTask_1d9rmfi" />
+    <bpmn:serviceTask id="ServiceTask_1d9rmfi" name="Drone hebt ab" camunda:modelerTemplate="de.dfki.cos.basys.operationMode" camunda:type="external" camunda:topic="ControlComponent">
+      <bpmn:extensionElements>
+        <camunda:field name="_componentId" />
+        <camunda:inputOutput>
+          <camunda:inputParameter name="requestType">OperationModeRequest</camunda:inputParameter>
+          <camunda:inputParameter name="componentId">
+            <camunda:script scriptFormat="freemarker">${droneId}</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="inputParameters">
+            <camunda:script scriptFormat="freemarker">[]</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="outputParameters">[]</camunda:inputParameter>
+          <camunda:inputParameter name="token">TAKEOFF</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0yz5vxy</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_13qn8pu</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="ServiceTask_0farf4c" name="Drone fliegt Kamerapositionan" camunda:modelerTemplate="de.dfki.cos.basys.operationMode" camunda:type="external" camunda:topic="ControlComponent">
+      <bpmn:extensionElements>
+        <camunda:field name="_componentId" />
+        <camunda:inputOutput>
+          <camunda:inputParameter name="requestType">OperationModeRequest</camunda:inputParameter>
+          <camunda:inputParameter name="componentId">
+            <camunda:script scriptFormat="freemarker">${droneId}</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="outputParameters">[]</camunda:inputParameter>
+          <camunda:inputParameter name="token">MOVE_SYM</camunda:inputParameter>
+          <camunda:inputParameter name="inputParameters">
+            <camunda:script scriptFormat="freemarker">[
+{ "name": "position", "type" : "STRING", "value": "${position}"}
+]</camunda:script>
+          </camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_13qn8pu</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1b0iup4</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="SequenceFlow_13qn8pu" sourceRef="ServiceTask_1d9rmfi" targetRef="ServiceTask_0farf4c" />
+    <bpmn:serviceTask id="ServiceTask_0g1co8x" name="Drone sucht Hindernisse" camunda:modelerTemplate="de.dfki.cos.basys.operationMode" camunda:type="external" camunda:topic="ControlComponent">
+      <bpmn:extensionElements>
+        <camunda:field name="_componentId" />
+        <camunda:inputOutput>
+          <camunda:inputParameter name="requestType">OperationModeRequest</camunda:inputParameter>
+          <camunda:inputParameter name="componentId">
+            <camunda:script scriptFormat="freemarker">${droneId}</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="inputParameters">
+            <camunda:script scriptFormat="freemarker">[]</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="outputParameters">[]</camunda:inputParameter>
+          <camunda:inputParameter name="token">DETECT</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="ServiceTask_1s016h1" name="Drone fliegt Home-Position an" camunda:modelerTemplate="de.dfki.cos.basys.operationMode" camunda:type="external" camunda:topic="ControlComponent">
+      <bpmn:extensionElements>
+        <camunda:field name="_componentId" />
+        <camunda:inputOutput>
+          <camunda:inputParameter name="requestType">OperationModeRequest</camunda:inputParameter>
+          <camunda:inputParameter name="componentId">
+            <camunda:script scriptFormat="freemarker">${droneId}</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="outputParameters">[]</camunda:inputParameter>
+          <camunda:inputParameter name="token">MOVE_SYM</camunda:inputParameter>
+          <camunda:inputParameter name="inputParameters">
+            <camunda:script scriptFormat="freemarker">[
+{ "name": "position", "type" : "STRING", "value": "_HOME_"}
+]</camunda:script>
+          </camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_1b0iup4</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0hyenbr</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="SequenceFlow_0hyenbr" sourceRef="ServiceTask_1s016h1" targetRef="ServiceTask_04ki7wp" />
+    <bpmn:serviceTask id="ServiceTask_04ki7wp" name="Drone landet" camunda:modelerTemplate="de.dfki.cos.basys.operationMode" camunda:type="external" camunda:topic="ControlComponent">
+      <bpmn:extensionElements>
+        <camunda:field name="_componentId" />
+        <camunda:inputOutput>
+          <camunda:inputParameter name="requestType">OperationModeRequest</camunda:inputParameter>
+          <camunda:inputParameter name="componentId">
+            <camunda:script scriptFormat="freemarker">${droneId}</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="inputParameters">
+            <camunda:script scriptFormat="freemarker">[]</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="outputParameters">[]</camunda:inputParameter>
+          <camunda:inputParameter name="token">LAND</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0hyenbr</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0b3q6zg</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="SequenceFlow_0b3q6zg" sourceRef="ServiceTask_04ki7wp" targetRef="EndEvent_1dd2a21" />
+    <bpmn:sequenceFlow id="SequenceFlow_1b0iup4" sourceRef="ServiceTask_0farf4c" targetRef="ServiceTask_1s016h1" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="TestProcess">
+      <bpmndi:BPMNShape id="StartEvent_0oafi8e_di" bpmnElement="StartEvent_0oafi8e">
+        <dc:Bounds x="152" y="232" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="153" y="275" width="40" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_1dd2a21_di" bpmnElement="EndEvent_1dd2a21">
+        <dc:Bounds x="742" y="233" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0yz5vxy_di" bpmnElement="SequenceFlow_0yz5vxy">
+        <di:waypoint x="188" y="250" />
+        <di:waypoint x="230" y="250" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ServiceTask_1d9rmfi_di" bpmnElement="ServiceTask_1d9rmfi" bioc:stroke="#8E24AA" bioc:fill="#E1BEE7">
+        <dc:Bounds x="230" y="210" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_0farf4c_di" bpmnElement="ServiceTask_0farf4c" bioc:stroke="#8E24AA" bioc:fill="#E1BEE7">
+        <dc:Bounds x="360" y="210" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_13qn8pu_di" bpmnElement="SequenceFlow_13qn8pu">
+        <di:waypoint x="330" y="250" />
+        <di:waypoint x="360" y="250" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ServiceTask_0g1co8x_di" bpmnElement="ServiceTask_0g1co8x" bioc:stroke="#8E24AA" bioc:fill="#E1BEE7">
+        <dc:Bounds x="490" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_1s016h1_di" bpmnElement="ServiceTask_1s016h1" bioc:stroke="#8E24AA" bioc:fill="#E1BEE7">
+        <dc:Bounds x="490" y="211" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0hyenbr_di" bpmnElement="SequenceFlow_0hyenbr">
+        <di:waypoint x="590" y="251" />
+        <di:waypoint x="615" y="251" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ServiceTask_04ki7wp_di" bpmnElement="ServiceTask_04ki7wp" bioc:stroke="#8E24AA" bioc:fill="#E1BEE7">
+        <dc:Bounds x="615" y="211" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0b3q6zg_di" bpmnElement="SequenceFlow_0b3q6zg">
+        <di:waypoint x="715" y="251" />
+        <di:waypoint x="742" y="251" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1b0iup4_di" bpmnElement="SequenceFlow_1b0iup4">
+        <di:waypoint x="460" y="250" />
+        <di:waypoint x="475" y="250" />
+        <di:waypoint x="475" y="251" />
+        <di:waypoint x="490" y="251" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

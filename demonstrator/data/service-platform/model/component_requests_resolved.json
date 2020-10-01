@@ -1,0 +1,522 @@
+{
+	"eClass": "http://www.dfki.de/iui/basys/model/component#//ComponentRequestCollection",
+	"componentRequests": [{
+		"eClass": "http://www.dfki.de/iui/basys/model/component#//ChangeModeRequest",
+		"mode": "CHANGE_OVER"
+	},
+	{
+		"eClass": "http://www.dfki.de/iui/basys/model/component#//ChangeModeRequest",
+		"mode": "PRODUCTION"
+	},
+	{
+		"eClass": "http://www.dfki.de/iui/basys/model/component#//ChangeModeRequest",
+		"mode": "SIMULATION"
+	},
+	{
+		"eClass": "http://www.dfki.de/iui/basys/model/component#//CommandRequest",
+		"controlCommand": "RESET"
+	},
+	{
+		"eClass": "http://www.dfki.de/iui/basys/model/component#//CommandRequest",
+		"controlCommand": "STOP"
+	},
+	{
+		"eClass": "http://www.dfki.de/iui/basys/model/component#//CapabilityRequest",
+		"componentId": "",
+		"capabilityVariant": {
+			"eClass": "http://www.dfki.de/iui/basys/model/resourceinstance#//ManufacturingCapabilityVariant",
+			"id": "_gTTk01-lEeixtLE-b5nbbQ",
+			"name": "Apply light blue cap",
+			"capability": {
+				"eClass": "http://www.dfki.de/iui/basys/model/capability#//PickAndPlace",
+				"id": "_xio67l8yEeiUo-65_7rTBT",
+				"loadCarrierUnit": "MATERIAL"
+			},
+			"appliedOn": [{
+				"eClass": "http://www.dfki.de/iui/basys/model/productdefinition#//MaterialEntry",
+				"id": "_IpqbzV29EeixDOGCyjgf_g",
+				"material": {
+					"eClass": "http://www.dfki.de/iui/basys/model/material#//Material",
+					"id": "_OYt7wGV9Eei_Kcc7lgnEpQ"
+				}
+			},
+			{
+				"eClass": "http://www.dfki.de/iui/basys/model/productdefinition#//AssemblyGroupEntry",
+				"id": "_IpqbzF29EeixDOGCyjgf_g",
+				"assemblyGroup": {
+					"id": "_lGGrsUjLEei9sPQ0bCp2Ew",
+					"name": "HousingWithAbsorber",
+					"bom": {
+						"id": "_oPgFkEjLEei9sPQ0bCp2Ew",
+						"entries": [{
+							"eClass": "http://www.dfki.de/iui/basys/model/productdefinition#//AssemblyGroupEntry",
+							"id": "_IpqbxV29EeixDOGCyjgf_g",
+							"assemblyGroup": {
+								"id": "_tZoTAUjJEei9sPQ0bCp2Ew",
+								"name": "Housing",
+								"bom": {
+									"id": "_ImdecEjPEeiKNvOOp20QBg",
+									"entries": [{
+										"eClass": "http://www.dfki.de/iui/basys/model/productdefinition#//MaterialEntry",
+										"id": "_IpomkF29EeixDOGCyjgf_g",
+										"material": {
+											"eClass": "http://www.dfki.de/iui/basys/model/material#//Material",
+											"id": "_OYvw8GV9Eei_Kcc7lgnEpQ"
+										}
+									},
+									{
+										"eClass": "http://www.dfki.de/iui/basys/model/productdefinition#//MaterialEntry",
+										"id": "_IpqbwV29EeixDOGCyjgf_g",
+										"material": {
+											"eClass": "http://www.dfki.de/iui/basys/model/material#//Material",
+											"id": "_OYvw8mV9Eei_Kcc7lgnEpQ"
+										}
+									}]
+								}
+							}
+						},
+						{
+							"eClass": "http://www.dfki.de/iui/basys/model/productdefinition#//MaterialEntry",
+							"id": "_Ipqbxl29EeixDOGCyjgf_g",
+							"material": {
+								"eClass": "http://www.dfki.de/iui/basys/model/material#//Material",
+								"id": "_OYvw92V9Eei_Kcc7lgnEpQ"
+							}
+						},
+						{
+							"eClass": "http://www.dfki.de/iui/basys/model/productdefinition#//MaterialEntry",
+							"id": "_IpqbyF29EeixDOGCyjgf_g",
+							"count": 4,
+							"material": {
+								"eClass": "http://www.dfki.de/iui/basys/model/material#//Material",
+								"id": "_OYwYAGV9Eei_Kcc7lgnEpQ"
+							}
+						}]
+					}
+				}
+			}]
+		}
+	},
+	{
+		"eClass": "http://www.dfki.de/iui/basys/model/component#//CapabilityRequest",
+		"capabilityVariant": {
+			"eClass": "http://www.dfki.de/iui/basys/model/resourceinstance#//ManufacturingCapabilityVariant",
+			"id": "_gTSWsV-lEeixtLE-b5nbbQ",
+			"name": "Apply dark blue cap",
+			"capability": {
+				"eClass": "http://www.dfki.de/iui/basys/model/capability#//PickAndPlace",
+				"id": "_xio67l8yEeiUo-65_7rTBQ",
+				"loadCarrierUnit": "MATERIAL"
+			},
+			"appliedOn": [{
+				"eClass": "http://www.dfki.de/iui/basys/model/productdefinition#//MaterialEntry",
+				"id": "_IpqbzV29EeixDOGCyjgf_g",
+				"material": {
+					"eClass": "http://www.dfki.de/iui/basys/model/material#//Material",
+					"id": "_OYt7wGV9Eei_Kcc7lgnEpQ"
+				}
+			},
+			{
+				"eClass": "http://www.dfki.de/iui/basys/model/productdefinition#//AssemblyGroupEntry",
+				"id": "_IpqbzF29EeixDOGCyjgf_g",
+				"assemblyGroup": {
+					"id": "_lGGrsUjLEei9sPQ0bCp2Ew",
+					"name": "HousingWithAbsorber",
+					"bom": {
+						"id": "_oPgFkEjLEei9sPQ0bCp2Ew",
+						"entries": [{
+							"eClass": "http://www.dfki.de/iui/basys/model/productdefinition#//AssemblyGroupEntry",
+							"id": "_IpqbxV29EeixDOGCyjgf_g",
+							"assemblyGroup": {
+								"id": "_tZoTAUjJEei9sPQ0bCp2Ew",
+								"name": "Housing",
+								"bom": {
+									"id": "_ImdecEjPEeiKNvOOp20QBg",
+									"entries": [{
+										"eClass": "http://www.dfki.de/iui/basys/model/productdefinition#//MaterialEntry",
+										"id": "_IpomkF29EeixDOGCyjgf_g",
+										"material": {
+											"eClass": "http://www.dfki.de/iui/basys/model/material#//Material",
+											"id": "_OYvw8GV9Eei_Kcc7lgnEpQ"
+										}
+									},
+									{
+										"eClass": "http://www.dfki.de/iui/basys/model/productdefinition#//MaterialEntry",
+										"id": "_IpqbwV29EeixDOGCyjgf_g",
+										"material": {
+											"eClass": "http://www.dfki.de/iui/basys/model/material#//Material",
+											"id": "_OYvw8mV9Eei_Kcc7lgnEpQ"
+										}
+									}]
+								}
+							}
+						},
+						{
+							"eClass": "http://www.dfki.de/iui/basys/model/productdefinition#//MaterialEntry",
+							"id": "_Ipqbxl29EeixDOGCyjgf_g",
+							"material": {
+								"eClass": "http://www.dfki.de/iui/basys/model/material#//Material",
+								"id": "_OYvw92V9Eei_Kcc7lgnEpQ"
+							}
+						},
+						{
+							"eClass": "http://www.dfki.de/iui/basys/model/productdefinition#//MaterialEntry",
+							"id": "_IpqbyF29EeixDOGCyjgf_g",
+							"count": 4,
+							"material": {
+								"eClass": "http://www.dfki.de/iui/basys/model/material#//Material",
+								"id": "_OYwYAGV9Eei_Kcc7lgnEpQ"
+							}
+						}]
+					}
+				}
+			}]
+		}
+	},
+	{
+		"eClass": "http://www.dfki.de/iui/basys/model/component#//CapabilityRequest",
+		"capabilityVariant": {
+			"eClass": "http://www.dfki.de/iui/basys/model/resourceinstance#//LogisticsCapabilityVariant",
+			"id": "_gTUL4F-lEeixtLE-b5nbbQ",
+			"name": "Unload MiR (KLT)",
+			"capability": {
+				"eClass": "http://www.dfki.de/iui/basys/model/capability#//PickAndPlace",
+				"id": "_DmwkDlN0Eeiceaq8G123Yg",
+				"name": "",
+				"loadCarrierUnit": "R_KLT_3215"
+			},
+			"appliedOn": [{
+				"eClass": "http://www.dfki.de/iui/basys/model/topology#//AGVStation",
+				"id": "_xHhjwV2TEeit97PGgoQOAQ",
+				"name": "Station-QA"
+			},
+			{
+				"id": "_F6qPdzB5Eei1bbwBPPZWOA",
+				"name": "Inspektion",
+				"equipmentModules": [{
+					"id": "_HlgntTB5Eei1bbwBPPZWOA",
+					"name": "Positioniereinheit"
+				},
+				{
+					"id": "_IvknEDB5Eei1bbwBPPZWOA",
+					"name": "Sichtkontrolle"
+				}]
+			}]
+		}
+	},
+	{
+		"eClass": "http://www.dfki.de/iui/basys/model/component#//CapabilityRequest",
+		"capabilityVariant": {
+			"eClass": "http://www.dfki.de/iui/basys/model/resourceinstance#//LogisticsCapabilityVariant",
+			"id": "_gTUy8V-lEeixtLE-b5nbbQ",
+			"name": "Load MiR (KLT)",
+			"capability": {
+				"eClass": "http://www.dfki.de/iui/basys/model/capability#//PickAndPlace",
+				"id": "_DmwkDlN0Eeiceaq8G123Yw",
+				"name": "",
+				"loadCarrierUnit": "R_KLT_3215"
+			},
+			"appliedOn": [{
+				"id": "_F6qPdzB5Eei1bbwBPPZWOA",
+				"name": "Inspektion",
+				"equipmentModules": [{
+					"id": "_HlgntTB5Eei1bbwBPPZWOA",
+					"name": "Positioniereinheit"
+				},
+				{
+					"id": "_IvknEDB5Eei1bbwBPPZWOA",
+					"name": "Sichtkontrolle"
+				}]
+			},
+			{
+				"eClass": "http://www.dfki.de/iui/basys/model/topology#//AGVStation",
+				"id": "_xHhjwV2TEeit97PGgoQOAQ",
+				"name": "Station-QA"
+			}]
+		}
+	},
+	{
+		"eClass": "http://www.dfki.de/iui/basys/model/component#//CapabilityRequest",
+		"capabilityVariant": {
+			"eClass": "http://www.dfki.de/iui/basys/model/resourceinstance#//ManufacturingCapabilityVariant",
+			"id": "_gTUy-F-lEeixtLE-b5nbbQ",
+			"name": "Inspect radial seal ring",
+			"capability": {
+				"eClass": "http://www.dfki.de/iui/basys/model/capability#//Inspect",
+				"id": "_eSUpwl-TEeioxNEjr9hsyQ"
+			},
+			"appliedOn": [{
+				"eClass": "http://www.dfki.de/iui/basys/model/productdefinition#//AssemblyGroupEntry",
+				"id": "_IphR0F29EeixDOGCyjgf_g",
+				"assemblyGroup": {
+					"id": "_XAQLUUjLEei9sPQ0bCp2Ew",
+					"name": "HousingWithAbsorberAndCapLightBlue",
+					"bom": {
+						"id": "_bznzsEjLEei9sPQ0bCp2Ew",
+						"entries": [{
+							"eClass": "http://www.dfki.de/iui/basys/model/productdefinition#//AssemblyGroupEntry",
+							"id": "_IpqbzF29EeixDOGCyjgf_g",
+							"assemblyGroup": {
+								"id": "_lGGrsUjLEei9sPQ0bCp2Ew",
+								"name": "HousingWithAbsorber",
+								"bom": {
+									"id": "_oPgFkEjLEei9sPQ0bCp2Ew",
+									"entries": [{
+										"eClass": "http://www.dfki.de/iui/basys/model/productdefinition#//AssemblyGroupEntry",
+										"id": "_IpqbxV29EeixDOGCyjgf_g",
+										"assemblyGroup": {
+											"id": "_tZoTAUjJEei9sPQ0bCp2Ew",
+											"name": "Housing",
+											"bom": {
+												"id": "_ImdecEjPEeiKNvOOp20QBg",
+												"entries": [{
+													"eClass": "http://www.dfki.de/iui/basys/model/productdefinition#//MaterialEntry",
+													"id": "_IpomkF29EeixDOGCyjgf_g",
+													"material": {
+														"eClass": "http://www.dfki.de/iui/basys/model/material#//Material",
+														"id": "_OYvw8GV9Eei_Kcc7lgnEpQ"
+													}
+												},
+												{
+													"eClass": "http://www.dfki.de/iui/basys/model/productdefinition#//MaterialEntry",
+													"id": "_IpqbwV29EeixDOGCyjgf_g",
+													"material": {
+														"eClass": "http://www.dfki.de/iui/basys/model/material#//Material",
+														"id": "_OYvw8mV9Eei_Kcc7lgnEpQ"
+													}
+												}]
+											}
+										}
+									},
+									{
+										"eClass": "http://www.dfki.de/iui/basys/model/productdefinition#//MaterialEntry",
+										"id": "_Ipqbxl29EeixDOGCyjgf_g",
+										"material": {
+											"eClass": "http://www.dfki.de/iui/basys/model/material#//Material",
+											"id": "_OYvw92V9Eei_Kcc7lgnEpQ"
+										}
+									},
+									{
+										"eClass": "http://www.dfki.de/iui/basys/model/productdefinition#//MaterialEntry",
+										"id": "_IpqbyF29EeixDOGCyjgf_g",
+										"count": 4,
+										"material": {
+											"eClass": "http://www.dfki.de/iui/basys/model/material#//Material",
+											"id": "_OYwYAGV9Eei_Kcc7lgnEpQ"
+										}
+									}]
+								}
+							}
+						},
+						{
+							"eClass": "http://www.dfki.de/iui/basys/model/productdefinition#//MaterialEntry",
+							"id": "_IpqbzV29EeixDOGCyjgf_g",
+							"material": {
+								"eClass": "http://www.dfki.de/iui/basys/model/material#//Material",
+								"id": "_OYt7wGV9Eei_Kcc7lgnEpQ"
+							}
+						}]
+					}
+				}
+			}]
+		}
+	},
+	{
+		"eClass": "http://www.dfki.de/iui/basys/model/component#//CapabilityRequest",
+		"capabilityVariant": {
+			"eClass": "http://www.dfki.de/iui/basys/model/resourceinstance#//LogisticsCapabilityVariant",
+			"id": "_gTVaBV-lEeixtLE-b5nbbQ",
+			"name": "Unload MiR (bottle)",
+			"capability": {
+				"eClass": "http://www.dfki.de/iui/basys/model/capability#//PickAndPlace",
+				"id": "_sLcgPl-UEeioxNEjr9hsyQ",
+				"loadCarrierUnit": "BOTTLE"
+			},
+			"appliedOn": [{
+				"eClass": "http://www.dfki.de/iui/basys/model/topology#//AGVStation",
+				"id": "_rBfZoV2TEeit97PGgoQOAQ",
+				"name": "Station-Cola"
+			},
+			{
+				"eClass": "http://www.dfki.de/iui/basys/model/topology#//StorageZone",
+				"id": "_NQFk4zB5Eei1bbwBPPZWOA",
+				"name": "Colastation",
+				"equipmentModules": [{
+					"eClass": "http://www.dfki.de/iui/basys/model/topology#//AGVStation",
+					"id": "_rBfZoV2TEeit97PGgoQOAQ",
+					"name": "Station-Cola"
+				}],
+				"storageUnits": [{
+					"id": "_O8321zB5Eei1bbwBPPZWOA",
+					"name": "",
+					"equipmentModules": [{
+						"id": "_ROxA8zB5Eei1bbwBPPZWOA",
+						"name": "Positioniereinheit"
+					}]
+				}]
+			}]
+		}
+	},
+	{
+		"eClass": "http://www.dfki.de/iui/basys/model/component#//CapabilityRequest",
+		"capabilityVariant": {
+			"eClass": "http://www.dfki.de/iui/basys/model/resourceinstance#//LogisticsCapabilityVariant",
+			"id": "_gTWBEV-lEeixtLE-b5nbbQ",
+			"name": "Load MiR (bottle)",
+			"capability": {
+				"eClass": "http://www.dfki.de/iui/basys/model/capability#//PickAndPlace",
+				"id": "_s_aTzl-UEeioxNEjr9hsyQ",
+				"loadCarrierUnit": "BOTTLE"
+			},
+			"appliedOn": [{
+				"eClass": "http://www.dfki.de/iui/basys/model/topology#//StorageZone",
+				"id": "_NQFk4zB5Eei1bbwBPPZWOA",
+				"name": "Colastation",
+				"equipmentModules": [{
+					"eClass": "http://www.dfki.de/iui/basys/model/topology#//AGVStation",
+					"id": "_rBfZoV2TEeit97PGgoQOAQ",
+					"name": "Station-Cola"
+				}],
+				"storageUnits": [{
+					"id": "_O8321zB5Eei1bbwBPPZWOA",
+					"name": "",
+					"equipmentModules": [{
+						"id": "_ROxA8zB5Eei1bbwBPPZWOA",
+						"name": "Positioniereinheit"
+					}]
+				}]
+			},
+			{
+				"eClass": "http://www.dfki.de/iui/basys/model/topology#//AGVStation",
+				"id": "_rBfZoV2TEeit97PGgoQOAQ",
+				"name": "Station-Cola"
+			}]
+		}
+	},
+	{
+		"eClass": "http://www.dfki.de/iui/basys/model/component#//CapabilityRequest",
+		"capabilityVariant": {
+			"eClass": "http://www.dfki.de/iui/basys/model/resourceinstance#//LogisticsCapabilityVariant",
+			"id": "_gTWoI1-lEeixtLE-b5nbbQ",
+			"name": "KLT to Station-BaSys",
+			"capability": {
+				"eClass": "http://www.dfki.de/iui/basys/model/capability#//Transport",
+				"id": "_H-15P1-WEeieWai6RAB66w",
+				"loadCarrierUnit": "R_KLT_3215"
+			},
+			"appliedOn": [{
+				"eClass": "http://www.dfki.de/iui/basys/model/topology#//AGVStation",
+				"id": "_14ta0V2TEeit97PGgoQOAQ",
+				"name": "Station-BaSys"
+			}]
+		}
+	},
+	{
+		"eClass": "http://www.dfki.de/iui/basys/model/component#//CapabilityRequest",
+		"capabilityVariant": {
+			"eClass": "http://www.dfki.de/iui/basys/model/resourceinstance#//LogisticsCapabilityVariant",
+			"id": "_gTXPMV-lEeixtLE-b5nbbQ",
+			"name": "KLT to Station-QA",
+			"capability": {
+				"eClass": "http://www.dfki.de/iui/basys/model/capability#//Transport",
+				"id": "_2NMnH1-WEeieWai6RAB66w",
+				"loadCarrierUnit": "R_KLT_3215"
+			},
+			"appliedOn": [{
+				"eClass": "http://www.dfki.de/iui/basys/model/topology#//AGVStation",
+				"id": "_xHhjwV2TEeit97PGgoQOAQ",
+				"name": "Station-QA"
+			}]
+		}
+	},
+	{
+		"eClass": "http://www.dfki.de/iui/basys/model/component#//CapabilityRequest",
+		"capabilityVariant": {
+			"eClass": "http://www.dfki.de/iui/basys/model/resourceinstance#//LogisticsCapabilityVariant",
+			"id": "_gTXPNF-lEeixtLE-b5nbbQ",
+			"name": "Bottle to Station-Cola",
+			"capability": {
+				"eClass": "http://www.dfki.de/iui/basys/model/capability#//Transport",
+				"id": "_O0sWv1-WEeieWai6RAB66w",
+				"loadCarrierUnit": "BOTTLE"
+			},
+			"appliedOn": [{
+				"eClass": "http://www.dfki.de/iui/basys/model/topology#//AGVStation",
+				"id": "_rBfZoV2TEeit97PGgoQOAQ",
+				"name": "Station-Cola"
+			}]
+		}
+	},
+	{
+		"eClass": "http://www.dfki.de/iui/basys/model/component#//CapabilityRequest",
+		"capabilityVariant": {
+			"eClass": "http://www.dfki.de/iui/basys/model/resourceinstance#//LogisticsCapabilityVariant",
+			"id": "_c6CGAmAgEeiQUsCDRML84w",
+			"name": "Bottle to Station-BaSys",
+			"capability": {
+				"eClass": "http://www.dfki.de/iui/basys/model/capability#//Transport",
+				"id": "_djDN32AgEeiQUsCDRML84w",
+				"loadCarrierUnit": "BOTTLE"
+			},
+			"appliedOn": [{
+				"eClass": "http://www.dfki.de/iui/basys/model/topology#//AGVStation",
+				"id": "_14ta0V2TEeit97PGgoQOAQ",
+				"name": "Station-BaSys"
+			}]
+		}
+	},
+	{
+		"eClass": "http://www.dfki.de/iui/basys/model/component#//CapabilityRequest",
+		"capabilityVariant": {
+			"eClass": "http://www.dfki.de/iui/basys/model/resourceinstance#//GeneralCapabilityVariant",
+			"id": "_gTXPN1-lEeixtLE-b5nbbQ",
+			"name": "Move to Station-Wait",
+			"capability": {
+				"eClass": "http://www.dfki.de/iui/basys/model/capability#//MoveToLocation",
+				"id": "_cr7MV1-WEeieWai6RAB66w",
+				"name": "",
+				"targetLocation": {
+					"eClass": "http://www.dfki.de/iui/basys/model/topology#//AGVStation",
+					"id": "_5AENVV2TEeit97PGgoQOAQ",
+					"name": "Station-Wait"
+				}
+			}
+		}
+	},
+	{
+		"eClass": "http://www.dfki.de/iui/basys/model/component#//CapabilityRequest",
+		"capabilityVariant": {
+			"eClass": "http://www.dfki.de/iui/basys/model/resourceinstance#//GeneralCapabilityVariant",
+			"id": "_gTX2Ql-lEeixtLE-b5nbbQ",
+			"name": "Move to Station-TeachIn",
+			"capability": {
+				"eClass": "http://www.dfki.de/iui/basys/model/capability#//MoveToLocation",
+				"id": "_iWI9J1-WEeieWai6RAB66w",
+				"name": "",
+				"targetLocation": {
+					"eClass": "http://www.dfki.de/iui/basys/model/topology#//AGVStation",
+					"id": "_4Xw3NV2TEeit97PGgoQOAQ",
+					"name": "Station-TeachIn"
+				}
+			}
+		}
+	},
+	{
+		"eClass": "http://www.dfki.de/iui/basys/model/component#//CapabilityRequest",
+		"capabilityVariant": {
+			"eClass": "http://www.dfki.de/iui/basys/model/resourceinstance#//GeneralCapabilityVariant",
+			"id": "_gTX2RV-lEeixtLE-b5nbbQ",
+			"name": "Move to Station-Festo",
+			"capability": {
+				"eClass": "http://www.dfki.de/iui/basys/model/capability#//MoveToLocation",
+				"id": "_t1_rp1-WEeieWai6RAB66w",
+				"name": "",
+				"targetLocation": {
+					"eClass": "http://www.dfki.de/iui/basys/model/topology#//AGVStation",
+					"id": "_zzNG4V2TEeit97PGgoQOAQ",
+					"name": "Station-Festo"
+				}
+			}
+		}
+	}]
+}

@@ -1,0 +1,366 @@
+[
+{
+	"name": "Execution Command Request",
+	"id": "de.dfki.cos.basys.executionCommand",
+	"appliesTo": [
+		"bpmn:ServiceTask"
+	],
+	"properties": [
+		{
+			"label": "camunda:type",
+			"type": "Hidden",
+			"value": "external",
+			"editable": false,
+			"binding": {
+				"type": "property",
+				"name": "camunda:type"
+			}
+		},
+		{
+			"label": "camunda:topic",
+			"type": "Hidden",
+			"value": "ControlComponent",
+			"editable": false,
+			"binding": {
+				"type": "property",
+				"name": "camunda:topic"
+			}
+		},
+		{
+			"label": "RequestType",
+			"type": "Hidden",
+			"value": "ExecutionCommandRequest",
+			"editable": false,
+			"binding": {
+				"type": "camunda:inputParameter",
+				"name": "requestType"
+			}
+		},
+		{
+			"label": "ComponentId",
+			"type": "String",
+			"description": "Enter a ComponentId, you can also use variables ${componentId} here.",
+			"binding": {
+				"type": "camunda:inputParameter",
+				"name": "componentId",				
+				"scriptFormat": "freemarker"
+			},
+			"constraints": {
+				"notEmpty": true
+			}
+		},
+		{
+			"label": "Execution Command",
+			"type": "Dropdown",
+			"choices": [
+			  { "name": "RESET", "value": "RESET" },
+			  { "name": "START", "value": "START" },
+			  { "name": "STOP", "value": "STOP" },
+			  { "name": "HOLD", "value": "HOLD" },
+			  { "name": "UNHOLD", "value": "UNHOLD" },
+			  { "name": "SUSPEND", "value": "SUSPEND" },
+			  { "name": "UNSUSPEND", "value": "UNSUSPEND" },
+			  { "name": "ABORT", "value": "ABORT" },
+			  { "name": "CLEAR", "value": "CLEAR" }
+			],
+			"binding": {
+				"type": "camunda:inputParameter",
+				"name": "token"
+			},
+			"constraints": {
+				"notEmpty": true
+			}
+		}
+	],
+	"entriesVisible": {
+      "_all": false,
+	  "name" : true
+    }
+},
+{
+	"name": "Execution Mode Request",
+	"id": "de.dfki.cos.basys.executionMode",
+	"appliesTo": [
+		"bpmn:ServiceTask"
+	],
+	"properties": [
+		{
+			"label": "camunda:type",
+			"type": "Hidden",
+			"value": "external",
+			"editable": false,
+			"binding": {
+				"type": "property",
+				"name": "camunda:type"
+			}
+		},
+		{
+			"label": "camunda:topic",
+			"type": "Hidden",
+			"value": "ControlComponent",
+			"editable": false,
+			"binding": {
+				"type": "property",
+				"name": "camunda:topic"
+			}
+		},
+		{
+			"label": "RequestType",
+			"type": "Hidden",
+			"value": "ExecutionModeRequest",
+			"editable": false,
+			"binding": {
+				"type": "camunda:inputParameter",
+				"name": "requestType"
+			}
+		},
+		{
+			"label": "ComponentId",
+			"type": "String",
+			"description": "Enter a ComponentId, you can also use variables ${componentId} here.",
+			"binding": {
+				"type": "camunda:inputParameter",
+				"name": "componentId",				
+				"scriptFormat": "freemarker"
+			},
+			"constraints": {
+				"notEmpty": true
+			}
+		},
+		{
+			"label": "Execution Mode",
+			"type": "Dropdown",
+			"choices": [
+			  { "name": "PRODUCTION", "value": "PRODUCTION" },
+			  { "name": "SIMULATION", "value": "SIMULATION" }
+			],
+			"binding": {
+				"type": "camunda:inputParameter",
+				"name": "token"
+			},
+			"constraints": {
+				"notEmpty": true
+			}
+		}
+	],
+	"entriesVisible": {
+      "_all": false,
+	  "name" : true
+    }
+},
+{
+	"name": "Occupation Command Request",
+	"id": "de.dfki.cos.basys.occupationCommand",
+	"appliesTo": [
+		"bpmn:ServiceTask"
+	],
+	"properties": [
+		{
+			"label": "camunda:type",
+			"type": "Hidden",
+			"value": "external",
+			"editable": false,
+			"binding": {
+				"type": "property",
+				"name": "camunda:type"
+			}
+		},
+		{
+			"label": "camunda:topic",
+			"type": "Hidden",
+			"value": "ControlComponent",
+			"editable": false,
+			"binding": {
+				"type": "property",
+				"name": "camunda:topic"
+			}
+		},
+		{
+			"label": "RequestType",
+			"type": "Hidden",
+			"value": "OccupationCommandRequest",
+			"editable": false,
+			"binding": {
+				"type": "camunda:inputParameter",
+				"name": "requestType"
+			}
+		},
+		{
+			"label": "ComponentId",
+			"type": "String",
+			"description": "Enter a ComponentId, you can also use variables ${componentId} here.",
+			"binding": {
+				"type": "camunda:inputParameter",
+				"name": "componentId",				
+				"scriptFormat": "freemarker"
+			},
+			"constraints": {
+				"notEmpty": true
+			}
+		},
+		{
+			"label": "Occupation Command",
+			"type": "Dropdown",
+			"choices": [
+			  { "name": "FREE", "value": "FREE" },
+			  { "name": "OCCUPY", "value": "OCCUPY" },
+			  { "name": "PRIO", "value": "PRIO" }
+			],
+			"binding": {
+				"type": "camunda:inputParameter",
+				"name": "token"
+			},
+			"constraints": {
+				"notEmpty": true
+			}
+		}
+	],
+	"entriesVisible": {
+      "_all": false,
+	  "name" : true
+    }
+},
+{
+	"name": "Operation Mode Request",
+	"id": "de.dfki.cos.basys.operationMode",
+	"appliesTo": [
+		"bpmn:ServiceTask"
+	],
+	"properties": [
+		{
+			"label": "camunda:type",
+			"type": "Hidden",
+			"value": "external",
+			"editable": false,
+			"binding": {
+				"type": "property",
+				"name": "camunda:type"
+			}
+		},
+		{
+			"label": "camunda:topic",
+			"type": "Hidden",
+			"value": "ControlComponent",
+			"editable": false,
+			"binding": {
+				"type": "property",
+				"name": "camunda:topic"
+			}
+		},
+		{
+			"label": "RequestType",
+			"type": "Hidden",
+			"value": "OperationModeRequest",
+			"editable": false,
+			"binding": {
+				"type": "camunda:inputParameter",
+				"name": "requestType"
+			}
+		},		
+		{
+			"label": "ComponentId",
+			"type": "String",
+			"description": "Enter a ComponentId, you can also use variables ${componentId} here.",
+			"binding": {
+				"type": "camunda:inputParameter",
+				"name": "componentId",				
+				"scriptFormat": "freemarker"
+			},
+			"constraints": {
+				"notEmpty": true
+			}
+		},
+		{
+			"label": "Operation Mode",
+			"type": "String",
+			"binding": {
+				"type": "camunda:inputParameter",
+				"name": "token"
+			},
+			"constraints": {
+				"notEmpty": true
+			}
+		},
+		{
+			"label": "Input Parameters",
+			"type": "Text",
+			"description": "Enter a JSON array containing input parameters with properties 'name', 'type' and 'valueString'. You can also use variables, e.g. ${paramValue}, here.",
+			"value" : "[]",
+			"binding": {
+				"name": "inputParameters",
+				"type": "camunda:inputParameter",
+				"scriptFormat": "freemarker"
+			}
+		},
+		{
+			"label": "Output Parameters",
+			"type": "Text",
+			"description": "Enter a JSON array containing expected output parameters with properties 'name' and 'type'.",
+			"value" : "[]",
+			"binding": {
+				"name": "outputParameters",
+				"type": "camunda:inputParameter"
+			}
+		}
+	],
+	"entriesVisible": {
+      "_all": false,
+	  "name": true
+    }
+},
+{
+	"name": "Wait",
+	"id": "de.dfki.cos.basys.wait",
+	"appliesTo": [
+		"bpmn:ServiceTask"
+	],
+	"properties": [
+		{
+			"label": "camunda:type",
+			"type": "Hidden",
+			"value": "external",
+			"editable": false,
+			"binding": {
+				"type": "property",
+				"name": "camunda:type"
+			}
+		},
+		{
+			"label": "camunda:topic",
+			"type": "Hidden",
+			"value": "ControlComponent",
+			"editable": false,
+			"binding": {
+				"type": "property",
+				"name": "camunda:topic"
+			}
+		},
+		{
+			"label": "RequestType",
+			"type": "Hidden",
+			"value": "WAIT",
+			"editable": false,
+			"binding": {
+				"type": "camunda:inputParameter",
+				"name": "requestType"
+			}
+		},
+		{
+			"label": "Time in [ms]",
+			"type": "String",
+			"value" : "1000",
+			"binding": {
+				"type": "camunda:inputParameter",
+				"name": "token"			
+			},
+			"constraints": {
+				"notEmpty": true
+			}
+		}		
+	],
+	"entriesVisible": {
+      "_all": false,
+	  "name" : true
+    }
+}
+]

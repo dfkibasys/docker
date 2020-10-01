@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_0bh57fl" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.5.0">
+  <bpmn:process id="TestOccupy" name="Test Occupy" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1r5bj1z" name="Test&#10;Occupation">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="componentId" label="Component ID" type="string" defaultValue="component-1" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:outgoing>SequenceFlow_00ivs22</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:serviceTask id="ServiceTask_0i1trhj" name="FREE" camunda:modelerTemplate="de.dfki.cos.basys.occupationCommand" camunda:type="external" camunda:topic="ControlComponent">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="requestType">OccupationCommandRequest</camunda:inputParameter>
+          <camunda:inputParameter name="componentId">
+            <camunda:script scriptFormat="freemarker">${componentId}</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="token">FREE</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0875boy</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1vqn5xr</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="EndEvent_1atqq17">
+      <bpmn:incoming>SequenceFlow_1vqn5xr</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:serviceTask id="ServiceTask_1mw5jk4" name="OCCUPY" camunda:modelerTemplate="de.dfki.cos.basys.occupationCommand" camunda:type="external" camunda:topic="ControlComponent">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="requestType">OccupationCommandRequest</camunda:inputParameter>
+          <camunda:inputParameter name="componentId">
+            <camunda:script scriptFormat="freemarker">${componentId}</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="token">OCCUPY</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_00ivs22</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0erbk6b</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="SequenceFlow_00ivs22" sourceRef="StartEvent_1r5bj1z" targetRef="ServiceTask_1mw5jk4" />
+    <bpmn:sequenceFlow id="SequenceFlow_1vqn5xr" sourceRef="ServiceTask_0i1trhj" targetRef="EndEvent_1atqq17" />
+    <bpmn:sequenceFlow id="SequenceFlow_0erbk6b" sourceRef="ServiceTask_1mw5jk4" targetRef="Task_1qta821" />
+    <bpmn:sequenceFlow id="SequenceFlow_0875boy" sourceRef="Task_1qta821" targetRef="ServiceTask_0i1trhj" />
+    <bpmn:serviceTask id="Task_1qta821" name="WAIT 1000" camunda:modelerTemplate="de.dfki.cos.basys.wait" camunda:type="external" camunda:topic="ControlComponent">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="requestType">WAIT</camunda:inputParameter>
+          <camunda:inputParameter name="token">1000</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0erbk6b</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0875boy</bpmn:outgoing>
+    </bpmn:serviceTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="TestOccupy">
+      <bpmndi:BPMNShape id="StartEvent_1r5bj1z_di" bpmnElement="StartEvent_1r5bj1z">
+        <dc:Bounds x="162" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="153" y="145" width="56" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_0i1trhj_di" bpmnElement="ServiceTask_0i1trhj" bioc:stroke="#FB8C00" bioc:fill="#FFE0B2">
+        <dc:Bounds x="553" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_1atqq17_di" bpmnElement="EndEvent_1atqq17">
+        <dc:Bounds x="693" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_1mw5jk4_di" bpmnElement="ServiceTask_1mw5jk4" bioc:stroke="#FB8C00" bioc:fill="#FFE0B2">
+        <dc:Bounds x="262" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_00ivs22_di" bpmnElement="SequenceFlow_00ivs22">
+        <di:waypoint x="198" y="120" />
+        <di:waypoint x="262" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1vqn5xr_di" bpmnElement="SequenceFlow_1vqn5xr">
+        <di:waypoint x="653" y="120" />
+        <di:waypoint x="693" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0erbk6b_di" bpmnElement="SequenceFlow_0erbk6b">
+        <di:waypoint x="362" y="120" />
+        <di:waypoint x="401" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0875boy_di" bpmnElement="SequenceFlow_0875boy">
+        <di:waypoint x="501" y="120" />
+        <di:waypoint x="553" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ServiceTask_1itmn9l_di" bpmnElement="Task_1qta821">
+        <dc:Bounds x="401" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
