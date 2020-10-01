@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<productinstance:ProductInstanceStore xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:productdefinition="http://www.dfki.de/iui/basys/model/productdefinition" xmlns:productinstance="http://www.dfki.de/iui/basys/model/productinstance">
-  <productInstances id="_SZqnsFIAEeivcqRF4-9YHA" name="" serialNumber="123456">
-    <manufacturedComponent xsi:type="productdefinition:AssemblyGroup" href="model.productdefinition#_XAQLUUjLEei9sPQ0bCp2Ew"/>
-    <order href="model.order#_CcNFcFIAEeivcqRF4-9YHA"/>
-  </productInstances>
-</productinstance:ProductInstanceStore>
