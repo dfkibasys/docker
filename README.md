@@ -64,7 +64,7 @@ The demonstator stack exposes the following services.
 
 ## Configuration
 
-comming soon
+coming soon
 
 ## Downloads
 
