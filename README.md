@@ -1,6 +1,8 @@
 # BaSys 4.0 service platform - Docker Back-End
 
-This repository contains a Docker-Compose file that setup (mostly 3rd party) back-end services and Web-based dashboards for the BaSys 4.0 service platform.
+This repository contains two Docker-Compose stacks that setup 
+ * 3rd-party back-end services and 
+ * Basys-related containers for Administration Shell Management, Web-based dashboards, Control Components, and the BaSys service platform.
 
 ## Prerequisites
 
@@ -14,22 +16,23 @@ This repository contains a Docker-Compose file that setup (mostly 3rd party) bac
 ## Installation
 
 1) Clone this repo
-2) Navigate into the subfolder 'runtime'
-3) Inside the .env file, specify the `HOSTNAME` variable. This is used in the docker-compose.yml file for the following environment variables
-   * `KAFKA_CFG_ADVERTISED_LISTENERS`
-   * `MQTT_BROKER_IP`
-   * `CAMUNDA_REST_URL`
+2) Navigate into the subfolders 'backend' and 'demonstrator'.
+3) Inside the .env file, specify the `HOSTNAME` variable, the default is set to '127.0.0.1'. So, for local installations nothing needs to be changed.
+   * In the backend stack, this is required for dealing with the Apache Kafka-specific concept of advertised listeners in combination with docker. 
+   * The same concept is applied in the demonstrator stack for rewriting URL endpoints of administration shells and hosted submodels.
 4) Create the Docker stack
 
 ```bash
 git clone https://github.com/BaSys-PC1/docker.git
-cd docker/runtime
+cd docker/backend
+docker-compose pull && docker-compose up -d
+cd ../demonstrator
 docker-compose pull && docker-compose up -d
 ```
 
 ## Usage
 
-After installation, the following services are available.
+After installation, the following services are available from the backend stack.
 
 | Service | Ports / URL |
 | ------ | ------ |
@@ -43,16 +46,22 @@ After installation, the following services are available.
 | Apache ActiveMQ             | 61616, 8161 | 
 | MQTT Broker                 | 1883, 9001 | 
 | Camunda BPM Platform        | http://[ip]:9080/camunda | 
+
+The demonstator stack exposes the following services.
+
 | BaSys Component Dashboard   | http://[ip]:9081 |
 | BaSys Process Dashboard     | http://[ip]:9082 |
 | BaSys AAS Registry          | http://[ip]:4999 |
 | BaSys AAS Aggregator Service| http://[ip]:5080 |
-| BaSys AAS Hosting Service   | http://[ip]:5081 |
+| BaSys AAS Hosting Service (in aas-services)   | http://[ip]:5081 |
+| BaSys AAS Hosting Service (in cc-server)   | http://[ip]:5082 |
+| BaSys AAS Hosting Service (in service-platform)   | http://[ip]:5083 |
+
 
 ## Downloads
 
-A pre-installed Ubuntu Server 18.04.02 LTS VM can be downloaded
-*  for [VMware](https://my.vmware.com/en/web/vmware/free#desktop_end_user_computing/vmware_workstation_player/15_0): https://cloud.dfki.de/owncloud/index.php/s/cTS7zyWTm7TFWfs
+A pre-installed Ubuntu Server 20.04.01 LTS VM can be downloaded
+*  for [VMware](https://download3.vmware.com/software/player/file/VMware-player-16.0.0-16894299.exe): https://cloud.dfki.de/owncloud/index.php/s/cTS7zyWTm7TFWfs
 *  for [VirtualBox](https://www.virtualbox.org/wiki/Downloads): https://cloud.dfki.de/owncloud/index.php/s/SQr46mr4SsKS8Gs
 
 The login is `basys / basys`.
