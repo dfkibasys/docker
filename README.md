@@ -1,4 +1,4 @@
-# BaSys 4.0 service platform - Docker Back-End
+# BaSys 4.0 Service Platform - Docker Runtime and Demonstration Environment
 
 This repository contains two Docker-Compose stacks that setup 
  * 3rd-party back-end services and 
@@ -21,6 +21,7 @@ This repository contains two Docker-Compose stacks that setup
    * In the backend stack, this is required for dealing with the Apache Kafka-specific concept of advertised listeners in combination with docker. 
    * The same concept is applied in the demonstrator stack for rewriting URL endpoints of administration shells and hosted submodels.
 4) Create the Docker stack
+5) Immediately stop the containers 'service-platform' and cc-server'. For demonstration purposes, they should be started manually whenever needed in the order 'cc-server' -> 'service-platform'. For this reason, these containers do not specify a 'restart: always' policy.
 
 ```bash
 git clone https://github.com/BaSys-PC1/docker.git
@@ -28,6 +29,8 @@ cd docker/backend
 docker-compose pull && docker-compose up -d
 cd ../demonstrator
 docker-compose pull && docker-compose up -d
+docker-compose stop service-platform
+docker-compose stop cc-server
 ```
 
 ## Usage
@@ -49,6 +52,8 @@ After installation, the following services are available from the backend stack.
 
 The demonstator stack exposes the following services.
 
+| Service | Ports / URL |
+| ------ | ------ |
 | BaSys Component Dashboard   | http://[ip]:9081 |
 | BaSys Process Dashboard     | http://[ip]:9082 |
 | BaSys AAS Registry          | http://[ip]:4999 |
@@ -57,6 +62,9 @@ The demonstator stack exposes the following services.
 | BaSys AAS Hosting Service (in cc-server)   | http://[ip]:5082 |
 | BaSys AAS Hosting Service (in service-platform)   | http://[ip]:5083 |
 
+## Configuration
+
+comming soon
 
 ## Downloads
 
