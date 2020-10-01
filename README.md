@@ -1,4 +1,4 @@
-# BaSys 4.0 Service Platform - Docker Runtime and Demonstration Environment
+# BaSys 4.0 Service Platform - Docker Back-End and Demonstration Environment
 
 This repository contains two Docker-Compose stacks that setup 
  * 3rd-party back-end services and 
