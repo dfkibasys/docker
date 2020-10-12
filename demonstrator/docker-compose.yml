@@ -65,6 +65,7 @@ services:
     command: -r http://aas-services:4999
     environment:
       AAS_HOST_ACCESSIBLE_ENDPOINT: "http://${HOSTNAME}:5082"
+      HOSTNAME: "${HOSTNAME}"
     #restart: always
     networks:
       - backend_basys
