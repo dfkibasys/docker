@@ -1,44 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_022o2pi" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.2.0">
-  <bpmn:process id="Process_1aup5en" isExecutable="true">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_022o2pi" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.4.0">
+  <bpmn:process id="testNotification" name="testNotification" isExecutable="true">
     <bpmn:startEvent id="StartEvent_1">
-      <bpmn:outgoing>Flow_18ucqh4</bpmn:outgoing>
+      <bpmn:outgoing>Flow_026k6ue</bpmn:outgoing>
     </bpmn:startEvent>
-    <bpmn:sequenceFlow id="Flow_18ucqh4" sourceRef="StartEvent_1" targetRef="Activity_0xt1feq" />
-    <bpmn:endEvent id="Event_15tn2k4">
-      <bpmn:incoming>Flow_0snyob9</bpmn:incoming>
+    <bpmn:sequenceFlow id="Flow_026k6ue" sourceRef="StartEvent_1" targetRef="Activity_03arubi" />
+    <bpmn:endEvent id="Event_0zhlt5w">
+      <bpmn:incoming>Flow_1i32cjs</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:sequenceFlow id="Flow_0snyob9" sourceRef="Activity_0xt1feq" targetRef="Event_15tn2k4" />
-    <bpmn:serviceTask id="Activity_0xt1feq" camunda:type="external" camunda:topic="ControlComponent">
+    <bpmn:sequenceFlow id="Flow_1i32cjs" sourceRef="Activity_03arubi" targetRef="Event_0zhlt5w" />
+    <bpmn:serviceTask id="Activity_03arubi" name="do notify" camunda:modelerTemplate="de.dfki.cos.basys.notificationRequest" camunda:type="external" camunda:topic="Notification">
       <bpmn:extensionElements>
         <camunda:inputOutput>
-          <camunda:inputParameter name="requestType">ExecutionCommandRequest</camunda:inputParameter>
-          <camunda:inputParameter name="token" />
-          <camunda:inputParameter name="componentId">a-guid</camunda:inputParameter>
+          <camunda:inputParameter name="requestType">ServiceRequest</camunda:inputParameter>
+          <camunda:inputParameter name="token">notify</camunda:inputParameter>
+          <camunda:inputParameter name="componentId">notification-service</camunda:inputParameter>
+          <camunda:inputParameter name="signalId">
+            <camunda:script scriptFormat="freemarker">8.1</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="timestamp">
+            <camunda:script scriptFormat="freemarker">1606729786 </camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="message">
+            <camunda:script scriptFormat="freemarker">this is a message</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="value">
+            <camunda:script scriptFormat="freemarker">123</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="criticality">WARNING</camunda:inputParameter>
+          <camunda:inputParameter name="status">OPEN</camunda:inputParameter>
         </camunda:inputOutput>
       </bpmn:extensionElements>
-      <bpmn:incoming>Flow_18ucqh4</bpmn:incoming>
-      <bpmn:outgoing>Flow_0snyob9</bpmn:outgoing>
+      <bpmn:incoming>Flow_026k6ue</bpmn:incoming>
+      <bpmn:outgoing>Flow_1i32cjs</bpmn:outgoing>
     </bpmn:serviceTask>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
-    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1aup5en">
-      <bpmndi:BPMNEdge id="Flow_0snyob9_di" bpmnElement="Flow_0snyob9">
-        <di:waypoint x="340" y="120" />
-        <di:waypoint x="392" y="120" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_18ucqh4_di" bpmnElement="Flow_18ucqh4">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="testNotification">
+      <bpmndi:BPMNEdge id="Flow_026k6ue_di" bpmnElement="Flow_026k6ue">
         <di:waypoint x="188" y="120" />
-        <di:waypoint x="240" y="120" />
+        <di:waypoint x="280" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1i32cjs_di" bpmnElement="Flow_1i32cjs">
+        <di:waypoint x="380" y="120" />
+        <di:waypoint x="472" y="120" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
         <dc:Bounds x="152" y="102" width="36" height="36" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_15tn2k4_di" bpmnElement="Event_15tn2k4">
-        <dc:Bounds x="392" y="102" width="36" height="36" />
+      <bpmndi:BPMNShape id="Event_0zhlt5w_di" bpmnElement="Event_0zhlt5w">
+        <dc:Bounds x="472" y="102" width="36" height="36" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0wg5qqw_di" bpmnElement="Activity_0xt1feq">
-        <dc:Bounds x="240" y="80" width="100" height="80" />
+      <bpmndi:BPMNShape id="Activity_0szx71v_di" bpmnElement="Activity_03arubi">
+        <dc:Bounds x="280" y="80" width="100" height="80" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
