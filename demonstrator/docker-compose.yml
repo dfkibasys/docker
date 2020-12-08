@@ -46,6 +46,7 @@ services:
       - ./data/aas-services/components:/app/components
     command: -zk zookeeper:2181
     environment:
+      AAS_AGGREGATOR_ACCESSIBLE_ENDPOINT: "http://${HOSTNAME}:5080"
       AAS_HOST_ACCESSIBLE_ENDPOINT: "http://${HOSTNAME}:5081"
     restart: always
     networks:
@@ -62,7 +63,7 @@ services:
       - ./data/cc-server/config:/app/config
       - ./data/cc-server/certs:/app/certs
       - ./data/cc-server/components:/app/components
-    command: -r http://aas-services:4999
+    command: -r http://aas-services:4999 -a http://aas-services:5080
     environment:
       AAS_HOST_ACCESSIBLE_ENDPOINT: "http://${HOSTNAME}:5082"
       HOSTNAME: "${HOSTNAME}"

@@ -1,0 +1,12 @@
+{
+  "id": "wallet-1",
+  "name": "Wallet-1",
+  "serviceConnectionString": "",
+  "implementationJavaClass": "de.dfki.cos.basys.p4p.controlcomponent.wallet.WalletControlComponent",
+  "executionMode": "SIMULATION",
+  "disableExecutionModeChange" : "true",
+  "disableOccupationCheck" : "true",
+  "asset.id":"urn:de.dfki:devices.mrk40.cos:asset:1:1:wallet-1",
+  "aas.id":"urn:de.dfki:devices.mrk40.cos:aas:1:1:wallet-1",
+  "submodel.id":"urn:de.dfki:devices.mrk40.cos:control-component:1:1:wallet-1"
+}
