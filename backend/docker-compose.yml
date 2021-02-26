@@ -99,9 +99,9 @@ services:
       - emqx-data:/opt/emqx/data
     ports:
       - '1883:1883'
+      - '8883:8883'
       - '8083:8083'
       - '8084:8084'
-      - '8085:8080'
       - '18083:18083'
     restart: always
     networks:
