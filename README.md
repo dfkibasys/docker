@@ -48,7 +48,7 @@ After installation, the following services are available from the backend stack.
 | Apache Flink Jobmanger      | 6123 | 
 | Apache Flink WebUI/REST     | http://[ip]:9094 | 
 | Apache ActiveMQ             | 61616, 8161 | 
-| MQTT Broker                 | 1883, 9001 | 
+| MQTT Broker                 | 1883 (tcp), 8883 (ssl), 8083 (ws), 8084 (wss), 18083 (dashboard) | 
 | Camunda BPM Platform        | http://[ip]:9080/camunda | 
 
 The demonstator stack exposes the following services.
