@@ -3,7 +3,7 @@
   "name": "Baxter-Robot-1",
   "serviceConnectionString": "",
   "implementationJavaClass": "de.dfki.cos.basys.p4p.controlcomponent.baxter.BaxterRobotControlComponent",
-  "executionMode": "SIMULATION",
+  "executionMode": "SIMULATE",
   "disableExecutionModeChange" : "true",
   "disableOccupationCheck" : "true"
 }

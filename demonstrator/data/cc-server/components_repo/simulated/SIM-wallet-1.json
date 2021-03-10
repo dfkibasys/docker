@@ -3,7 +3,7 @@
   "name": "Wallet-1",
   "serviceConnectionString": "",
   "implementationJavaClass": "de.dfki.cos.basys.p4p.controlcomponent.wallet.WalletControlComponent",
-  "executionMode": "SIMULATION",
+  "executionMode": "SIMULATE",
   "disableExecutionModeChange" : "true",
   "disableOccupationCheck" : "true",
   "asset.id":"urn:de.dfki:devices.mrk40.cos:asset:1:1:wallet-1",

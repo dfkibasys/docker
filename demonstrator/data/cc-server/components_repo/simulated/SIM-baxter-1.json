@@ -3,7 +3,7 @@
   "name": "Baxter-1",
   "serviceConnectionString": "",
   "implementationJavaClass": "de.dfki.cos.basys.p4p.controlcomponent.baxter.BaxterControlComponent",
-  "executionMode": "SIMULATION",
+  "executionMode": "SIMULATE",
   "disableExecutionModeChange" : "true",
   "disableOccupationCheck" : "true",
   "asset.id":"urn:de.dfki:devices.mrk40.cos:asset:1:1:baxter-1",

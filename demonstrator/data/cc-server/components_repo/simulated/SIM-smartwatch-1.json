@@ -3,7 +3,7 @@
   "name": "Smartwatch-1",
   "serviceConnectionString": "",
   "implementationJavaClass": "de.dfki.cos.basys.p4p.controlcomponent.smartwatch.SmartwatchControlComponent",
-  "executionMode": "SIMULATION",
+  "executionMode": "SIMULATE",
   "disableExecutionModeChange" : "true",
   "disableOccupationCheck" : "true",
   "asset.id":"urn:de.dfki:devices.mrk40.cos:asset:1:1:smartwatch-1",
