@@ -35,7 +35,7 @@ services:
       - basys
 
   aas-services:
-    image: dfkibasys/aas-services:latest
+    image: dfkibasys/aas-services:${VERSION}
     container_name: aas-services
     ports:
       - "4999:4999"
@@ -54,7 +54,7 @@ services:
       - basys
 
   cc-server:
-    image: dfkibasys/control-component-server:latest
+    image: dfkibasys/control-component-server:${VERSION}
     container_name: control-component-server
     ports:
       - "5082:5082" #submodel host
@@ -73,7 +73,7 @@ services:
       - basys
 
   service-platform:
-    image: dfkibasys/service-platform:latest
+    image: dfkibasys/service-platform:${VERSION}
     container_name: service-platform
     ports:
       - "5083:5083"
