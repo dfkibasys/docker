@@ -1,7 +1,7 @@
 {
   "id": "mir100-1",
   "name": "MiR100-1",
-  "serviceConnectionString": "http://robot-mir-01",
+  "serviceConnectionString": "http://robot-mir-01.mrk40.dfki.lan",
   "implementationJavaClass": "de.dfki.cos.basys.p4p.controlcomponent.mir.MirControlComponent",
   "executionMode": "AUTO",
   "disableExecutionModeChange" : "false",
