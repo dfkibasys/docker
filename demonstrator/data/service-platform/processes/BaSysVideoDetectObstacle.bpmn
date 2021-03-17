@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_149hkfo" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.5.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_149hkfo" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.6.0">
   <bpmn:process id="BaSysVideoDetectObstacle" name="Hindernis detektieren" isExecutable="true">
     <bpmn:endEvent id="EndEvent_1dd2a21" name="Ende">
-      <bpmn:incoming>Flow_078fham</bpmn:incoming>
+      <bpmn:incoming>Flow_1qwf50l</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="SequenceFlow_0yz5vxy" sourceRef="StartEvent_0oafi8e" targetRef="Activity_0hvl1i8" />
-    <bpmn:serviceTask id="Activity_0hvl1i8" name="Drone hebt ab" camunda:modelerTemplate="de.dfki.cos.basys.operationMode" camunda:type="external" camunda:topic="ControlComponent">
+    <bpmn:serviceTask id="Activity_0hvl1i8" name="Drohne hebt ab" camunda:modelerTemplate="de.dfki.cos.basys.operationMode" camunda:type="external" camunda:topic="ControlComponent">
       <bpmn:extensionElements>
         <camunda:field name="_componentId" />
         <camunda:inputOutput>
@@ -23,7 +23,7 @@
       <bpmn:incoming>SequenceFlow_0yz5vxy</bpmn:incoming>
       <bpmn:outgoing>Flow_0cc5kg2</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:serviceTask id="Activity_1xk7p1k" name="Drone fliegt Zielposition an" camunda:modelerTemplate="de.dfki.cos.basys.operationMode" camunda:type="external" camunda:topic="ControlComponent">
+    <bpmn:serviceTask id="Activity_1xk7p1k" name="Drohne fliegt Zielposition an" camunda:modelerTemplate="de.dfki.cos.basys.operationMode" camunda:type="external" camunda:topic="ControlComponent">
       <bpmn:extensionElements>
         <camunda:field name="_componentId" />
         <camunda:inputOutput>
@@ -43,7 +43,7 @@
       <bpmn:incoming>Flow_0cc5kg2</bpmn:incoming>
       <bpmn:outgoing>Flow_1fpwznd</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:serviceTask id="Activity_0cvf9jt" name="Drone sucht Hindernisse" camunda:modelerTemplate="de.dfki.cos.basys.operationMode" camunda:type="external" camunda:topic="ControlComponent">
+    <bpmn:serviceTask id="Activity_0cvf9jt" name="Drohne sucht Hindernisse" camunda:modelerTemplate="de.dfki.cos.basys.operationMode" camunda:type="external" camunda:topic="ControlComponent">
       <bpmn:extensionElements>
         <camunda:field name="_componentId" />
         <camunda:inputOutput>
@@ -59,11 +59,10 @@
         </camunda:inputOutput>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_1fpwznd</bpmn:incoming>
-      <bpmn:outgoing>Flow_078fham</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0g63v97</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="Flow_0cc5kg2" sourceRef="Activity_0hvl1i8" targetRef="Activity_1xk7p1k" />
     <bpmn:sequenceFlow id="Flow_1fpwznd" sourceRef="Activity_1xk7p1k" targetRef="Activity_0cvf9jt" />
-    <bpmn:sequenceFlow id="Flow_078fham" sourceRef="Activity_0cvf9jt" targetRef="EndEvent_1dd2a21" />
     <bpmn:startEvent id="StartEvent_0oafi8e" name="Transport nicht erfolgreich">
       <bpmn:extensionElements>
         <camunda:formData>
@@ -74,14 +73,32 @@
       <bpmn:outgoing>SequenceFlow_0yz5vxy</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MessageEventDefinition_1lfyifv" messageRef="Message_1620aip" />
     </bpmn:startEvent>
+    <bpmn:serviceTask id="Activity_1xw465e" name="Drohne fliegt Home-Position an" camunda:modelerTemplate="de.dfki.cos.basys.operationMode" camunda:type="external" camunda:topic="ControlComponent">
+      <bpmn:extensionElements>
+        <camunda:field name="_componentId" />
+        <camunda:inputOutput>
+          <camunda:inputParameter name="requestType">OperationModeRequest</camunda:inputParameter>
+          <camunda:inputParameter name="componentId">
+            <camunda:script scriptFormat="freemarker">${droneId}</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="outputParameters">[]</camunda:inputParameter>
+          <camunda:inputParameter name="token">MOVE_SYM</camunda:inputParameter>
+          <camunda:inputParameter name="inputParameters">
+            <camunda:script scriptFormat="freemarker">[
+{ "name": "position", "type" : "STRING", "value": "_HOME_"}
+]</camunda:script>
+          </camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0g63v97</bpmn:incoming>
+      <bpmn:outgoing>Flow_1qwf50l</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_0g63v97" sourceRef="Activity_0cvf9jt" targetRef="Activity_1xw465e" />
+    <bpmn:sequenceFlow id="Flow_1qwf50l" sourceRef="Activity_1xw465e" targetRef="EndEvent_1dd2a21" />
   </bpmn:process>
   <bpmn:message id="Message_1620aip" name="Message_38e2sbo" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="BaSysVideoDetectObstacle">
-      <bpmndi:BPMNEdge id="Flow_078fham_di" bpmnElement="Flow_078fham">
-        <di:waypoint x="720" y="120" />
-        <di:waypoint x="782" y="120" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1fpwznd_di" bpmnElement="Flow_1fpwznd">
         <di:waypoint x="540" y="120" />
         <di:waypoint x="620" y="120" />
@@ -94,26 +111,37 @@
         <di:waypoint x="198" y="120" />
         <di:waypoint x="270" y="120" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="EndEvent_1dd2a21_di" bpmnElement="EndEvent_1dd2a21">
-        <dc:Bounds x="782" y="102" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="787" y="145" width="26" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0g63v97_di" bpmnElement="Flow_0g63v97">
+        <di:waypoint x="720" y="120" />
+        <di:waypoint x="790" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1qwf50l_di" bpmnElement="Flow_1qwf50l">
+        <di:waypoint x="890" y="120" />
+        <di:waypoint x="952" y="120" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Activity_0hvl1i8_di" bpmnElement="Activity_0hvl1i8" bioc:stroke="#8E24AA" bioc:fill="#E1BEE7">
         <dc:Bounds x="270" y="80" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1xk7p1k_di" bpmnElement="Activity_1xk7p1k" bioc:stroke="#8E24AA" bioc:fill="#E1BEE7">
         <dc:Bounds x="440" y="80" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0cvf9jt_di" bpmnElement="Activity_0cvf9jt" bioc:stroke="#8E24AA" bioc:fill="#E1BEE7">
-        <dc:Bounds x="620" y="80" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_110r287_di" bpmnElement="StartEvent_0oafi8e">
         <dc:Bounds x="162" y="102" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="148" y="145" width="73" height="27" />
         </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_1dd2a21_di" bpmnElement="EndEvent_1dd2a21">
+        <dc:Bounds x="952" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="957" y="145" width="26" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1xw465e_di" bpmnElement="Activity_1xw465e" bioc:stroke="#8E24AA" bioc:fill="#E1BEE7">
+        <dc:Bounds x="790" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0cvf9jt_di" bpmnElement="Activity_0cvf9jt" bioc:stroke="#8E24AA" bioc:fill="#E1BEE7">
+        <dc:Bounds x="620" y="80" width="100" height="80" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
