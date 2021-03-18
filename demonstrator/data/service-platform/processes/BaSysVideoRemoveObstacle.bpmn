@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_149hkfo" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.5.0">
+  <bpmn:process id="BaSysVideoRemoveObstacle" name="Hindernis beseitigen" isExecutable="true">
+    <bpmn:endEvent id="Event_18iu0eh" name="Hindernis beseitigt">
+      <bpmn:incoming>Flow_0c3u42c</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:serviceTask id="Activity_06rbyys" name="Baxter versucht Hindernis zu beseitigen" camunda:modelerTemplate="de.dfki.cos.basys.operationMode" camunda:type="external" camunda:topic="ControlComponent">
+      <bpmn:extensionElements>
+        <camunda:field name="_componentId" />
+        <camunda:inputOutput>
+          <camunda:inputParameter name="requestType">OperationModeRequest</camunda:inputParameter>
+          <camunda:inputParameter name="componentId">
+            <camunda:script scriptFormat="freemarker">${baxterId}</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="inputParameters">
+            <camunda:script scriptFormat="freemarker">[]</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="outputParameters">[]</camunda:inputParameter>
+          <camunda:inputParameter name="token">REMOVE</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1r04a38</bpmn:incoming>
+      <bpmn:outgoing>Flow_1d32rnz</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_0ztxi46" name="Baxter fährt Home-Position an" camunda:modelerTemplate="de.dfki.cos.basys.operationMode" camunda:type="external" camunda:topic="ControlComponent">
+      <bpmn:extensionElements>
+        <camunda:field name="_componentId" />
+        <camunda:inputOutput>
+          <camunda:inputParameter name="requestType">OperationModeRequest</camunda:inputParameter>
+          <camunda:inputParameter name="componentId">
+            <camunda:script scriptFormat="freemarker">${baxterId}</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="outputParameters">[]</camunda:inputParameter>
+          <camunda:inputParameter name="inputParameters">
+            <camunda:script scriptFormat="freemarker">[
+{ "name": "position", "type" : "STRING", "value": "_HOME_"}
+]</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="token">MOVE_SYM</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_18xwc9d</bpmn:incoming>
+      <bpmn:outgoing>Flow_07wc9v9</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="Gateway_1ycfjet">
+      <bpmn:incoming>Flow_1urwt1r</bpmn:incoming>
+      <bpmn:outgoing>Flow_16vk9xi</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1ktv0cq</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:serviceTask id="Activity_1sear15" name="Werker geht zu Hindernis" camunda:modelerTemplate="de.dfki.cos.basys.operationMode" camunda:type="external" camunda:topic="ControlComponent">
+      <bpmn:extensionElements>
+        <camunda:field name="_componentId" />
+        <camunda:inputOutput>
+          <camunda:inputParameter name="requestType">OperationModeRequest</camunda:inputParameter>
+          <camunda:inputParameter name="componentId">
+            <camunda:script scriptFormat="freemarker">${workerId}</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="outputParameters">[]</camunda:inputParameter>
+          <camunda:inputParameter name="inputParameters">
+            <camunda:script scriptFormat="freemarker">[
+{ "name": "position", "type" : "STRING", "value": "${position}"}
+]</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="token">MOVE_SYM</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1ktv0cq</bpmn:incoming>
+      <bpmn:outgoing>Flow_0lsvabu</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_1t68sp8" name="Werker beseitigt Hindernis" camunda:modelerTemplate="de.dfki.cos.basys.operationMode" camunda:type="external" camunda:topic="ControlComponent">
+      <bpmn:extensionElements>
+        <camunda:field name="_componentId" />
+        <camunda:inputOutput>
+          <camunda:inputParameter name="requestType">OperationModeRequest</camunda:inputParameter>
+          <camunda:inputParameter name="componentId">
+            <camunda:script scriptFormat="freemarker">${workerId}</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="outputParameters">[]</camunda:inputParameter>
+          <camunda:inputParameter name="inputParameters">
+            <camunda:script scriptFormat="freemarker">[]</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="token">REMOVE</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0lsvabu</bpmn:incoming>
+      <bpmn:outgoing>Flow_0j07chg</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_0vyu4gb" name="Werker geht zur Home-Position" camunda:modelerTemplate="de.dfki.cos.basys.operationMode" camunda:type="external" camunda:topic="ControlComponent">
+      <bpmn:extensionElements>
+        <camunda:field name="_componentId" />
+        <camunda:inputOutput>
+          <camunda:inputParameter name="requestType">OperationModeRequest</camunda:inputParameter>
+          <camunda:inputParameter name="componentId">
+            <camunda:script scriptFormat="freemarker">${workerId}</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="outputParameters">[]</camunda:inputParameter>
+          <camunda:inputParameter name="inputParameters">
+            <camunda:script scriptFormat="freemarker">[
+{ "name": "position", "type" : "STRING", "value": "_HOME_"}
+]</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="token">MOVE_SYM</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0j07chg</bpmn:incoming>
+      <bpmn:outgoing>Flow_1vhc7bb</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="Gateway_1d3gi1b">
+      <bpmn:incoming>Flow_16vk9xi</bpmn:incoming>
+      <bpmn:incoming>Flow_1vhc7bb</bpmn:incoming>
+      <bpmn:outgoing>Flow_0dznr51</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:serviceTask id="Activity_00lln8l" name="Baxter fährt zu Hindernis" camunda:modelerTemplate="de.dfki.cos.basys.operationMode" camunda:type="external" camunda:topic="ControlComponent">
+      <bpmn:extensionElements>
+        <camunda:field name="_componentId" />
+        <camunda:inputOutput>
+          <camunda:inputParameter name="requestType">OperationModeRequest</camunda:inputParameter>
+          <camunda:inputParameter name="componentId">
+            <camunda:script scriptFormat="freemarker">${baxterId}</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="outputParameters">[]</camunda:inputParameter>
+          <camunda:inputParameter name="token">MOVE_SYM</camunda:inputParameter>
+          <camunda:inputParameter name="inputParameters">
+            <camunda:script scriptFormat="freemarker">[
+{ "name": "position", "type" : "STRING", "value": "${position}"}
+]</camunda:script>
+          </camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0cmegqx</bpmn:incoming>
+      <bpmn:outgoing>Flow_1r04a38</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_1r04a38" sourceRef="Activity_00lln8l" targetRef="Activity_06rbyys" />
+    <bpmn:sequenceFlow id="Flow_16vk9xi" name="ja" sourceRef="Gateway_1ycfjet" targetRef="Gateway_1d3gi1b" />
+    <bpmn:sequenceFlow id="Flow_1ktv0cq" name="nein" sourceRef="Gateway_1ycfjet" targetRef="Activity_1sear15">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="groovy">true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0lsvabu" sourceRef="Activity_1sear15" targetRef="Activity_1t68sp8" />
+    <bpmn:sequenceFlow id="Flow_0j07chg" sourceRef="Activity_1t68sp8" targetRef="Activity_0vyu4gb" />
+    <bpmn:sequenceFlow id="Flow_1vhc7bb" sourceRef="Activity_0vyu4gb" targetRef="Gateway_1d3gi1b" />
+    <bpmn:sequenceFlow id="Flow_0cmegqx" sourceRef="Event_0atvxdz" targetRef="Activity_00lln8l" />
+    <bpmn:startEvent id="Event_0atvxdz" name="Hindernis erkannt">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="baxterId" label="Baxter ID" type="string" defaultValue="baxter-1" />
+          <camunda:formField id="workerId" label="Worker ID" type="string" defaultValue="heinz" />
+          <camunda:formField id="position" label="Position" type="string" defaultValue="somewhere" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:outgoing>Flow_0cmegqx</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0regd90" messageRef="Message_0kwqhmm" />
+    </bpmn:startEvent>
+    <bpmn:parallelGateway id="Gateway_18moql3">
+      <bpmn:incoming>Flow_1d32rnz</bpmn:incoming>
+      <bpmn:outgoing>Flow_18xwc9d</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1urwt1r</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:sequenceFlow id="Flow_1d32rnz" sourceRef="Activity_06rbyys" targetRef="Gateway_18moql3" />
+    <bpmn:sequenceFlow id="Flow_18xwc9d" sourceRef="Gateway_18moql3" targetRef="Activity_0ztxi46" />
+    <bpmn:sequenceFlow id="Flow_1urwt1r" name="Hindernis erfolgreich beseitigt?" sourceRef="Gateway_18moql3" targetRef="Gateway_1ycfjet" />
+    <bpmn:parallelGateway id="Gateway_1r7tril">
+      <bpmn:incoming>Flow_07wc9v9</bpmn:incoming>
+      <bpmn:incoming>Flow_0dznr51</bpmn:incoming>
+      <bpmn:outgoing>Flow_0c3u42c</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:sequenceFlow id="Flow_07wc9v9" sourceRef="Activity_0ztxi46" targetRef="Gateway_1r7tril" />
+    <bpmn:sequenceFlow id="Flow_0dznr51" sourceRef="Gateway_1d3gi1b" targetRef="Gateway_1r7tril" />
+    <bpmn:sequenceFlow id="Flow_0c3u42c" sourceRef="Gateway_1r7tril" targetRef="Event_18iu0eh" />
+  </bpmn:process>
+  <bpmn:message id="Message_0kwqhmm" name="Message_2ppe8v7" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="BaSysVideoRemoveObstacle">
+      <bpmndi:BPMNEdge id="Flow_1r04a38_di" bpmnElement="Flow_1r04a38">
+        <di:waypoint x="420" y="119" />
+        <di:waypoint x="490" y="119" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0cmegqx_di" bpmnElement="Flow_0cmegqx">
+        <di:waypoint x="218" y="119" />
+        <di:waypoint x="320" y="119" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_16vk9xi_di" bpmnElement="Flow_16vk9xi">
+        <di:waypoint x="705" y="209" />
+        <di:waypoint x="1205" y="209" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="946" y="191" width="8" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1ktv0cq_di" bpmnElement="Flow_1ktv0cq">
+        <di:waypoint x="680" y="234" />
+        <di:waypoint x="680" y="329" />
+        <di:waypoint x="750" y="329" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="685" y="263" width="21" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0lsvabu_di" bpmnElement="Flow_0lsvabu">
+        <di:waypoint x="850" y="329" />
+        <di:waypoint x="900" y="329" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0j07chg_di" bpmnElement="Flow_0j07chg">
+        <di:waypoint x="1000" y="329" />
+        <di:waypoint x="1060" y="329" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1vhc7bb_di" bpmnElement="Flow_1vhc7bb">
+        <di:waypoint x="1160" y="329" />
+        <di:waypoint x="1230" y="329" />
+        <di:waypoint x="1230" y="234" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1d32rnz_di" bpmnElement="Flow_1d32rnz">
+        <di:waypoint x="590" y="119" />
+        <di:waypoint x="655" y="119" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_18xwc9d_di" bpmnElement="Flow_18xwc9d">
+        <di:waypoint x="705" y="119" />
+        <di:waypoint x="900" y="119" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1urwt1r_di" bpmnElement="Flow_1urwt1r">
+        <di:waypoint x="680" y="144" />
+        <di:waypoint x="680" y="184" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="694" y="150" width="52" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_07wc9v9_di" bpmnElement="Flow_07wc9v9">
+        <di:waypoint x="1000" y="119" />
+        <di:waypoint x="1205" y="119" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0dznr51_di" bpmnElement="Flow_0dznr51">
+        <di:waypoint x="1230" y="184" />
+        <di:waypoint x="1230" y="144" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0c3u42c_di" bpmnElement="Flow_0c3u42c">
+        <di:waypoint x="1255" y="119" />
+        <di:waypoint x="1322" y="119" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Activity_00lln8l_di" bpmnElement="Activity_00lln8l" bioc:stroke="rgb(229, 57, 53)" bioc:fill="rgb(255, 205, 210)">
+        <dc:Bounds x="320" y="79" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_06rbyys_di" bpmnElement="Activity_06rbyys" bioc:stroke="rgb(229, 57, 53)" bioc:fill="rgb(255, 205, 210)">
+        <dc:Bounds x="490" y="79" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1ycfjet_di" bpmnElement="Gateway_1ycfjet" isMarkerVisible="true">
+        <dc:Bounds x="655" y="184" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1d3gi1b_di" bpmnElement="Gateway_1d3gi1b" isMarkerVisible="true">
+        <dc:Bounds x="1205" y="184" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0ivfls4_di" bpmnElement="Event_0atvxdz">
+        <dc:Bounds x="182" y="101" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="159" y="144" width="88" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1mhh6tg_di" bpmnElement="Gateway_18moql3">
+        <dc:Bounds x="655" y="94" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1cpfgo2_di" bpmnElement="Gateway_1r7tril">
+        <dc:Bounds x="1205" y="94" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0ztxi46_di" bpmnElement="Activity_0ztxi46" bioc:stroke="rgb(229, 57, 53)" bioc:fill="rgb(255, 205, 210)">
+        <dc:Bounds x="900" y="79" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_18iu0eh_di" bpmnElement="Event_18iu0eh">
+        <dc:Bounds x="1322" y="101" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1318" y="144" width="47" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1sear15_di" bpmnElement="Activity_1sear15" bioc:stroke="rgb(67, 160, 71)" bioc:fill="rgb(200, 230, 201)">
+        <dc:Bounds x="750" y="289" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1t68sp8_di" bpmnElement="Activity_1t68sp8" bioc:stroke="rgb(67, 160, 71)" bioc:fill="rgb(200, 230, 201)">
+        <dc:Bounds x="900" y="289" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0vyu4gb_di" bpmnElement="Activity_0vyu4gb" bioc:stroke="rgb(67, 160, 71)" bioc:fill="rgb(200, 230, 201)">
+        <dc:Bounds x="1060" y="289" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
