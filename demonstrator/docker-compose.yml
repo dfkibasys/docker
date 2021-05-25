@@ -8,27 +8,18 @@ networks:
 
 services:    
 
-  component-dashboard:
-    image: dfkibasys/component-dashboard:latest
-    container_name: component-dashboard
+  ppr-dashboard:
+    image: dfkibasys/ppr-dashboard:latest
+    container_name: ppr-dashboard
     ports:
-        - "9081:8080"
+      - "8090:80"
     environment:
-      BASYS_REST_URL: http://localhost:8080
-      MQTT_BROKER_IP: ${HOSTNAME}
-      MQTT_BROKER_PORT: 9001
-      CAMUNDA_REST_URL: http://${HOSTNAME}:9080
-    restart: always
-    networks:
-      - backend_basys
-      - basys
-  
-  process-dashboard:
-    image: dfkibasys/process-dashboard:latest
-    container_name: process-dashboard
-    command: --camunda.rest.base.url=http://camunda:8080/engine-rest/engine/default
-    ports:
-        - "9082:8000"
+      VUE_APP_BASYS_REST_URL: "http://service-platform"
+      VUE_APP_MQTT_BROKER_URL: "ws://emqx:8083/mqtt"
+      VUE_APP_CAMUNDA_REST_URL: "http://camunda:9080"
+      VUE_APP_AAS_REGISTRY_URL: "http://aas-services:4999/api/v1/registry"
+      VUE_APP_AJAX_REQUEST_DOMAIN: "http://${HOSTNAME}:8090/engine-rest"
+      NGINX_PROXY: "http://${HOSTNAME}:9080/engine-rest/"
     restart: always
     networks:
       - backend_basys

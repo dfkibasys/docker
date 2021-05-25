@@ -1,6 +1,0 @@
-{
-  "id": "math-component-1",
-  "name": "math-component-1",
-  "serviceConnectionString": "-",
-  "implementationJavaClass": "de.dfki.cos.basys.controlcomponent.example.MathControlComponent"
-}
