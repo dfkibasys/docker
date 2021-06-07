@@ -8,6 +8,28 @@ networks:
 
 services:    
 
+  aas-registry:
+    image: eclipsebasyx/aas-registry:1.0.0
+    container_name: aas-registry
+    ports: 
+     - "4000:4000"
+    volumes:
+      - ./data/aas-registry:/usr/share/config
+    restart: always	
+    networks:
+      - basys
+
+  aas-server:
+    image: eclipsebasyx/aas-server:1.0.0
+    container_name: aas-server
+    ports: 
+     - "4001:4001"
+    volumes:
+      - ./data/aas-server:/usr/share/config
+    restart: always
+    networks:
+      - basys
+
   ppr-dashboard:
     image: dfkibasys/ppr-dashboard:latest
     container_name: ppr-dashboard
@@ -15,9 +37,9 @@ services:
       - "8090:80"
     environment:
       VUE_APP_BASYS_REST_URL: "http://service-platform"
-      VUE_APP_MQTT_BROKER_URL: "ws://emqx:8083/mqtt"
-      VUE_APP_CAMUNDA_REST_URL: "http://camunda:9080"
-      VUE_APP_AAS_REGISTRY_URL: "http://aas-services:4999/api/v1/registry"
+      VUE_APP_MQTT_BROKER_URL: "ws://${HOSTNAME}:8083/mqtt"
+      VUE_APP_CAMUNDA_REST_URL: "http://${HOSTNAME}:9080"
+      VUE_APP_AAS_REGISTRY_URL: "http://${HOSTNAME}:4999/api/v1/registry"
       VUE_APP_AJAX_REQUEST_DOMAIN: "http://${HOSTNAME}:8090/engine-rest"
       NGINX_PROXY: "http://${HOSTNAME}:9080/engine-rest/"
     restart: always
