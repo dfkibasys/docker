@@ -1,0 +1,13 @@
+{
+  "id": "lap-1",
+  "name": "LAP-1",
+  "serviceConnectionString": "http://10.2.0.47:9000/laserControl",
+  "serviceImplementationJavaClass": "de.dfki.cos.basys.p4p.controlcomponent.lap.service.LapServiceImpl",
+  "implementationJavaClass": "de.dfki.cos.basys.p4p.controlcomponent.lap.LapControlComponent",
+  "executionMode": "AUTO",
+  "disableExecutionModeChange" : "true",
+  "disableOccupationCheck" : "true",
+  "asset.id":"urn:de.dfki:devices.mrk40.cos:asset:1:1:lap-1",
+  "aas.id":"urn:de.dfki:devices.mrk40.cos:aas:1:1:lap-1",
+  "submodel.id":"urn:de.dfki:devices.mrk40.cos:control-component:1:1:lap-1"
+}
