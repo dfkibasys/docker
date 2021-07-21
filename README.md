@@ -6,7 +6,7 @@ This repository contains two Docker-Compose stacks that setup
 
 ## Prerequisites
 
- 1) Install [Docker](https://docs.docker.com/install/), 
+ 1) Install [Docker](https://docs.docker.com/install/) (tested with 3.5.1), 
     * e.g., in a [Ubuntu VM](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
       * If you [add your user to the docker group](https://docs.docker.com/install/linux/linux-postinstall/), you don't have to prefix your docker/docker-compose commands with sudo.
 	* or in [Windows using WSL2 and Docker Desktop](https://nickjanetakis.com/blog/a-linux-dev-environment-on-windows-with-wsl-2-docker-desktop-and-more)
