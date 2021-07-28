@@ -37,11 +37,11 @@ services:
       - "8090:80"
     environment:
       VUE_APP_BASYS_REST_URL: "http://service-platform"
-      VUE_APP_MQTT_BROKER_URL: "ws://${HOSTNAME}:8083/mqtt"
-      VUE_APP_CAMUNDA_REST_URL: "http://${HOSTNAME}:9080"
-      VUE_APP_AAS_REGISTRY_URL: "http://${HOSTNAME}:4999/api/v1/registry"
-      VUE_APP_AJAX_REQUEST_DOMAIN: "http://${HOSTNAME}:8090/engine-rest"
-      NGINX_PROXY: "http://${HOSTNAME}:9080/engine-rest/"
+      VUE_APP_MQTT_BROKER_URL: "ws://${HOST}:8083/mqtt"
+      VUE_APP_CAMUNDA_REST_URL: "http://${HOST}:9080"
+      VUE_APP_AAS_REGISTRY_URL: "http://${HOST}:4999/api/v1/registry"
+      VUE_APP_AJAX_REQUEST_DOMAIN: "http://${HOST}:8090/engine-rest"
+      NGINX_PROXY: "http://${HOST}:9080/engine-rest/"
     restart: always
     networks:
       - backend_basys
@@ -59,8 +59,8 @@ services:
       - ./data/aas-services/components:/app/components
     command: -zk zookeeper:2181
     environment:
-      AAS_AGGREGATOR_ACCESSIBLE_ENDPOINT: "http://${HOSTNAME}:5080"
-      AAS_HOST_ACCESSIBLE_ENDPOINT: "http://${HOSTNAME}:5081"
+      AAS_AGGREGATOR_ACCESSIBLE_ENDPOINT: "http://${HOST}:5080"
+      AAS_HOST_ACCESSIBLE_ENDPOINT: "http://${HOST}:5081"
     restart: always
     networks:
       - backend_basys
@@ -78,8 +78,8 @@ services:
       - ./data/cc-server/components:/app/components
     command: -r http://aas-services:4999 -a http://aas-services:5080
     environment:
-      AAS_HOST_ACCESSIBLE_ENDPOINT: "http://${HOSTNAME}:5082"
-      HOSTNAME: "${HOSTNAME}"
+      AAS_HOST_ACCESSIBLE_ENDPOINT: "http://${HOST}:5082"
+      HOSTNAME: "${HOST}"
     #restart: always
     networks:
       - backend_basys
@@ -97,7 +97,7 @@ services:
       - ./data/service-platform/model:/app/model
     command: -c config/ -zk zookeeper:2181 -r http://aas-services:4999 -cs tcp://activemq:61616
     environment:
-      AAS_HOST_ACCESSIBLE_ENDPOINT: "http://${HOSTNAME}:5083"
+      AAS_HOST_ACCESSIBLE_ENDPOINT: "http://${HOST}:5083"
     #restart: always
     networks:
       - backend_basys
