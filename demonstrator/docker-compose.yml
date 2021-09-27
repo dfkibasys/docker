@@ -20,7 +20,7 @@ services:
       - basys
 
   aas-server:
-    image: dfkibasys/aas-server:1.0.0
+    image: dfkibasys/aas-server:1.0.1
     container_name: aas-server
     ports: 
      - "4001:4001"
