@@ -1,0 +1,18 @@
+version: '3.6'
+
+networks:
+  processcontrol:
+    name: basys-processcontrol
+    internal: false
+
+services:    
+
+  camunda:
+    image: camunda/camunda-bpm-platform:7.16.0
+    container_name: camunda
+    ports:
+        - "9080:8080"
+    restart: always
+    networks:
+      - processcontrol
+

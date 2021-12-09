@@ -1,0 +1,81 @@
+version: '3.6'
+
+networks:
+  aas:
+    name: basys-aas
+    internal: false
+  communication:
+    name: basys-communication
+    external: true
+
+volumes:
+  elasticsearch-data:
+    driver: local
+
+services:    
+
+  elasticsearch:
+    image: elasticsearch:7.14.2
+    container_name: elasticsearch
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data     
+    environment:
+      - discovery.type=single-node  
+    restart: always
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    networks:
+       - aas
+  
+  kibana:
+    image: kibana:7.14.2
+    container_name: kibana
+    ports:
+      - 5601:5601
+    environment:
+      ELASTICSEARCH_URL: http://elasticsearch:9200
+      ELASTICSEARCH_HOSTS: http://elasticsearch:9200
+    depends_on:
+      - elasticsearch
+    restart: always   
+    networks:
+       - aas 
+               
+  aas-registry-dotaas:
+    image: dfkibasys/aas-registry:dotaas
+    container_name: aas-registry-dotaas
+    ports:
+      - "8020:8080"
+    depends_on:
+      - elasticsearch
+#      - kafka
+    restart: always
+    environment:
+      ELASTICSEARCH_HOST_URL: elasticsearch:9200 
+      KAFKA_BOOTSTRAP_SERVERS: PLAINTEXT://kafka:29092
+    networks:
+       - aas
+       - communication
+
+  aas-registry-basyx:
+    image: dfkibasys/aas-registry:1.0.2
+    container_name: aas-registry-basyx
+    ports: 
+     - "4000:4000"
+    volumes:
+      - ./data/aas-registry:/usr/share/config
+    restart: always
+    networks:
+       - aas
+
+  aas-server:
+    image: dfkibasys/aas-server:1.0.1
+    container_name: aas-server
+    ports: 
+     - "4001:4001"
+    volumes:
+      - ./data/aas-server:/usr/share/config
+    restart: always
+    networks:
+       - aas
