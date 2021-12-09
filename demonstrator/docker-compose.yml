@@ -8,28 +8,6 @@ networks:
 
 services:    
 
-  aas-registry:
-    image: dfkibasys/aas-registry:1.0.2
-    container_name: aas-registry
-    ports: 
-     - "4000:4000"
-    volumes:
-      - ./data/aas-registry:/usr/share/config
-    restart: always
-    networks:
-      - basys
-
-  aas-server:
-    image: dfkibasys/aas-server:1.0.1
-    container_name: aas-server
-    ports: 
-     - "4001:4001"
-    volumes:
-      - ./data/aas-server:/usr/share/config
-    restart: always
-    networks:
-      - basys
-
   ppr-dashboard:
     image: dfkibasys/ppr-dashboard:latest
     container_name: ppr-dashboard
@@ -42,25 +20,6 @@ services:
       VUE_APP_AAS_REGISTRY_URL: "http://${HOST}:4999/api/v1/registry"
       VUE_APP_AJAX_REQUEST_DOMAIN: "http://${HOST}:8090/engine-rest"
       NGINX_PROXY: "http://${HOST}:9080/engine-rest/"
-    restart: always
-    networks:
-      - backend_basys
-      - basys
-
-  aas-services:
-    image: dfkibasys/aas-services:${VERSION}
-    container_name: aas-services
-    ports:
-      - "4999:4999"
-      - "5080:5080"
-      - "5081:5081"
-    volumes:
-      - ./data/aas-services/config:/app/config
-      - ./data/aas-services/components:/app/components
-    command: -zk zookeeper:2181
-    environment:
-      AAS_AGGREGATOR_ACCESSIBLE_ENDPOINT: "http://${HOST}:5080"
-      AAS_HOST_ACCESSIBLE_ENDPOINT: "http://${HOST}:5081"
     restart: always
     networks:
       - backend_basys
