@@ -16,25 +16,28 @@ This repository contains two Docker-Compose stacks that setup
 ## Installation
 
 1) Clone this repo
-2) Navigate into the subfolders `backend` and `demonstrator`.
-3) Inside the .env file, specify the `HOSTNAME` variable, the default is set to `127.0.0.1`. So, for local installations nothing needs to be changed.
-   * In the backend stack, this is required for dealing with the Apache Kafka-specific concept of advertised listeners in combination with docker. 
-   * The same concept is applied in the demonstrator stack for rewriting URL endpoints of administration shells and hosted submodels. 
+2) Check the .env files in the subfolders `communication` and `aas`: You might want to specify the `HOSTNAME` variable, if you are in a distributed environment. The default is set to `host.docker.internal`. So, for local installations nothing needs to be changed.
+   * In the communication stack, this is required for dealing with the Apache Kafka-specific concept of advertised listeners in combination with docker. 
+   * The same concept is applied in the ass stack for rewriting URL endpoints of administration shells and hosted submodels. 
    * This setting is also important if you want to access the control component server from outside the docker environment, e.g., via an OPC-UA client or an externally running BaSys plattform. Since the server creates it own self-signed certificate if no real certificate is provided, this will raise security warnings which can be ignored in the demonstration setting.
-     * As an example, if you use the vmware VM (see below) in a NATed network environment and want to access the control component server with the UA-Expert, set `HOSTNAME` to something like `192.168.152.128`.
-4) Create the Docker stack
-5) Immediately stop the containers `service-platform` and `cc-server`. For demonstration purposes, they should be started manually whenever needed in the order `cc-server` -> `service-platform`. For this reason, these containers do not specify a `restart: always` policy.
+      * As an example, if you use the vmware VM (see below) in a NATed network environment and want to access the control component server with the UA-Expert, set `HOSTNAME` to something like `192.168.152.128`.
+3) Create the stacks `admin`, `communication`, `aas`, and `processcontrol`
 
 ```bash
 git clone https://github.com/BaSys-PC1/docker.git
-cd docker/backend
+cd docker/admin
 docker-compose pull && docker-compose up -d
-cd ../demonstrator
+cd ../communication
 docker-compose pull && docker-compose up -d
-docker-compose stop service-platform cc-server
+cd ../aas
+docker-compose pull && docker-compose up -d
+cd ../processcontrol
+docker-compose pull && docker-compose up -d
 ```
 
-## Usage
+4) For demonstration purposes, you can start (and stop) the `demonstrator` stack as required.
+
+## Usage (sorry, not up-to-date for the moment)
 
 After installation, the following services are available from the backend stack.
 
@@ -67,7 +70,7 @@ The demonstator stack exposes the following services.
 
 coming soon
 
-## Downloads
+## Downloads (sorry, not up-to-date for the moment)
 
 A pre-installed Ubuntu Server 20.04.01 LTS VM can be downloaded
 *  for [VMware](https://download3.vmware.com/software/player/file/VMware-player-16.0.0-16894299.exe): https://cloud.dfki.de/owncloud/index.php/s/cTS7zyWTm7TFWfs
