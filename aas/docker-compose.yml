@@ -43,7 +43,7 @@ services:
        - aas 
                
   aas-registry-dotaas:
-    image: dfkibasys/aas-registry:dotaas
+    image: dfkibasys/aas-registry:dotaas-latest
     container_name: aas-registry-dotaas
     ports:
       - "8020:8080"
@@ -70,10 +70,13 @@ services:
        - aas
 
   aas-server:
-    image: dfkibasys/aas-server:1.0.1
+    image: dfkibasys/aas-server:dotaas-latest
     container_name: aas-server
     ports: 
      - "4001:4001"
+    depends_on:
+      - aas-registry-dotaas
+      - aas-registry-basyx
     volumes:
       - ./data/aas-server:/usr/share/config
     restart: always
