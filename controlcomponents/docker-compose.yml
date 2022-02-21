@@ -17,7 +17,7 @@ services:
     image: dfkibasys/controlcomponent-mir:${VERSION}	    
     container_name: mir100_1
     volumes:
-      - ./data/mir100_1.yaml:/config/application.yaml 
+      - ./data/mir100_1.yaml:/workspace/config/application.yaml
     restart: always
     ports:
       - "8089:8088"
