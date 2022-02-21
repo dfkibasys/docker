@@ -20,8 +20,8 @@ basys:
     tcpPort: 12685
     httpsPort: 8443
   controlcomponent:
-    id: drone_1
-    name: Drone-1
+    id: ur10_1
+    name: UR10-1
     operationModeJavaPackage: de.dfki.cos.basys.p4p.controlcomponent.ur.opmodes
     executionMode: SIMULATE
     auto:
