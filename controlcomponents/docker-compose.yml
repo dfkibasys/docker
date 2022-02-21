@@ -23,7 +23,7 @@ services:
       - "8201:8088"
       - "18201:12685"
     environment:
-      JAVA_OPTS: -Dserver.accessibleEndpoint=${DOCKER_HOSTNAME}:8201
+      JAVA_OPTS: -Dserver.accessibleEndpoint=http://${DOCKER_HOSTNAME}:8201
     networks:
        - controlcomponents
        - communication
@@ -39,7 +39,7 @@ services:
       - "8202:8088"
       - "18202:12685"
     environment:
-      JAVA_OPTS: -Dserver.accessibleEndpoint=${DOCKER_HOSTNAME}:8202
+      JAVA_OPTS: -Dserver.accessibleEndpoint=http://${DOCKER_HOSTNAME}:8202
     networks:
        - controlcomponents
        - communication
@@ -55,7 +55,7 @@ services:
       - "8203:8088"
       - "18203:12685"
     environment:
-      JAVA_OPTS: -Dserver.accessibleEndpoint=${DOCKER_HOSTNAME}:8203
+      JAVA_OPTS: -Dserver.accessibleEndpoint=http://${DOCKER_HOSTNAME}:8203
     networks:
        - controlcomponents
        - communication
