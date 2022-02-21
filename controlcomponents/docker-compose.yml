@@ -20,11 +20,44 @@ services:
       - ./data/mir100_1.yaml:/workspace/config/application.yaml
     restart: always
     ports:
-      - "8089:8088"
+      - "8201:8088"
+      - "18201:12685"
     environment:
-      JAVA_OPTS: -Dserver.accessibleEndpoint=${DOCKER_HOSTNAME}:8089
+      JAVA_OPTS: -Dserver.accessibleEndpoint=${DOCKER_HOSTNAME}:8201
     networks:
        - controlcomponents
        - communication
        - aas
+	   
+  ur10_1:
+    image: dfkibasys/controlcomponent-ur:${VERSION}	    
+    container_name: ur10_1
+    volumes:
+      - ./data/ur10_1.yaml:/workspace/config/application.yaml
+    restart: always
+    ports:
+      - "8202:8088"
+      - "18202:12685"
+    environment:
+      JAVA_OPTS: -Dserver.accessibleEndpoint=${DOCKER_HOSTNAME}:8202
+    networks:
+       - controlcomponents
+       - communication
+       - aas
+	   
+  drone_1:
+    image: dfkibasys/controlcomponent-drone:${VERSION}	    
+    container_name: drone_1
+    volumes:
+      - ./data/drone_1.yaml:/workspace/config/application.yaml
+    restart: always
+    ports:
+      - "8203:8088"
+      - "18203:12685"
+    environment:
+      JAVA_OPTS: -Dserver.accessibleEndpoint=${DOCKER_HOSTNAME}:8203
+    networks:
+       - controlcomponents
+       - communication
+       - aas	   
   
