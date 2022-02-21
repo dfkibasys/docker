@@ -1,0 +1,36 @@
+spring.application.name: mir100_1
+logging:
+  level:
+    org.springframework.boot.autoconfigure: INFO
+server:
+  port: 8088
+  accessibleEndpoint: http://localhost:8088
+basys:
+  aasRegistry:
+    type: dotaas
+    service:
+      connectionString: http://aas-registry-dotaas:8080
+  eventTransmitter:
+    type: mqtt
+    service:
+      implementationJavaClass: de.dfki.cos.basys.aas.event.mqtt.MqttEventTransmitter
+      connectionString: tcp://emqx:1883
+  opcuaServer:
+    certsFolder: ./certs
+    tcpPort: 12685
+    httpsPort: 8443
+  controlcomponent:
+    id: mir100_1
+    name: MiR100-1
+    operationModeJavaPackage: de.dfki.cos.basys.p4p.controlcomponent.mir.opmodes
+    executionMode: SIMULATE
+    auto:
+      disableExecutionModeChange: false
+      disableOccupationCheck: false
+      service:
+        implementationJavaClass: de.dfki.cos.basys.p4p.controlcomponent.mir.service.MirServiceImpl
+        connectionString: http://robot-mir-01.mrk40.dfki.lan
+        auth: AUTH_TOKEN
+    simulate:
+      disableExecutionModeChange: true
+      disableOccupationCheck: true

@@ -1,0 +1,30 @@
+version: '3.6'
+
+networks:
+  controlcomponents:
+    name: basys-controlcomponents
+    internal: false
+  communication:
+    name: basys-communication
+    external: true
+  aas:
+    name: basys-aas
+    external: true
+
+services:    
+
+  mir100_1:
+    image: dfkibasys/controlcomponent-mir:${VERSION}	    
+    container_name: mir100_1
+    volumes:
+      - ./data/mir100_1.yaml:/config/application.yaml 
+    restart: always
+    ports:
+      - "8089:8088"
+    environment:
+      JAVA_OPTS: -Dserver.accessibleEndpoint=${DOCKER_HOSTNAME}:8089
+    networks:
+       - controlcomponents
+       - communication
+       - aas
+  
