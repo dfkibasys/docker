@@ -4,7 +4,7 @@ logging:
     org.springframework.boot.autoconfigure: INFO
 server:
   port: 8088
-  accessibleEndpoint: http://localhost:8088
+  accessibleEndpoint: http://${EXTERNAL_HOSTNAME}:${EXTERNAL_PORT}
 basys:
   aasRegistry:
     type: dotaas

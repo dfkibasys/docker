@@ -23,7 +23,8 @@ services:
       - "8201:8088"
       - "18201:12685"
     environment:
-      JAVA_OPTS: -Dserver.accessibleEndpoint=http://${EXTERNAL_HOSTNAME}:8201
+      EXTERNAL_HOSTNAME: ${EXTERNAL_HOSTNAME}
+      EXTERNAL_PORT: 8201
     networks:
        - controlcomponents
        - communication
@@ -39,7 +40,8 @@ services:
       - "8202:8088"
       - "18202:12685"
     environment:
-      JAVA_OPTS: -Dserver.accessibleEndpoint=http://${EXTERNAL_HOSTNAME}:8202
+      EXTERNAL_HOSTNAME: ${EXTERNAL_HOSTNAME}
+      EXTERNAL_PORT: 8202
     networks:
        - controlcomponents
        - communication
@@ -55,7 +57,8 @@ services:
       - "8203:8088"
       - "18203:12685"
     environment:
-      JAVA_OPTS: -Dserver.accessibleEndpoint=http://${EXTERNAL_HOSTNAME}:8203
+      EXTERNAL_HOSTNAME: ${EXTERNAL_HOSTNAME}
+      EXTERNAL_PORT: 8203
     networks:
        - controlcomponents
        - communication
