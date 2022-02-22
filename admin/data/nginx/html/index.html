@@ -61,23 +61,23 @@
 				<h1>Services</h1>
 				<p class="lead">Communication Services</p>
 				<ul>
-					<li><a id="akhq" href="" target="_">AKHQ</a></li>
-					<li><a id="emqx" href="" target="_">EMQX</a></li>
+					<li><a id="akhq" href="">AKHQ</a></li>
+					<li><a id="emqx" href="">EMQX</a></li>
 				</ul>
 				<p class="lead">Asset Administration Shell Services</p>
 				<ul>
-					<li><a id="pprdashboard" href="" target="_">PPR Dashboard</a></li>
-					<li><a id="aasregistry" href="" target="_">AAS Registry</a></li>
-					<li><a id="aasserver" href="" target="_">AAS Server</a></li>
-					<li><a id="kibana" href="" target="_">Kibana</a></li>
+					<li><a id="pprdashboard" href="">PPR Dashboard</a></li>
+					<li><a id="aasregistry" href="">AAS Registry</a></li>
+					<li><a id="aasserver" href="">AAS Server</a></li>
+					<li><a id="kibana" href="">Kibana</a></li>
 				</ul>
 				<p class="lead">Process Control Services</p>
 				<ul>
-					<li><a id="camunda" href="" target="_">Camunda</a></li>
+					<li><a id="camunda" href="/camunda">Camunda</a></li>
 				</ul>
 				<p class="lead">Stack Management Services</p>
 				<ul>
-					<li><a id="portainer" href="" target="_">Portainer</a></li>
+					<li><a id="portainer" href="">Portainer</a></li>
 				</ul>
 			</div>
 		</section>
@@ -244,8 +244,9 @@
 		<script type="text/javascript">
 		$('section[id=services]/*/a').on('click',function (e) {
 			e.preventDefault(); //optional
-			console.log(window.location.protocol + "//" + e.target.id + "." + window.location.hostname);
-			window.open(window.location.protocol + "//" + e.target.id + "." + window.location.hostname);
+			console.log(e.target);
+			console.log(window.location.protocol + "//" + e.target.id + "." + window.location.hostname + e.target.pathname);
+			//window.open(window.location.protocol + "//" + e.target.id + "." + window.location.hostname);
 		});
 		
 		</script>
