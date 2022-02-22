@@ -3,10 +3,23 @@ version: '3.6'
 networks:
   admin:
     name: basys-admin
+<<<<<<< HEAD
     internal: false	  
   proxy:
     name: basys-proxy
     internal: false	
+=======
+    internal: false
+  communication:
+    name: basys-communication
+    external: true	
+  aas:
+    name: basys-aas
+    external: true
+  processcontrol:
+    name: basys-processcontrol
+    external: true
+>>>>>>> 577436f15df6861391365f5c66648242e6c60bf4
 
 services:      
   portainer:
@@ -15,10 +28,14 @@ services:
     restart: always
     ports:
       - "9090:9000"
+    environment:
+      - VIRTUAL_HOST=portainer.${EXTERNAL_HOSTNAME}
+      - VIRTUAL_PORT=9000
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - admin
+<<<<<<< HEAD
       - proxy
 
   nginx-proxy:
@@ -28,11 +45,41 @@ services:
     ports:
       - "80:80"
     volumes:
+      - ./data/nginx/html:/usr/share/nginx/html
       - /var/run/docker.sock:/tmp/docker.sock:ro
     networks:
       - proxy
+=======
+  nginx:    
+    container_name: nginx
+    image: nginx:alpine
+    restart: always    
+    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+    ports:
+      - "80:80"
+      #- "443:443"
+      #- "8443:8443"
+      #- "10022:10022"
+      #- "10222:10222"
+    volumes:  
+      - ./data/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./data/nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./data/nginx/html:/usr/share/nginx/html
+      #- ./data/nginx/vhost.d:/etc/nginx/vhost.d
+      #- ./data/certbot/conf:/etc/letsencrypt
+      #- ./data/certbot/www:/var/www/certbot
+      - ./logs/nginx:/var/log/nginx/
+      #- ./config/certs/lns-90165.sb.dfki.de.key:/etc/nginx/ssl/lns-90165.sb.dfki.de.key:ro
+      #- ./config/certs/lns-90165.sb.dfki.de.bundle.crt:/etc/nginx/ssl/lns-90165.sb.dfki.de.bundle.crt:ro 
+    links:
+      - "portainer:portainer"
+      - "akhq:akhq"
+      - "kibana:kibana"
+      - "camunda:camunda"
+    networks:
+      - admin
+      - communication
+      - aas
+      - pr
 	  
-	  
-	  
-	  
-	  
+>>>>>>> 577436f15df6861391365f5c66648242e6c60bf4

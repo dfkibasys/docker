@@ -20,8 +20,8 @@ services:
         - "9080:8080"
     restart: always
     environment:
-      VIRTUAL_HOST:camunda.${EXTERNAL_HOSTNAME}
-      VIRTUAL_PORT:8080
+      VIRTUAL_HOST: camunda.${EXTERNAL_HOSTNAME}
+      VIRTUAL_PORT: 8080
     networks:
       - processcontrol
       - controlcomponents
