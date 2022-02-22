@@ -10,6 +10,9 @@ networks:
   aas:
     name: basys-aas
     external: true
+  proxy:
+    name: basys-proxy
+    external: true
 
 services:    
 
@@ -29,6 +32,7 @@ services:
        - controlcomponents
        - communication
        - aas
+       - proxy
    
   ur10_1:
     image: dfkibasys/controlcomponent-ur:${VERSION}	    
@@ -46,6 +50,7 @@ services:
        - controlcomponents
        - communication
        - aas
+       - proxy
    
   drone_1:
     image: dfkibasys/controlcomponent-drone:${VERSION}	    
@@ -63,4 +68,5 @@ services:
        - controlcomponents
        - communication
        - aas
+       - proxy
 

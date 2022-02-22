@@ -4,6 +4,9 @@ networks:
   communication:
     name: basys-communication
     internal: false
+  proxy:
+    name: basys-proxy
+    external: true
 
 volumes:
   zookeeper-data:
@@ -50,7 +53,7 @@ services:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://${HOSTNAME}:9092,
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://${EXTERNAL_HOSTNAME}:9092,
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
@@ -195,7 +198,8 @@ services:
 #              connect:
 #                - name: "connect"
 #                  url: "http://connect:8083"
-
+      VIRTUAL_HOST:akhq.${EXTERNAL_HOSTNAME}
+      VIRTUAL_PORT:8080	  
     ports:
       - 8086:8080
     restart: always
@@ -204,6 +208,7 @@ services:
       - schema-registry
     networks:
       - communication
+      - proxy
 
   emqx:
     container_name: emqx
@@ -214,6 +219,8 @@ services:
       - EMQX_ADMIN_PASSWORD=test123
       - EMQX_LOADED_PLUGINS="emqx_recon,emqx_retainer,emqx_management,emqx_dashboard,emqx_auth_clientid"
       - EMQX_RETAINER__STORAGE_TYPE=disc
+      - VIRTUAL_HOST=emqx.${EXTERNAL_HOSTNAME}
+      - VIRTUAL_PORT=18083
     volumes:
       - emqx-data:/opt/emqx/data
     ports:
@@ -225,3 +232,4 @@ services:
     restart: always
     networks:
       - communication
+      - proxy

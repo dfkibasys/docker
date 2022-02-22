@@ -7,6 +7,9 @@ networks:
   communication:
     name: basys-communication
     external: true
+  proxy:
+    name: basys-proxy
+    external: true
 
 volumes:
   elasticsearch-data:
@@ -36,11 +39,14 @@ services:
     environment:
       ELASTICSEARCH_URL: http://elasticsearch:9200
       ELASTICSEARCH_HOSTS: http://elasticsearch:9200
+      VIRTUAL_HOST:kibana.${EXTERNAL_HOSTNAME}
+      VIRTUAL_PORT:5601	 
     depends_on:
       - elasticsearch
     restart: always   
     networks:
-       - aas 
+       - aas
+       - proxy
                
   aas-registry-dotaas:
     image: dfkibasys/aas-registry:dotaas-latest
@@ -54,9 +60,12 @@ services:
     environment:
       ELASTICSEARCH_HOST_URL: elasticsearch:9200 
       KAFKA_BOOTSTRAP_SERVERS: PLAINTEXT://kafka:29092
+      VIRTUAL_HOST:aasregistry.${EXTERNAL_HOSTNAME}
+      VIRTUAL_PORT:8080	 
     networks:
        - aas
        - communication
+       - proxy
 
   aas-registry-basyx:
     image: dfkibasys/aas-registry:1.0.2
@@ -80,5 +89,9 @@ services:
     volumes:
       - ./data/aas-server:/usr/share/config
     restart: always
+    environment:
+      VIRTUAL_HOST:aasserver.${EXTERNAL_HOSTNAME}
+      VIRTUAL_PORT:4001
     networks:
        - aas
+       - proxy
