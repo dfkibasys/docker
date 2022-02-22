@@ -242,11 +242,11 @@
 		<script src="js/scrolling-nav.js"></script>
 
 		<script type="text/javascript">
-		$('section[id=services]/*/a').on('click',function (e) {
+		$('section[id=services] a').on('click',function (e) {
 			e.preventDefault(); //optional
 			//console.log(e.target);
 			console.log(window.location.protocol + "//" + e.target.id + "." + window.location.hostname + e.target.pathname);
-			window.open(window.location.protocol + "//" + e.target.id + "." + window.location.hostname);
+			//window.open(window.location.protocol + "//" + e.target.id + "." + window.location.hostname + e.target.pathname);
 		});
 		
 		</script>
