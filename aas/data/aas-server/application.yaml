@@ -1,0 +1,20 @@
+logging:
+  level:
+    org.springframework.boot.autoconfigure: INFO
+server:
+  port: 8088
+basys:
+  aas-registry:
+    type: dotaas
+    service:
+      connectionString: http://aas-registry-dotaas:8080/
+  aas-server:
+    backend: InMemory
+    source: C:/Work/basys/docker/aas/data/aas-server/mrklab.aasx
+#    mqtt:
+#      server: http://emqx:1883
+    context:
+      context-path:
+      doc-base:
+      hostname: aasserver.dockerhost
+      port: 80
