@@ -1,3 +1,8 @@
+spring:
+  web:
+    resources:
+      static-locations:
+        - file:/workspace/config
 logging:
   level:
     org.springframework.boot.autoconfigure: INFO
