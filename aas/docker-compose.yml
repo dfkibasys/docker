@@ -81,20 +81,38 @@ services:
     networks:
        - aas
 
+#  aas-server:
+#    image: dfkibasys/aas-server:dotaas-latest
+#    container_name: aas-server
+#    ports: 
+#     - "4001:4001"
+#    depends_on:
+#      - aas-registry-dotaas
+#      - aas-registry-basyx
+#    volumes:
+#      - ./data/aas-server:/usr/share/config
+#    restart: always
+#    environment:
+#      VIRTUAL_HOST: aasserver.${EXTERNAL_HOSTNAME}
+#      VIRTUAL_PORT: 4001
+#    networks:
+#       - aas
+#       - proxy
+
   aas-server:
-    image: dfkibasys/aas-server:dotaas-latest
+    image: dfkibasys/aas-server:0.3.0-SNAPSHOT
     container_name: aas-server
-    ports: 
-     - "4001:4001"
+    ports:
+     - "4001:8088"
     depends_on:
       - aas-registry-dotaas
       - aas-registry-basyx
     volumes:
-      - ./data/aas-server:/usr/share/config
+      - ./data/aas-server:/workspace/config
     restart: always
     environment:
       VIRTUAL_HOST: aasserver.${EXTERNAL_HOSTNAME}
-      VIRTUAL_PORT: 4001
+      VIRTUAL_PORT: 8088
     networks:
        - aas
        - proxy
