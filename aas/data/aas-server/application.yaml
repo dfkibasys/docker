@@ -10,11 +10,11 @@ basys:
       connectionString: http://aas-registry-dotaas:8080/
   aas-server:
     backend: InMemory
-    source: C:/Work/basys/docker/aas/data/aas-server/mrklab.aasx
+    source: /workspace/config/mrklab.aasx
 #    mqtt:
 #      server: http://emqx:1883
     context:
-      context-path:
+      context-path: /
       doc-base:
       hostname: aasserver.dockerhost
       port: 80
