@@ -3,10 +3,10 @@ version: '3.6'
 networks:
   admin:
     name: basys-admin
-    internal: false	  
+    internal: false
   proxy:
     name: basys-proxy
-    internal: false	
+    internal: false
 
 services:      
   portainer:
@@ -31,7 +31,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - /var/run/docker.sock:/tmp/docker.sock:ro	  
+      - /var/run/docker.sock:/tmp/docker.sock:ro
     environment:
       - DEFAULT_HOST=${EXTERNAL_HOSTNAME}
     networks:

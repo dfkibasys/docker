@@ -17,7 +17,7 @@ networks:
 services:    
 
   mir100_1:
-    image: dfkibasys/controlcomponent-mir:${VERSION}	    
+    image: dfkibasys/controlcomponent-mir:${VERSION}
     container_name: mir100_1
     volumes:
       - ./data/mir100_1.yaml:/workspace/config/application.yaml
@@ -35,7 +35,7 @@ services:
        - proxy
    
   ur10_1:
-    image: dfkibasys/controlcomponent-ur:${VERSION}	    
+    image: dfkibasys/controlcomponent-ur:${VERSION}
     container_name: ur10_1
     volumes:
       - ./data/ur10_1.yaml:/workspace/config/application.yaml
@@ -53,7 +53,7 @@ services:
        - proxy
    
   drone_1:
-    image: dfkibasys/controlcomponent-drone:${VERSION}	    
+    image: dfkibasys/controlcomponent-drone:${VERSION}
     container_name: drone_1
     volumes:
       - ./data/drone_1.yaml:/workspace/config/application.yaml

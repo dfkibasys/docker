@@ -5,13 +5,13 @@ networks:
     name: basys-processcontrol
     internal: false
   controlcomponents:
-    name: basys-controlcomponents	
+    name: basys-controlcomponents
     external: true
   proxy:
     name: basys-proxy
     external: true
 
-services:    
+services:
 
   camunda:
     image: camunda/camunda-bpm-platform:7.16.0

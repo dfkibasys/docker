@@ -21,9 +21,9 @@ services:
     image: elasticsearch:7.14.2
     container_name: elasticsearch
     volumes:
-      - elasticsearch-data:/usr/share/elasticsearch/data     
+      - elasticsearch-data:/usr/share/elasticsearch/data
     environment:
-      - discovery.type=single-node  
+      - discovery.type=single-node
     restart: always
     ports:
       - "9200:9200"
@@ -40,7 +40,7 @@ services:
       ELASTICSEARCH_URL: http://elasticsearch:9200
       ELASTICSEARCH_HOSTS: http://elasticsearch:9200
       VIRTUAL_HOST: kibana.${EXTERNAL_HOSTNAME}
-      VIRTUAL_PORT: 5601	 
+      VIRTUAL_PORT: 5601
     depends_on:
       - elasticsearch
     restart: always   
