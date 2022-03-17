@@ -1,15 +1,21 @@
 version: '3.6'
 
 networks:
-  processcontrol:
-    name: basys-processcontrol
-    internal: false
+  communication:
+    name: basys-communication
+    external: true
+  aas:
+    name: basys-aas
+    external: true
   controlcomponents:
     name: basys-controlcomponents
     external: true
   proxy:
     name: basys-proxy
     external: true
+  processcontrol:
+    name: basys-processcontrol
+    internal: false
 
 services:
 
@@ -24,7 +30,6 @@ services:
       VIRTUAL_PORT: 8080
     networks:
       - processcontrol
-      - controlcomponents
       - proxy
   
   task-channel-camunda-cc:
@@ -32,7 +37,7 @@ services:
     container_name: task-channel-camunda-cc
     restart: always
     volumes:
-      - ./data/task-channel-camunda-cc.yaml:/workspace/config/application.yaml
+      - ./data/task-channel-camunda-cc.yml:/workspace/config/application.yml
       - ./data/processes:/workspace/processes
     environment:
       KAFKA_BROKER_ENDPOINT: kafka:29092
@@ -41,6 +46,7 @@ services:
     depends_on:
       - camunda	  
     networks:
+      - communication
       - processcontrol
 
   cc-task-manager:
@@ -48,10 +54,15 @@ services:
     container_name: cc-task-manager
     restart: always
     volumes:
-      - ./data/cc-task-manager.yaml:/workspace/config/application.yaml  
+      - ./data/cc-task-manager.yml:/workspace/config/application.yml  
     environment:
       KAFKA_BROKER_ENDPOINT: kafka:29092
       SCHEMA_REGISTRY_ENDPOINT: http://schema-registry:8081
       AAS_REGISTRY_ENDPOINT: http://aas-registry-dotaas:8080
+    extra_hosts:
+      - "dockerhost:172.17.0.1"
     networks:
+      - communication
+      - aas
+      - controlcomponents
       - processcontrol
