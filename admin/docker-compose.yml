@@ -32,6 +32,9 @@ services:
       - "80:80"
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
+#      - ./data/proxy/proxy.conf:/etc/nginx/proxy.conf
+      - ./data/proxy/camunda.dockerhost.conf:/etc/nginx/vhost.d/camunda.dockerhost
+
     environment:
       - DEFAULT_HOST=${EXTERNAL_HOSTNAME}
     networks:

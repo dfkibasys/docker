@@ -21,10 +21,12 @@ services:
     container_name: mir100_1
     volumes:
       - ./data/mir100_1.yaml:/workspace/config/application.yaml
+      - ./data/certs:/workspace/certs
     restart: always
     ports:
       - "8201:8088"
-      - "18201:12685"
+#      - "18201:12685"
+      - "12685:12685"
     environment:
       EXTERNAL_HOSTNAME: ${EXTERNAL_HOSTNAME}
       EXTERNAL_PORT: 8201
@@ -39,6 +41,7 @@ services:
     container_name: ur10_1
     volumes:
       - ./data/ur10_1.yaml:/workspace/config/application.yaml
+      - ./data/certs:/workspace/certs
     restart: always
     ports:
       - "8202:8088"
@@ -57,6 +60,7 @@ services:
     container_name: drone_1
     volumes:
       - ./data/drone_1.yaml:/workspace/config/application.yaml
+      - ./data/certs:/workspace/certs
     restart: always
     ports:
       - "8203:8088"

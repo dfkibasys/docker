@@ -2,7 +2,7 @@ spring:
   web:
     resources:
       static-locations:
-        - file:/workspace/config
+        - classpath:/static
 logging:
   level:
     org.springframework.boot.autoconfigure: INFO
@@ -16,10 +16,11 @@ basys:
   aas-server:
     backend: InMemory
     source: /workspace/config/mrklab.aasx
+    unzip-folder: /workspace/BOOT-INF/classes/static
 #    mqtt:
 #      server: http://emqx:1883
     context:
       context-path: /
       doc-base:
-      hostname: aasserver.dockerhost
-      port: 80
+      hostname: ${EXTERNAL_HOSTNAME}
+      port: 4001
