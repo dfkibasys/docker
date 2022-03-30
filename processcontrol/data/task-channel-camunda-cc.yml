@@ -52,7 +52,8 @@ camunda.processDeployer:
   endpoint: ${CAMUNDA_REST_ENDPOINT}
 camunda.bpm.client:
   base-url: ${CAMUNDA_REST_ENDPOINT} # the URL pointing to the Camunda Platform Runtime REST API
-  async-response-timeout: 1000 # Defines the maximum duration of the long-polling request
+  async-response-timeout: 10000 # Defines the maximum duration of the long-polling request
+  disable-backoff-strategy: true
   worker-id: cc-worker # Identifies the worker towards the Engine
   lock-duration: 86400000 # 1day, defines how many milliseconds the External Tasks are locked until they can be fetched again
   subscriptions:
