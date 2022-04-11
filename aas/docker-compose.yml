@@ -126,6 +126,7 @@ services:
       - ./data/aas-server:/workspace/config
     restart: always
     environment:
+      EXTERNAL_HOSTNAME: ${EXTERNAL_HOSTNAME}
       VIRTUAL_HOST: aasserver.${EXTERNAL_HOSTNAME}
       VIRTUAL_PORT: 8088
     networks:
