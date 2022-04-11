@@ -16,7 +16,7 @@ basys:
   aas-server:
     backend: InMemory
     source: /workspace/config/mrklab.aasx
-	#source: /workspace/config
+    #source: /workspace/config
     #file-suffixes: .aasx
     #recursive: true
     #watch: true
