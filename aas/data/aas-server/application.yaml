@@ -16,6 +16,10 @@ basys:
   aas-server:
     backend: InMemory
     source: /workspace/config/mrklab.aasx
+	#source: /workspace/config
+    #file-suffixes: .aasx
+    #recursive: true
+    #watch: true
     unzip-folder: /workspace/BOOT-INF/classes/static
 #    mqtt:
 #      server: http://emqx:1883
