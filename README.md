@@ -9,7 +9,7 @@ This repository contains two Docker-Compose stacks that setup
  1) Install [Docker](https://docs.docker.com/install/), 
     * e.g., in a [Ubuntu VM](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
       * If you [add your user to the docker group](https://docs.docker.com/install/linux/linux-postinstall/), you don't have to prefix your docker/docker-compose commands with sudo.
-	* or in [Windows using WSL2 and Docker Desktop](https://nickjanetakis.com/blog/a-linux-dev-environment-on-windows-with-wsl-2-docker-desktop-and-more)
+	* or in [Windows using WSL2 and Docker Desktop](https://nickjanetakis.com/blog/a-linux-dev-environment-on-windows-with-wsl-2-docker-desktop-and-more) (tested with 3.5.1)
  2) Install [Docker-Compose](https://docs.docker.com/compose/install/)
     * Docker-Compose is already available in Docker Desktop.
 
@@ -48,7 +48,7 @@ After installation, the following services are available from the backend stack.
 | Apache Flink Jobmanger      | 6123 | 
 | Apache Flink WebUI/REST     | http://[ip]:9094 | 
 | Apache ActiveMQ             | 61616, 8161 | 
-| MQTT Broker                 | 1883, 9001 | 
+| MQTT Broker                 | 1883 (tcp), 8883 (ssl), 8083 (ws), 8084 (wss), 18083 (dashboard) | 
 | Camunda BPM Platform        | http://[ip]:9080/camunda | 
 
 The demonstator stack exposes the following services.

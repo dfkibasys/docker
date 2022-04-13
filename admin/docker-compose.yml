@@ -1,0 +1,61 @@
+version: '3.6'
+    
+networks:
+  admin:
+    name: basys-admin
+    internal: false
+  proxy:
+    name: basys-proxy
+    internal: false
+
+services:      
+  portainer:
+    image: portainer/portainer-ce:2.11.1
+    container_name: portainer
+    restart: always
+    ports:
+      - "9090:9000"
+    environment:
+      - VIRTUAL_HOST=portainer.${EXTERNAL_HOSTNAME}
+      - VIRTUAL_PORT=9000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - admin
+      - proxy
+
+  nginx-proxy:
+    image: nginxproxy/nginx-proxy
+    container_name: proxy
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+#      - ./data/proxy/proxy.conf:/etc/nginx/proxy.conf
+      - ./data/proxy/camunda.dockerhost.conf:/etc/nginx/vhost.d/camunda.dockerhost
+
+    environment:
+      - DEFAULT_HOST=${EXTERNAL_HOSTNAME}
+    networks:
+      - proxy
+
+  nginx:    
+    container_name: nginx
+    image: nginx:alpine
+    restart: always    
+#    ports:
+      #- "80:80"
+      #- "443:443"
+      #- "8443:8443"
+      #- "10022:10022"
+      #- "10222:10222"
+    volumes:  
+      - ./data/nginx/html:/usr/share/nginx/html
+    environment:
+      - VIRTUAL_HOST=${EXTERNAL_HOSTNAME}
+      #- VIRTUAL_PORT=80
+    networks:
+      - admin
+      - proxy
+

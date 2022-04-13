@@ -1,0 +1,71 @@
+debug: false
+server:
+  port: 8082
+spring:
+  cloud:
+    function:
+      definition: aasRegistryUpdates;controlComponentRequests;controlComponentOrders
+    stream:
+      kafka:
+        binder:
+          brokers: ${KAFKA_BROKER_ENDPOINT}
+      bindings:
+        aasRegistryUpdates-in-0:
+          destination: aas-registry
+          content-type: application/json
+          binder: kafka-json
+        controlComponentRequests-in-0:
+          destination: control-component-requests
+          content-type: application/*+avro
+          binder: kafka-avro
+          consumer:
+            useNativeDecoding: true
+        controlComponentRequests-out-0:
+          destination: control-component-orders
+          content-type: application/*+avro
+          binder: kafka-avro
+          producer:
+            useNativeEncoding: true
+        controlComponentOrders-in-0:
+          destination: control-component-orders
+          content-type: application/*+avro
+          binder: kafka-avro
+          consumer:
+            useNativeDecoding: true
+        controlComponentResponses:
+          destination: control-component-responses
+          content-type: application/*+avro
+          binder: kafka-avro
+          producer:
+            useNativeEncoding: true
+      binders:
+        kafka-json:
+          type: kafka
+        kafka-avro:
+          type: kafka
+          environment:
+            spring:
+              cloud:
+                stream:
+                  kafka:
+                    binder:
+                      producer-properties:
+                        key.serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+                        #key.deserializer: org.apache.kafka.common.serialization.StringSerializer
+                        value.serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+                        schema.registry.url: ${SCHEMA_REGISTRY_ENDPOINT}
+                      consumer-properties:
+                        key.deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+                        #key.deserializer: org.apache.kafka.common.serialization.StringDeserializer
+                        value.deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+                        schema.registry.url: ${SCHEMA_REGISTRY_ENDPOINT}
+                        specific.avro.reader: true
+
+basys:
+  aasRegistry:
+    type: dotaas
+    service:
+      connectionString: ${AAS_REGISTRY_ENDPOINT}
+  semanticIds:
+    ccinstanceSubmodel: https://wiki.eclipse.org/BaSyx_/_Submodels#Control_Component_Instance
+

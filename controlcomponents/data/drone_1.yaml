@@ -1,0 +1,35 @@
+spring.application.name: drone_1
+logging:
+  level:
+    org.springframework.boot.autoconfigure: INFO
+server:
+  port: 8088
+  accessibleEndpoint: http://${EXTERNAL_HOSTNAME}:${EXTERNAL_PORT}
+basys:
+  aasRegistry:
+    type: dotaas
+    service:
+      connectionString: http://aas-registry-dotaas:8080
+  eventTransmitter:
+    type: mqtt
+    service:
+      implementationJavaClass: de.dfki.cos.basys.aas.event.mqtt.MqttEventTransmitter
+      connectionString: tcp://emqx:1883
+  opcuaServer:
+    certsFolder: ./certs
+    tcpPort: 12685
+    httpsPort: 8443
+  controlcomponent:
+    id: drone_1
+    name: Drone-1
+    operationModeJavaPackage: de.dfki.cos.basys.p4p.controlcomponent.drone.opmodes
+    executionMode: SIMULATE
+    auto:
+      disableExecutionModeChange: false
+      disableOccupationCheck: false
+      service:
+        implementationJavaClass: de.dfki.cos.basys.p4p.controlcomponent.drone.service.DroneServiceImpl
+        connectionString: tcp://10.2.10.1:1883
+    simulate:
+      disableExecutionModeChange: true
+      disableOccupationCheck: true
