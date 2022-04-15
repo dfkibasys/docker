@@ -25,8 +25,8 @@ services:
     hostname: zookeeper
     container_name: zookeeper
     volumes:
-      - zookeeper-data:/var/lib/zookeeper/data:Z
-      - zookeeper-log:/var/lib/zookeeper/log:Z
+      - zookeeper-data:/var/lib/zookeeper/data
+      - zookeeper-log:/var/lib/zookeeper/log
     ports:
       - "2181:2181"
     restart: always

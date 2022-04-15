@@ -73,7 +73,7 @@ services:
 #      - kafka
     restart: always
     volumes:
-      - ./data/02_aas-registry.yml:/etc/config/aas-registry/application.yml
+      - ./config/02_aas-registry.yml:/etc/config/aas-registry/application.yml
     environment:
       ELASTICSEARCH_HOST_URL: elasticsearch:9200
       KAFKA_BOOTSTRAP_SERVERS: PLAINTEXT://kafka:29092
@@ -124,6 +124,7 @@ services:
 #      - aas-registry-basyx
     volumes:
       - ./config/02_aas-server.yml:/workspace/config/application.yml
+      - ./data/aasx:/workspace/data
     restart: always
     environment:
       EXTERNAL_HOSTNAME: ${EXTERNAL_HOSTNAME}
