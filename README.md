@@ -1,38 +1,39 @@
-# BaSys 4.0 Service Platform - Docker Back-End and Demonstration Environment
+# BaSys Docker Environment
 
-This repository contains two Docker-Compose stacks that setup 
- * 3rd-party back-end services and 
- * Basys-related containers for Administration Shell Management, Web-based dashboards, Control Components, and the BaSys service platform.
+This repository contains a stack of Docker-Compose stacks that build upon each other: `admin, communication, aas, controlcomponents, processcontrol`
 
 ## Prerequisites
 
  1) Install [Docker](https://docs.docker.com/install/), 
     * e.g., in a [Ubuntu VM](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
-      * If you [add your user to the docker group](https://docs.docker.com/install/linux/linux-postinstall/), you don't have to prefix your docker/docker-compose commands with sudo.
+      * If you [add your user to the docker group](https://docs.docker.com/install/linux/linux-postinstall/), you don't have to prefix your docker/docker-compose commands with `sudo`.
 	* or in [Windows using WSL2 and Docker Desktop](https://nickjanetakis.com/blog/a-linux-dev-environment-on-windows-with-wsl-2-docker-desktop-and-more) (tested with 3.5.1)
- 2) Install [Docker-Compose](https://docs.docker.com/compose/install/)
+ 2) Install [Docker-Compose](https://docs.docker.com/compose/cli-command/#installing-compose-v2)
     * Docker-Compose is already available in Docker Desktop.
 
 ## Installation
 
-1) Clone this repo
-2) Navigate into the subfolders `backend` and `demonstrator`.
-3) Inside the .env file, specify the `HOSTNAME` variable, the default is set to `127.0.0.1`. So, for local installations nothing needs to be changed.
-   * In the backend stack, this is required for dealing with the Apache Kafka-specific concept of advertised listeners in combination with docker. 
-   * The same concept is applied in the demonstrator stack for rewriting URL endpoints of administration shells and hosted submodels. 
-   * This setting is also important if you want to access the control component server from outside the docker environment, e.g., via an OPC-UA client or an externally running BaSys plattform. Since the server creates it own self-signed certificate if no real certificate is provided, this will raise security warnings which can be ignored in the demonstration setting.
-     * As an example, if you use the vmware VM (see below) in a NATed network environment and want to access the control component server with the UA-Expert, set `HOSTNAME` to something like `192.168.152.128`.
-4) Create the Docker stack
-5) Immediately stop the containers `service-platform` and `cc-server`. For demonstration purposes, they should be started manually whenever needed in the order `cc-server` -> `service-platform`. For this reason, these containers do not specify a `restart: always` policy.
-
+1) Clone this repo `git clone https://github.com/BaSys-PC1/docker.git`
+2) Inside the `.env` file, specify the `HOSTNAME` variable. For a local deployment, e.g. for developing purposes on the same machine, `HOSTNAME` can be set to `localhost`. If services need to be accessed from external clients, provide a routable IP address or hostname.
+3) Create the Docker stacks either in one shot by `.\up.sh -a` or individually by
 ```bash
-git clone https://github.com/BaSys-PC1/docker.git
-cd docker/backend
-docker-compose pull && docker-compose up -d
-cd ../demonstrator
-docker-compose pull && docker-compose up -d
-docker-compose stop service-platform cc-server
+.\up.sh -s "admin communication aas controlcomponents processcontrol"
 ```
+4) If you create the stacks individually, you do not need to create all of them but a sublist starting from `admin`. In that case, pay attention to a correct sequence of the stacks in the list, e.g.
+```bash
+.\up.sh -s "admin communication aas"
+```
+## Deinstallation
+
+1) Just do a `.\down.sh -a` or individually by
+```bash
+.\down.sh -s "processcontrol controlcomponents aas communication admin"
+```
+2) Again, you can partially delete the stacks from the top `processcontrol` stack keeping the reverse order, e.g.
+```bash
+.\down.sh -s "processcontrol controlcomponents"
+```
+3) You might also want to delete unused volumes `docker volume prune`
 
 ## Usage
 
