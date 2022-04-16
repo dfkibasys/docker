@@ -31,32 +31,36 @@ docker compose -f docker-compose-00-admin.yml -p admin down
 
 Single()
 {
-case $1 in
-   admin)
-      echo "Down admin"
-      docker compose -f docker-compose-00-admin.yml -p admin down
-      ;;
-   communication)
-      echo "Down communication"
-      docker compose -f docker-compose-10-communication.yml -p communication down
-      ;;
-   aas)
-      echo "Down aas"
-      docker compose -f docker-compose-20-aas.yml -p aas down
-      ;;
-   controlcomponents)
-      echo "Down controlcomponents"
-      docker compose -f docker-compose-30-controlcomponents.yml -p controlcomponents down
-      ;;
-   processcontrol)
-      echo "Down processcontrol"
-      docker compose -f docker-compose-40-processcontrol.yml -p processcontrol down
-      ;;
-   *)
-      echo "Error: Unknown Stack $1"
-      Help
-      ;;
-esac
+for value in "$@"
+   do      
+      case $value in
+         admin)
+            echo "Down admin"
+            docker compose -f docker-compose-00-admin.yml -p admin down
+            ;;
+         communication)
+            echo "Down communication"
+            docker compose -f docker-compose-10-communication.yml -p communication down
+            ;;
+         aas)
+            echo "Down aas"
+            docker compose -f docker-compose-20-aas.yml -p aas down
+            ;;
+         controlcomponents)
+            echo "Down controlcomponents"
+            docker compose -f docker-compose-30-controlcomponents.yml -p controlcomponents down
+            ;;
+         processcontrol)
+            echo "Down processcontrol"
+            docker compose -f docker-compose-40-processcontrol.yml -p processcontrol down
+            ;;
+         *)
+            echo "Error: Unknown Stack $1"
+            Help
+            ;;
+      esac
+   done
+exit
 }
 ############################################################
 ############################################################

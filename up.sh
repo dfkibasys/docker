@@ -31,33 +31,38 @@ docker compose -f docker-compose-40-processcontrol.yml -p processcontrol up -d
 
 Single()
 {
-case $1 in
-   admin)
-      echo "Up admin"
-      docker compose -f docker-compose-00-admin.yml -p admin up -d
-      ;;
-   communication)
-      echo "Up communication"
-      docker compose -f docker-compose-10-communication.yml -p communication up -d
-      ;;
-   aas)
-      echo "Up aas"
-      docker compose -f docker-compose-20-aas.yml -p aas up -d
-      ;;
-   controlcomponents)
-      echo "Up controlcomponents"
-      docker compose -f docker-compose-30-controlcomponents.yml -p controlcomponents up -d
-      ;;
-   processcontrol)
-      echo "Up processcontrol"
-      docker compose -f docker-compose-40-processcontrol.yml -p processcontrol up -d
-      ;;
-   *)
-      echo "Error: Unknown Stack $1"
-      Help
-      ;;
-esac
+for value in "$@"
+   do      
+      case $value in
+         admin)
+            echo "Up admin"
+            docker compose -f docker-compose-00-admin.yml -p admin up -d
+            ;;
+         communication)
+            echo "Up communication"
+            docker compose -f docker-compose-10-communication.yml -p communication up -d
+            ;;
+         aas)
+            echo "Up aas"
+            docker compose -f docker-compose-20-aas.yml -p aas up -d
+            ;;
+         controlcomponents)
+            echo "Up controlcomponents"
+            docker compose -f docker-compose-30-controlcomponents.yml -p controlcomponents up -d
+            ;;
+         processcontrol)
+            echo "Up processcontrol"
+            docker compose -f docker-compose-40-processcontrol.yml -p processcontrol up -d
+            ;;
+         *)
+            echo "Error: Unknown Stack $1"
+            Help
+            ;;
+      esac
+   done
+exit
 }
+
 ############################################################
 ############################################################
 # Main program                                             #
