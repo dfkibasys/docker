@@ -35,50 +35,53 @@ This repository contains a stack of Docker-Compose stacks that build upon each o
 ```
 3) You might also want to delete unused volumes `docker volume prune`
 
-## Usage
+## Service and Usage
 
-After installation, the following services are available from the backend stack.
+After installation, the following services are available:
 
-| Service | Ports / URL |
-| ------ | ------ |
-| Portainer                   | http://[ip]:9090 |
-| Apache Zookeeper            | 2181 | 
-| Zoonavigator                | http://[ip]:9091 | 
-| Apache Kafka                | 9092 | 
-| Kafka HQ WebUI              | http://[ip]:9093 | 
-| Apache Flink Jobmanger      | 6123 | 
-| Apache Flink WebUI/REST     | http://[ip]:9094 | 
-| Apache ActiveMQ             | 61616, 8161 | 
-| MQTT Broker                 | 1883 (tcp), 8883 (ssl), 8083 (ws), 8084 (wss), 18083 (dashboard) | 
-| Camunda BPM Platform        | http://[ip]:9080/camunda | 
+| Service | Stack | Ports / URL |
+| ------ | ------ | ------ |
+| Stack Overview           | admin           | http://[hostname] |
+| Portainer                | admin           | http://[hostname]:9090, http://portainer.[hostname] |
+| Apache Zookeeper         | communication   | 2181 | 
+| Apache Kafka             | communication   | 9092 | 
+| Schema Registry          | communication   | 8081 | 
+| AKHQ (Kafka WebUI)       | communication   | http://[hostname]:8086, http://akhq.[hostname] | 
+| EMQX (MQTT Broker)       | communication   | 1883 (tcp), 8883 (ssl), 8083 (ws), 8084 (wss), http://[hostname]:18083, http://emqx.[hostname] (dashboard) | 
+| Elasticsearch            | aas             | 9200, 9300 | 
+| Kibana                   | aas             | http://[hostname]:5601, http://kibana.[hostname] | 
+| Neo4j                    | aas             | 7473, 7474, 7687,  http://neo4j.[hostname]  | 
+| BaSys AAS Registry       | aas             | http://[hostname]:8020, http://aasregistry.[hostname]  |
+| BaSys AAS Server         | aas             | http://[hostname]:4001/shells, http://aasserver.[hostname]/shells  |
+| Camunda BPM Platform     | processcontrol  | http://[hostname]:9080/camunda, http://camunda.[hostname]  | 
+| BaSys PPR Dashboard      | processcontrol  | http://[hostname]:8090, http://pprdashboard.[hostname]  |
 
-The demonstator stack exposes the following services.
+In order to ease the use, the `admin` stack runs an nginx proxy that configures virtual hosts for certain services as well an nginx webserver for serving a static overview page on `http://[hostname]`:
 
-| Service | Ports / URL |
-| ------ | ------ |
-| BaSys Component Dashboard   | http://[ip]:9081 |
-| BaSys Process Dashboard     | http://[ip]:9082 |
-| BaSys AAS Registry          | http://[ip]:4999 |
-| BaSys AAS Aggregator Service| http://[ip]:5080 |
-| BaSys AAS Hosting Service (in aas-services)   | http://[ip]:5081 |
-| BaSys AAS Hosting Service (in cc-server)   | http://[ip]:5082 |
-| BaSys AAS Hosting Service (in service-platform)   | http://[ip]:5083 |
+<img src='/docs/stack-overview.png?raw=true' width='50%' height='50%'>
+
 
 ## Configuration
 
-coming soon
+For the virtual hosts to work, you need to configure a DNS entry in you local router, e.g. pfsense. If that is not possible (e.g., because you run the stack in a bridged VM somewhere in your local network managed by a Fritzbox), you can extend your `hosts` file on your developer machine like so (please correct the IP adress):
 
-## Downloads
+```
+# Added for BaSys Docker
+192.168.178.59 dockerhost
+192.168.178.59 portainer.dockerhost
+192.168.178.59 akhq.dockerhost
+192.168.178.59 emqx.dockerhost
+192.168.178.59 kibana.dockerhost
+192.168.178.59 neo4j.dockerhost
+192.168.178.59 aasregistry.dockerhost
+192.168.178.59 aasserver.dockerhost
+192.168.178.59 camunda.dockerhost
+192.168.178.59 pprdashboard.dockerhost
+# As an example: also provide entries for virtual control components as they host control component submodels
+192.168.178.59 mir100_1.dockerhost
+192.168.178.59 drone_1.dockerhost
+192.168.178.59 ur10_1.dockerhost
+```
 
-A pre-installed Ubuntu Server 20.04.01 LTS VM can be downloaded
-*  for [VMware](https://download3.vmware.com/software/player/file/VMware-player-16.0.0-16894299.exe): https://cloud.dfki.de/owncloud/index.php/s/cTS7zyWTm7TFWfs
-*  for [VirtualBox](https://www.virtualbox.org/wiki/Downloads): https://cloud.dfki.de/owncloud/index.php/s/SQr46mr4SsKS8Gs
-
-The login is `basys / basys`.
-
-The keyboard layout is set to German. Here, the keys for `y` and `z` are swapped, so pay attention when typing in `basys`. In order to change the keyboard layout, follow [this description](https://askubuntu.com/questions/342066/how-to-permanently-configure-keyboard).
-
-If you use the VM for VirtualBox in NAT mode, you should configure port forwardings according to the table above:
-
-<img src='/docs/virtualbox-port-forwardings.png?raw=true' width='75%' height='75%'>
-
+## Vagrant
+(currently under development, coming soon)
