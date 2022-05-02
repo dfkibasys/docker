@@ -69,7 +69,7 @@ services:
 
 
   ppr-dashboard:
-    image: dfkibasys/ppr-dashboard:latest
+    image: dfkibasys/ppr-dashboard:dev
     container_name: ppr-dashboard
     ports:
       - "8090:80"
