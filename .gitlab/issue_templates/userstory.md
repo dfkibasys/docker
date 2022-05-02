@@ -1,9 +1,12 @@
-# Epic 
-  
-- user stories:
+# User story
+
+- epic: #00
+- tasks:
   - #00
 
-/label ~epic
+/label ~Epic_
+/label ~Userstory
+/label ~ToEstimate
 /milestone %ProductBacklog
 
 # Story
@@ -12,3 +15,6 @@
 
 # Description
 A more detailed description
+
+
+# Acceptance Criterion

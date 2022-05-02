@@ -1,8 +1,8 @@
 # Bug
 
-/label ~task
+/label ~Task
 /label ~ToDo
-/label ~bug
+/label ~Bug
 /milestone %Bug
 
 # Description
