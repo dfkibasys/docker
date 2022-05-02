@@ -5,7 +5,7 @@
   - #00
 
 /label ~Epic_
-/label ~Userstory
+/label ~UserStory
 /label ~ToEstimate
 /milestone %ProductBacklog
 
