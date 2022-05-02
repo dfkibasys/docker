@@ -3,7 +3,7 @@
 - epic: #00
 - user story: #00
 
-/label ~Userstory_
+/label ~UserStory_
 /label ~Task
 /label ~ToDo
 /milestone %Sprint1
