@@ -64,7 +64,7 @@ services:
       - proxy
                
   aas-registry-dotaas:
-    image: dfkibasys/aas-registry:dotaas-latest
+    image: dfkibasys/aas-registry-dotaas-part2:0.1.0-snapshot-kafka-es
     container_name: aas-registry-dotaas
     ports:
       - "8020:8080"
@@ -73,28 +73,27 @@ services:
 #      - kafka
     restart: always
     volumes:
-      - ./data/aas-registry:/etc/config/aas-registry
+      - ./config/02_aas-registry.yml:/workspace/config/application.yml
     environment:
       ELASTICSEARCH_HOST_URL: elasticsearch:9200
       KAFKA_BOOTSTRAP_SERVERS: PLAINTEXT://kafka:29092
       VIRTUAL_HOST: aasregistry.${EXTERNAL_HOSTNAME}
       VIRTUAL_PORT: 8080
-      SPRING_CONFIG_LOCATION: classpath:/application.yml,file:/etc/config/aas-registry/application.yaml
     networks:
        - aas
        - communication
        - proxy
 
-  aas-registry-basyx:
-    image: dfkibasys/aas-registry:1.0.2
-    container_name: aas-registry-basyx
-    ports: 
-     - "4000:4000"
-    volumes:
-      - ./data/aas-registry:/usr/share/config
-    restart: always
-    networks:
-       - aas
+#  aas-registry-basyx:
+#    image: dfkibasys/aas-registry:1.0.2
+#    container_name: aas-registry-basyx
+#    ports: 
+#     - "4000:4000"
+#    volumes:
+#      - ./data/aas-registry:/usr/share/config
+#    restart: always
+#    networks:
+#       - aas
 
 #  aas-server:
 #    image: dfkibasys/aas-server:dotaas-latest
@@ -115,15 +114,16 @@ services:
 #       - proxy
 
   aas-server:
-    image: dfkibasys/aas-server:0.3.0-SNAPSHOT
+    image: dfkibasys/aas-server:${VERSION}
     container_name: aas-server
     ports:
      - "4001:8088"
     depends_on:
       - aas-registry-dotaas
-      - aas-registry-basyx
+#      - aas-registry-basyx
     volumes:
-      - ./data/aas-server:/workspace/config
+      - ./config/02_aas-server.yml:/workspace/config/application.yml
+      - ./data/aasx:/workspace/data
     restart: always
     environment:
       EXTERNAL_HOSTNAME: ${EXTERNAL_HOSTNAME}
