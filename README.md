@@ -92,4 +92,4 @@ Problem:
 The registry request to `/registry/shell-descriptors` returns an empty array.
 
 Solution:
-Restart the aas-server with `docker compose -f docker-compose-20-aas.yml restart aas-server`.
+Restart the aas-server with `docker compose -f docker-compose-20-aas.yml -p aas restart aas-server`.
