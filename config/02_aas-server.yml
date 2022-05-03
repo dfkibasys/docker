@@ -15,11 +15,11 @@ basys:
       connectionString: http://aas-registry-dotaas:8080/
   aas-server:
     backend: InMemory
-    source: /workspace/config/mrklab.aasx
-    #source: /workspace/config
-    #file-suffixes: .aasx
-    #recursive: true
-    #watch: true
+#    source: /workspace/data/mrklab.aasx
+    source: /workspace/data
+    file-suffixes: .aasx
+    recursive: true
+    watch: true
     unzip-folder: /workspace/BOOT-INF/classes/static
 #    mqtt:
 #      server: http://emqx:1883
