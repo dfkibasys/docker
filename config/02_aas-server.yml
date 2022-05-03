@@ -1,0 +1,30 @@
+spring:
+  web:
+    resources:
+      static-locations:
+        - classpath:/static
+logging:
+  level:
+    org.springframework.boot.autoconfigure: INFO
+server:
+  port: 8088
+basys:
+  aas-registry:
+    type: dotaas
+    service:
+      connectionString: http://aas-registry-dotaas:8080/
+  aas-server:
+    backend: InMemory
+#    source: /workspace/data/mrklab.aasx
+    source: /workspace/data
+    file-suffixes: .aasx
+    recursive: true
+    watch: true
+    unzip-folder: /workspace/BOOT-INF/classes/static
+#    mqtt:
+#      server: http://emqx:1883
+    context:
+      context-path: /
+      doc-base:
+      hostname: ${EXTERNAL_HOSTNAME}
+      port: 4001

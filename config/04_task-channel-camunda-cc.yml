@@ -1,0 +1,67 @@
+debug: false
+server:
+  port: 8081
+spring:
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: ${KAFKA_BROKER_ENDPOINT}
+      bindings:
+        controlComponentRequests:
+          destination: control-component-requests
+          content-type: application/*+avro
+          binder: kafka-avro
+          producer:
+            useNativeEncoding: true
+        controlComponentResponses-in-0:
+          destination: control-component-responses
+          content-type: application/*+avro
+          binder: kafka-avro
+          consumer:
+            useNativeDecoding: true
+      binders:
+        #kafka-json:
+        #  type: kafka
+        kafka-avro:
+          type: kafka
+          environment:
+            spring:
+              cloud:
+                stream:
+                  kafka:
+                    binder:
+                      producer-properties:
+                        key.serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+                        #key.deserializer: org.apache.kafka.common.serialization.StringSerializer
+                        value.serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+                        schema.registry.url: ${SCHEMA_REGISTRY_ENDPOINT}
+                      consumer-properties:
+                        key.deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+                        #key.deserializer: org.apache.kafka.common.serialization.StringDeserializer
+                        value.deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+                        schema.registry.url: ${SCHEMA_REGISTRY_ENDPOINT}
+                        specific.avro.reader: true
+
+logging.level.org.camunda.bpm.client: info # increase the log level of the application
+
+camunda.processDeployer:
+  watchedPath: ./processes
+  fileSuffixes: .bpmn
+  recursive: false
+  endpoint: ${CAMUNDA_REST_ENDPOINT}
+camunda.bpm.client:
+  base-url: ${CAMUNDA_REST_ENDPOINT} # the URL pointing to the Camunda Platform Runtime REST API
+  async-response-timeout: 10000 # Defines the maximum duration of the long-polling request
+  disable-backoff-strategy: true
+  worker-id: cc-worker # Identifies the worker towards the Engine
+  lock-duration: 86400000 # 1day, defines how many milliseconds the External Tasks are locked until they can be fetched again
+  subscriptions:
+    creditScoreChecker: # This topic name must match the respective `@ExternalTaskSubscription`
+      process-definition-key: loan_process # Filters for External Tasks of this key
+      auto-open: false # Defines whether the subscription is opened automatically or not
+    loanGranter:
+      lock-duration: 10000 # Defines for how long the External Tasks are locked until they can be fetched again
+    ControlComponent:
+      variable-names: componentId, requestType, token, inputParameters, outputParameters
+      auto-open: false # Defines whether the subscription is opened automatically or not

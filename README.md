@@ -1,86 +1,95 @@
-# BaSys 4.0 Service Platform - Docker Back-End and Demonstration Environment
+# BaSys Docker Environment
 
-This repository contains two Docker-Compose stacks that setup 
- * 3rd-party back-end services and 
- * Basys-related containers for Administration Shell Management, Web-based dashboards, Control Components, and the BaSys service platform.
+This repository contains a stack of Docker-Compose stacks that build upon each other: `admin, communication, aas, controlcomponents, processcontrol`
 
 ## Prerequisites
 
  1) Install [Docker](https://docs.docker.com/install/), 
     * e.g., in a [Ubuntu VM](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
-      * If you [add your user to the docker group](https://docs.docker.com/install/linux/linux-postinstall/), you don't have to prefix your docker/docker-compose commands with sudo.
+      * If you [add your user to the docker group](https://docs.docker.com/install/linux/linux-postinstall/), you don't have to prefix your docker/docker-compose commands with `sudo`.
 	* or in [Windows using WSL2 and Docker Desktop](https://nickjanetakis.com/blog/a-linux-dev-environment-on-windows-with-wsl-2-docker-desktop-and-more) (tested with 3.5.1)
- 2) Install [Docker-Compose](https://docs.docker.com/compose/install/)
-    * Docker-Compose is already available in Docker Desktop.
+ 2) Install [Compose V2](https://docs.docker.com/compose/cli-command/#installing-compose-v2)
+    * Docker Compose is already available in Docker Desktop.
 
 ## Installation
 
-1) Clone this repo
-2) Check the .env files in the subfolders `communication` and `aas`: You might want to specify the `HOSTNAME` variable, if you are in a distributed environment. The default is set to `host.docker.internal`. So, for local installations nothing needs to be changed.
-   * In the communication stack, this is required for dealing with the Apache Kafka-specific concept of advertised listeners in combination with docker. 
-   * The same concept is applied in the ass stack for rewriting URL endpoints of administration shells and hosted submodels. 
-   * This setting is also important if you want to access the control component server from outside the docker environment, e.g., via an OPC-UA client or an externally running BaSys plattform. Since the server creates it own self-signed certificate if no real certificate is provided, this will raise security warnings which can be ignored in the demonstration setting.
-      * As an example, if you use the vmware VM (see below) in a NATed network environment and want to access the control component server with the UA-Expert, set `HOSTNAME` to something like `192.168.152.128`.
-3) Create the stacks `admin`, `communication`, `aas`, and `processcontrol`
-
+1) Clone this repo `git clone https://github.com/BaSys-PC1/docker.git`
+2) Inside the `.env` file, specify the `HOSTNAME` variable. For a local deployment, e.g. for developing purposes on the same machine, `HOSTNAME` can be set to `localhost`. If services need to be accessed from external clients, provide a routable IP address or hostname.
+3) Create the Docker stacks either in one shot by `.\up.sh -a` or individually by
 ```bash
-git clone https://github.com/BaSys-PC1/docker.git
-cd docker/admin
-docker-compose pull && docker-compose up -d
-cd ../communication
-docker-compose pull && docker-compose up -d
-cd ../aas
-docker-compose pull && docker-compose up -d
-cd ../processcontrol
-docker-compose pull && docker-compose up -d
+.\up.sh -s "admin communication aas controlcomponents processcontrol"
 ```
+4) If you create the stacks individually, you do not need to create all of them but a sublist starting from `admin`. In that case, pay attention to a correct sequence of the stacks in the list, e.g.
+```bash
+.\up.sh -s "admin communication aas"
+```
+## Deinstallation
 
-4) For demonstration purposes, you can start (and stop) the `demonstrator` stack as required.
+1) Just do a `.\down.sh -a` or individually by
+```bash
+.\down.sh -s "processcontrol controlcomponents aas communication admin"
+```
+2) Again, you can partially delete the stacks from the top `processcontrol` stack keeping the reverse order, e.g.
+```bash
+.\down.sh -s "processcontrol controlcomponents"
+```
+3) You might also want to delete unused volumes `docker volume prune`
 
-## Usage (sorry, not up-to-date for the moment)
+## Service and Usage
 
-After installation, the following services are available from the backend stack.
+After installation, the following services are available:
 
-| Service | Ports / URL |
-| ------ | ------ |
-| Portainer                   | http://[ip]:9090 |
-| Apache Zookeeper            | 2181 | 
-| Zoonavigator                | http://[ip]:9091 | 
-| Apache Kafka                | 9092 | 
-| Kafka HQ WebUI              | http://[ip]:9093 | 
-| Apache Flink Jobmanger      | 6123 | 
-| Apache Flink WebUI/REST     | http://[ip]:9094 | 
-| Apache ActiveMQ             | 61616, 8161 | 
-| MQTT Broker                 | 1883 (tcp), 8883 (ssl), 8083 (ws), 8084 (wss), 18083 (dashboard) | 
-| Camunda BPM Platform        | http://[ip]:9080/camunda | 
+| Service | Stack | Ports / URL |
+| ------ | ------ | ------ |
+| Stack Overview           | admin           | http://[hostname] |
+| Portainer                | admin           | http://[hostname]:9090, http://portainer.[hostname] |
+| Apache Zookeeper         | communication   | 2181 | 
+| Apache Kafka             | communication   | 9092 | 
+| Schema Registry          | communication   | 8081 | 
+| AKHQ (Kafka WebUI)       | communication   | http://[hostname]:8086, http://akhq.[hostname] | 
+| EMQX (MQTT Broker)       | communication   | 1883 (tcp), 8883 (ssl), 8083 (ws), 8084 (wss), http://[hostname]:18083, http://emqx.[hostname] (dashboard) | 
+| Elasticsearch            | aas             | 9200, 9300 | 
+| Kibana                   | aas             | http://[hostname]:5601, http://kibana.[hostname] | 
+| Neo4j                    | aas             | 7473, 7474, 7687,  http://neo4j.[hostname]  | 
+| BaSys AAS Registry       | aas             | http://[hostname]:8020, http://aasregistry.[hostname]  |
+| BaSys AAS Server         | aas             | http://[hostname]:4001/shells, http://aasserver.[hostname]/shells  |
+| Camunda BPM Platform     | processcontrol  | http://[hostname]:9080/camunda, http://camunda.[hostname]  | 
+| BaSys PPR Dashboard      | processcontrol  | http://[hostname]:8090, http://pprdashboard.[hostname]  |
 
-The demonstator stack exposes the following services.
+In order to ease the use, the `admin` stack runs an nginx proxy that configures virtual hosts for certain services as well an nginx webserver for serving a static overview page on `http://[hostname]`:
 
-| Service | Ports / URL |
-| ------ | ------ |
-| BaSys Component Dashboard   | http://[ip]:9081 |
-| BaSys Process Dashboard     | http://[ip]:9082 |
-| BaSys AAS Registry          | http://[ip]:4999 |
-| BaSys AAS Aggregator Service| http://[ip]:5080 |
-| BaSys AAS Hosting Service (in aas-services)   | http://[ip]:5081 |
-| BaSys AAS Hosting Service (in cc-server)   | http://[ip]:5082 |
-| BaSys AAS Hosting Service (in service-platform)   | http://[ip]:5083 |
+<img src='/docs/stack-overview.png?raw=true' width='50%' height='50%'>
+
 
 ## Configuration
 
-coming soon
+For the virtual hosts to work, you need to configure a DNS entry in you local router, e.g. pfsense. If that is not possible (e.g., because you run the stack in a bridged VM somewhere in your local network managed by a Fritzbox), you can extend your `hosts` file on your developer machine like so (please correct the IP adress):
 
-## Downloads (sorry, not up-to-date for the moment)
+```
+# Added for BaSys Docker
+192.168.178.59 dockerhost
+192.168.178.59 portainer.dockerhost
+192.168.178.59 akhq.dockerhost
+192.168.178.59 emqx.dockerhost
+192.168.178.59 kibana.dockerhost
+192.168.178.59 neo4j.dockerhost
+192.168.178.59 aasregistry.dockerhost
+192.168.178.59 aasserver.dockerhost
+192.168.178.59 camunda.dockerhost
+192.168.178.59 pprdashboard.dockerhost
+# As an example: also provide entries for virtual control components as they host control component submodels
+192.168.178.59 mir100_1.dockerhost
+192.168.178.59 drone_1.dockerhost
+192.168.178.59 ur10_1.dockerhost
+```
 
-A pre-installed Ubuntu Server 20.04.01 LTS VM can be downloaded
-*  for [VMware](https://download3.vmware.com/software/player/file/VMware-player-16.0.0-16894299.exe): https://cloud.dfki.de/owncloud/index.php/s/cTS7zyWTm7TFWfs
-*  for [VirtualBox](https://www.virtualbox.org/wiki/Downloads): https://cloud.dfki.de/owncloud/index.php/s/SQr46mr4SsKS8Gs
+## Vagrant
+(currently under development, coming soon)
 
-The login is `basys / basys`.
+## Troubleshooting
 
-The keyboard layout is set to German. Here, the keys for `y` and `z` are swapped, so pay attention when typing in `basys`. In order to change the keyboard layout, follow [this description](https://askubuntu.com/questions/342066/how-to-permanently-configure-keyboard).
+Problem:
+The registry request to `/registry/shell-descriptors` returns an empty array.
 
-If you use the VM for VirtualBox in NAT mode, you should configure port forwardings according to the table above:
-
-<img src='/docs/virtualbox-port-forwardings.png?raw=true' width='75%' height='75%'>
-
+Solution:
+Restart the aas-server with `docker compose -f docker-compose-20-aas.yml restart aas-server`.

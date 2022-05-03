@@ -1,0 +1,13 @@
+servlet:
+  headers:
+    - path: /**
+      values:
+        Access-Control-Allow-Origin: "*"
+        Access-Control-Max-Age: 10000
+    - path: /registry/search
+      values:
+        Access-Control-Allow-Origin: "*"
+        Access-Control-Allow-Methods: POST,OPTIONS
+        Access-Control-Allow-Headers: Accept, Content-Type
+      methods:
+        - OPTIONS
