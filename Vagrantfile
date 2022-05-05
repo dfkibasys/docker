@@ -7,14 +7,12 @@ props = YAML.load_file('vagrant-configuration.yaml')
 
 vagrant_box = props["vm"]["box"]
 memory = props["vm"]["memory"]
-maxmemory = props["vm"]["maxmemory"]
 cpus = props["vm"]["cpus"]
 
 host_name = props["vm"]["network"]["hostname"]
 static_ip = props["vm"]["network"]["ip"]
 sub_domains = props["vm"]["network"]["services"].map! {|prefix| prefix + "." + host_name};
 hostmanager_enabled = props["vm"]["network"]["hostmanager"]["enabled"]
-
 
 docker_compose_version = props["docker"]["compose"]["version"]
 docker_image_version = props["docker"]["image"]["version"]
@@ -59,14 +57,6 @@ Vagrant.configure("2") do |config|
     vb.name = "docker-stack"
     vb.memory = memory
     vb.cpus = cpus
-  end
-
-  # we need a different box to use it
-  config.vm.provider "hyperv" do |h|
-    h.vmname = "docker-stack"
-    h.memory = memory
-    h.maxmemory = maxmemory
-    h.cpus = cpus
   end
   
   config.vagrant.plugins = [

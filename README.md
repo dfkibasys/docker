@@ -89,7 +89,7 @@ Install [Vagrant](https://www.vagrantup.com/) and [Virtualbox](https://www.virtu
 
 The [Vagrantfile](./Vagrantfile) used in this project reads its configuration from the [vagrant-configuration.yaml](./vagrant-configuration.yaml) file.
 
-We use a the [vagrant-hostmanager plugin]() to alter your /etc/hosts file. You need root access to this file or update the access rights previously so that it is also writable by non-admin users. On a Windows PC, the path to this file is 'C:\Windows\System32\drivers\etc\hosts'.
+We use a the [vagrant-hostmanager plugin](https://github.com/devopsgroup-io/vagrant-hostmanager) to alter your /etc/hosts file. You need root access to this file or update the access rights previously so that it is also writable by non-admin users. On a Windows PC, the path to this file is *C:\Windows\System32\drivers\etc\hosts*.
 
 Use this file to alter your settings. You can also reference the docker-compose files you want to deploy in this file. Have a look at the comments in this file.
 
