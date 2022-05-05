@@ -97,7 +97,7 @@ Vagrant.configure("2") do |config|
   config.vm.hostname = host_name
   config.hostmanager.aliases = sub_domains
 
-  config.trigger.after :provision do |trigger|
+  config.trigger.after :all do |trigger|
     trigger.ignore = [:destroy, :halt, :suspend]
     trigger.name = "Message"
     trigger.info = "Please visit http://" + host_name
