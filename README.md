@@ -84,7 +84,21 @@ For the virtual hosts to work, you need to configure a DNS entry in you local ro
 ```
 
 ## Vagrant
-(currently under development, coming soon)
+
+Install [Vagrant](https://www.vagrantup.com/) and [Virtualbox](https://www.virtualbox.org/).
+
+The [Vagrantfile](./Vagrantfile) used in this project reads its configuration from the [vagrant-configuration.yaml](./vagrant-configuration.yaml) file.
+
+We use a the [vagrant-hostmanager plugin]() to alter your /etc/hosts file. You need root access to this file or update the access rights previously so that it is also writable by non-admin users. On a Windows PC, the path to this file is 'C:\Windows\System32\drivers\etc\hosts'.
+
+Use this file to alter your settings. You can also reference the docker-compose files you want to deploy in this file. Have a look at the comments in this file.
+
+* Open a shell and use this project as the working directory.
+* Enter *vagrant up* to create the virtual machine and the docker instances
+* Follow the instructions and, if needed, install missing plugins
+* Open the link shown in your command line to go to the main entry point web page
+* Use *vagrant provision* to refresh the setup
+* Use *vagrant destroy -f* to tear down your VM again
 
 ## Troubleshooting
 

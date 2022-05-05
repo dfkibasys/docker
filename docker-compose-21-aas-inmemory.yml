@@ -1,0 +1,65 @@
+version: '3.6'
+
+networks:
+  aas:
+    name: basys-aas
+    internal: false
+  communication:
+    name: basys-communication
+    external: true
+  proxy:
+    name: basys-proxy
+    external: true
+
+services:    
+
+  neo4j:
+    image: neo4j:4.4.4-community
+    container_name: neo4j
+    ports:
+      - 7474:7474
+      - 7473:7473
+      - 7687:7687
+    environment:
+      VIRTUAL_HOST: neo4j.${EXTERNAL_HOSTNAME}
+      VIRTUAL_PORT: 7474
+    restart: always
+    networks:
+      - aas
+      - proxy
+               
+  aas-registry-dotaas:
+    image: dfkibasys/aas-registry-dotaas-part2:0.1.0-snapshot-kafka-mem
+    container_name: aas-registry-dotaas
+    ports:
+      - "8020:8080"
+    restart: always
+    volumes:
+      - ./config/02_aas-registry.yml:/workspace/config/application.yml
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: PLAINTEXT://kafka:29092
+      VIRTUAL_HOST: aasregistry.${EXTERNAL_HOSTNAME}
+      VIRTUAL_PORT: 8080
+    networks:
+       - aas
+       - communication
+       - proxy
+
+  aas-server:
+    image: dfkibasys/aas-server:${VERSION}
+    container_name: aas-server
+    ports:
+     - "4001:8088"
+    depends_on:
+      - aas-registry-dotaas
+    volumes:
+      - ./config/02_aas-server.yml:/workspace/config/application.yml
+      - ./data/aasx:/workspace/data
+    restart: always
+    environment:
+      EXTERNAL_HOSTNAME: ${EXTERNAL_HOSTNAME}
+      VIRTUAL_HOST: aasserver.${EXTERNAL_HOSTNAME}
+      VIRTUAL_PORT: 8088
+    networks:
+       - aas
+       - proxy
