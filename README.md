@@ -83,6 +83,15 @@ For the virtual hosts to work, you need to configure a DNS entry in you local ro
 192.168.178.59 ur10_1.dockerhost
 ```
 
+## Troubleshooting
+
+Problem:
+The registry request to `/registry/shell-descriptors` returns an empty array.
+
+Solution:
+Restart the aas-server with `docker compose -f docker-compose-20-aas.yml -p aas restart aas-server`.
+
+
 ## Vagrant
 
 Install [Vagrant](https://www.vagrantup.com/) and [Virtualbox](https://www.virtualbox.org/).
@@ -100,10 +109,16 @@ Use this file to alter your settings. You can also reference the docker-compose 
 * Use *vagrant provision* to refresh the setup
 * Use *vagrant destroy -f* to tear down your VM again
 
-## Troubleshooting
+### Troubleshooting
 
-Problem:
-The registry request to `/registry/shell-descriptors` returns an empty array.
+```
+There was an error while executing `VBoxManage`, a CLI used by Vagrant
+for controlling VirtualBox. The command and stderr is shown below.
 
-Solution:
-Restart the aas-server with `docker compose -f docker-compose-20-aas.yml -p aas restart aas-server`.
+Command: ["startvm", "a011e10f-b990-411f-a044-8dceddd3fc2f", "--type", "headless"]
+
+Stderr: VBoxManage.exe: error: Failed to open/create the internal network 'HostInterfaceNetworking-VirtualBox Host-Only Ethernet Adapter' (VERR_INTNET_FLT_IF_NOT_FOUND).
+VBoxManage.exe: error: Failed to attach the network LUN (VERR_INTNET_FLT_IF_NOT_FOUND)
+VBoxManage.exe: error: Details: code E_FAIL (0x80004005), component ConsoleWrap, interface IConsole
+```
+Solution: https://stackoverflow.com/a/33733454
