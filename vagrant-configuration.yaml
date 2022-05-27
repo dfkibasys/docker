@@ -5,7 +5,8 @@ vm:
   cpus: 4
   network:
     hostname: basys-dockerstack.de 
-    ip: "10.20.0.20"  # if not defined, DHCP is used
+    #ip: "10.20.0.20"  # if defined this static ip is used otherwise DHCP
+    #mac: "34bc66402fe5"  # if defined a mac address is assigned to the network card
     services:  # will be used to setup the sub-domain name
       - portainer
       - akhq
