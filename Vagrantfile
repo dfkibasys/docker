@@ -11,6 +11,7 @@ cpus = props["vm"]["cpus"]
 
 host_name = props["vm"]["network"]["hostname"]
 static_ip = props["vm"]["network"]["ip"]
+mac_address = props["vm"]["network"]["mac"]
 sub_domains = props["vm"]["network"]["services"].map! {|prefix| prefix + "." + host_name};
 hostmanager_enabled = props["vm"]["network"]["hostmanager"]["enabled"]
 
@@ -42,30 +43,49 @@ Vagrant.configure("2") do |config|
   config.vm.box = vagrant_box
   
   if static_ip.nil? 
-    config.vm.network "private_network", type: "dhcp"
+    if mac_address.nil?
+      config.vm.network "private_network", type: "dhcp"  
+    else
+      config.vm.network "private_network", type: "dhcp", mac: mac_address
+    end
   else 
-    config.vm.network "private_network", ip: static_ip
+    if mac_address.nil?
+      config.vm.network "private_network", ip: static_ip
+    else
+      config.vm.network "private_network", ip: static_ip, mac: mac_address
+    end
   end
 
-  config.hostmanager.enabled = hostmanager_enabled
-  config.hostmanager.manage_host = true
-  config.hostmanager.manage_guest = false 
-  config.hostmanager.ignore_private_ip = false
-  config.hostmanager.include_offline = true
+  if hostmanager_enabled
+    config.vagrant.plugins = [
+      # require plugin https://github.com/leighmcculloch/vagrant-docker-compose
+      "vagrant-docker-compose",
+      # https://github.com/devopsgroup-io/vagrant-hostmanager
+      "vagrant-hostmanager"
+      ] 
+    config.hostmanager.enabled = true
+    config.hostmanager.manage_host = true
+    config.hostmanager.manage_guest = false
+    config.hostmanager.ignore_private_ip = false
+    config.hostmanager.include_offline = true
+    config.hostmanager.ip_resolver = proc do |vm, resolving_vm|
+        if hostname = (vm.ssh_info && vm.ssh_info[:host])
+          `vagrant ssh -c "hostname -I"`.split()[1]
+        end
+    end
+  else 
+    puts 'hostmanager plugin is not enabled'
+    config.vagrant.plugins = [
+      # require plugin https://github.com/leighmcculloch/vagrant-docker-compose
+      "vagrant-docker-compose"
+    ]
+  end
   
   config.vm.provider "virtualbox" do |vb|
     vb.name = "docker-stack"
     vb.memory = memory
     vb.cpus = cpus
   end
-  
-  config.vagrant.plugins = [
-    # require plugin https://github.com/leighmcculloch/vagrant-docker-compose
-    "vagrant-docker-compose",
-    # https://github.com/devopsgroup-io/vagrant-hostmanager
-    "vagrant-hostmanager"
-    ] 
-  
 
   config.vm.provision :docker
 
