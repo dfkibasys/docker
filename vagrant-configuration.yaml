@@ -1,7 +1,7 @@
 ---
 vm:
   box: "ubuntu/focal64"  # vagrant box to be used
-  memory: 4096
+  memory: 9216  # 8182 #7158
   cpus: 4
   network:
     hostname: basys-dockerstack.de 
@@ -37,6 +37,8 @@ docker:
       - project: communication
         location: /vagrant/docker-compose-10-communication.yml
       - project: aas
+        #location: /vagrant/docker-compose-20-aas.yml 
+        # we are using the in memory version for a faster startup time here
         location: /vagrant/docker-compose-21-aas-inmemory.yml
       - project: controlcomponents
         location: /vagrant/docker-compose-30-controlcomponents.yml
