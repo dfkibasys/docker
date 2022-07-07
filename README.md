@@ -15,14 +15,14 @@ This repository contains a stack of Docker-Compose stacks that build upon each o
 
 **Please note:** 
 - The provided docker compose stacks follow a strict naming convention: `docker-compose-NUMBER-NAME.yml` where `NUMBER=[0-9]+` and `NAME=[a-z_]+`. So, you can refer to the `admin` stack either by its name (`admin`) or its number (`00`).
-- We provide two alternative stacks both containing an AAS server and an AAS registry: `aas_elastic` (or `20`) or `aas_inmemory` (or `21`) utilizing the respective back-end providers for the AAS registry. The AAS server 'persists' always in-memory. Only one stack can be active at a time.
+- We provide two alternative stacks both containing an AAS server and an AAS registry: `aas_inmemory` (or `20`) or `aas_elastic` (or `21`) utilizing the respective back-end providers for the AAS registry. The AAS server 'persists' always in-memory. Only one stack can be active at a time.
 
 1) Clone this repo `git clone https://github.com/BaSys-PC1/docker.git`
 2) Inside the `.env` file, specify the `HOSTNAME` variable. For a local deployment, e.g. for developing purposes on the same machine, `HOSTNAME` can be set to `localhost`. If services need to be accessed from external clients, provide a routable IP address or hostname.
 3) Execute `.\up.sh -h` for checking the possible options.
 4) Create the Docker stacks either in one shot by `.\up.sh -a` or individually by
 ```bash
-.\up.sh -s "00 communication 21 30 processcontrol"
+.\up.sh -s "00 communication 20 30 processcontrol"
 ```
 5) If you create the stacks individually, you do not need to create all of them but a sublist starting from `admin` (or `00`). In that case, pay attention to a correct sequence of the stacks in the list, e.g.
 ```bash
