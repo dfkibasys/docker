@@ -23,7 +23,13 @@ services:
     volumes:
       - elasticsearch-data:/usr/share/elasticsearch/data
     environment:
+      - bootstrap.memory_lock=true
       - discovery.type=single-node
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
     restart: always
     ports:
       - "9200:9200"
@@ -64,7 +70,7 @@ services:
       - proxy
                
   aas-registry-dotaas:
-    image: dfkibasys/aas-registry-dotaas-part2:0.1.0-snapshot-kafka-es
+    image: dfkibasys/aas-registry-dotaas-part2-kafka-es:0.3.0-SNAPSHOT
     container_name: aas-registry-dotaas
     ports:
       - "8020:8080"

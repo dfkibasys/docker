@@ -1,0 +1,46 @@
+---
+vm:
+  box: "ubuntu/focal64"  # vagrant box to be used
+  memory: 9216  # 8182 #7158
+  cpus: 4
+  network:
+    hostname: basys-dockerstack.de 
+    #ip: "10.20.0.20"  # if defined this static ip is used otherwise DHCP
+    #mac: "34bc66402fe5"  # if defined a mac address is assigned to the network card
+    services:  # will be used to setup the sub-domain name
+      - portainer
+      - akhq
+      - emqx
+      - kibana
+      - neo4j
+      - aasregistry
+      - aasserver
+      - camunda
+      - pprdashboard
+      - mir100_1
+      - drone_1
+      - ur10_1
+    hostmanager:
+      # if enabled, the hostmanager runs on up and destroy
+      # and alters the /etc/hosts file
+      # else invoke vagrant hostmanager from command line to write /etc/hosts
+      enabled: true 
+docker:
+  image:
+    version: 0.3.0-SNAPSHOT  # for basys images
+  compose:
+    version: 1.29.2
+    files: 
+      # files that will be used by docker compose
+      - project: admin
+        location: /vagrant/docker-compose-00-admin.yml
+      - project: communication
+        location: /vagrant/docker-compose-10-communication.yml
+      - project: aas
+        #location: /vagrant/docker-compose-20-aas.yml 
+        # we are using the in memory version for a faster startup time here
+        location: /vagrant/docker-compose-21-aas-inmemory.yml
+      - project: controlcomponents
+        location: /vagrant/docker-compose-30-controlcomponents.yml
+      - project: processcontrol
+        location: /vagrant/docker-compose-40-processcontrol.yml

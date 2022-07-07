@@ -1,77 +1,116 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-# All Vagrant configuration is done below. The "2" in Vagrant.configure
-# configures the configuration version (we support older styles for
-# backwards compatibility). Please don't change it unless you know what
-# you're doing.
+require 'yaml'
+
+props = YAML.load_file('vagrant-configuration.yaml')
+
+vagrant_box = props["vm"]["box"]
+memory = props["vm"]["memory"]
+cpus = props["vm"]["cpus"]
+
+host_name = props["vm"]["network"]["hostname"]
+static_ip = props["vm"]["network"]["ip"]
+mac_address = props["vm"]["network"]["mac"]
+sub_domains = props["vm"]["network"]["services"].map! {|prefix| prefix + "." + host_name};
+hostmanager_enabled = props["vm"]["network"]["hostmanager"]["enabled"]
+
+docker_compose_version = props["docker"]["compose"]["version"]
+docker_image_version = props["docker"]["image"]["version"]
+docker_compose_files = props["docker"]["compose"]["files"]
+
+compose_env = Hash.new
+if File.file?(".env")
+  lines = File.read(".env").split("\n")
+  lines.each do |line|
+    line.strip!
+    unless line.start_with?("#") || line.empty?
+      split = line.split("=")
+      compose_env[split[0]] = split[1]
+    end
+  end
+end
+
+compose_env["EXTERNAL_HOSTNAME"] = host_name
+
+# see https://stackoverflow.com/questions/42230536/docker-compose-up-times-out-with-unixhttpconnectionpool
+# see https://www.codegrepper.com/code-examples/whatever/UnixHTTPConnectionPool%28host%3D%27localhost%27%2C+port%3DNone%29%3A+Read+timed+out.+%28read+timeout%3D60
+compose_env["COMPOSE_HTTP_TIMEOUT"] = "400"
+compose_env["DOCKER_CLIENT_TIMEOUT"] = "400"
+
 Vagrant.configure("2") do |config|
-  # The most common configuration options are documented and commented below.
-  # For a complete reference, please see the online documentation at
-  # https://docs.vagrantup.com.
 
-  # Every Vagrant development environment requires a box. You can search for
-  # boxes at https://vagrantcloud.com/search.
-  config.vm.box = "ubuntu/focal64"
-
-  # Disable automatic box update checking. If you disable this, then
-  # boxes will only be checked for updates when the user runs
-  # `vagrant box outdated`. This is not recommended.
-  # config.vm.box_check_update = false
-
-  # Create a forwarded port mapping which allows access to a specific port
-  # within the machine from a port on the host machine. In the example below,
-  # accessing "localhost:8080" will access port 80 on the guest machine.
-  # NOTE: This will enable public access to the opened port
-  # config.vm.network "forwarded_port", guest: 80, host: 8080
-
-  # Create a forwarded port mapping which allows access to a specific port
-  # within the machine from a port on the host machine and only allow access
-  # via 127.0.0.1 to disable public access
-  # config.vm.network "forwarded_port", guest: 80, host: 8080, host_ip: "127.0.0.1"
-
-  # Create a private network, which allows host-only access to the machine
-  # using a specific IP.
-  # config.vm.network "private_network", ip: "192.168.33.10"
-
-  # Create a public network, which generally matched to bridged network.
-  # Bridged networks make the machine appear as another physical device on
-  # your network.
-  # config.vm.network "public_network"
-
-  # Share an additional folder to the guest VM. The first argument is
-  # the path on the host to the actual folder. The second argument is
-  # the path on the guest to mount the folder. And the optional third
-  # argument is a set of non-required options.
-  # config.vm.synced_folder "../data", "/vagrant_data"
-
-  # Provider-specific configuration so you can fine-tune various
-  # backing providers for Vagrant. These expose provider-specific options.
-  # Example for VirtualBox:
-  #
-  # config.vm.provider "virtualbox" do |vb|
-  #   # Display the VirtualBox GUI when booting the machine
-  #   vb.gui = true
-  #
-  #   # Customize the amount of memory on the VM:
-  #   vb.memory = "1024"
-  # end
-  #
-  # View the documentation for the provider you are using for more
-  # information on available options.
-
-  # Enable provisioning with a shell script. Additional provisioners such as
-  # Ansible, Chef, Docker, Puppet and Salt are also available. Please see the
-  # documentation for more information about their specific syntax and use.
-  config.vm.provision "shell", inline: <<-SHELL
-    apt-get update
-  #  apt-get install -y apache2
-  SHELL
+  config.vm.box = vagrant_box
   
-    # require plugin https://github.com/leighmcculloch/vagrant-docker-compose
-  config.vagrant.plugins = "vagrant-docker-compose"
+  if static_ip.nil? 
+    if mac_address.nil?
+      config.vm.network "private_network", type: "dhcp"  
+    else
+      config.vm.network "private_network", type: "dhcp", mac: mac_address
+    end
+  else 
+    if mac_address.nil?
+      config.vm.network "private_network", ip: static_ip
+    else
+      config.vm.network "private_network", ip: static_ip, mac: mac_address
+    end
+  end
 
-  # install docker and docker-compose
+  if hostmanager_enabled
+    config.vagrant.plugins = [
+      # require plugin https://github.com/leighmcculloch/vagrant-docker-compose
+      "vagrant-docker-compose",
+      # https://github.com/devopsgroup-io/vagrant-hostmanager
+      "vagrant-hostmanager"
+      ] 
+    config.hostmanager.enabled = true
+    config.hostmanager.manage_host = true
+    config.hostmanager.manage_guest = false
+    config.hostmanager.ignore_private_ip = false
+    config.hostmanager.include_offline = true
+    config.hostmanager.ip_resolver = proc do |vm, resolving_vm|
+        if hostname = (vm.ssh_info && vm.ssh_info[:host])
+          `vagrant ssh -c "hostname -I"`.split()[1]
+        end
+    end
+  else 
+    puts 'hostmanager plugin is not enabled'
+    config.vagrant.plugins = [
+      # require plugin https://github.com/leighmcculloch/vagrant-docker-compose
+      "vagrant-docker-compose"
+    ]
+  end
+  
+  config.vm.provider "virtualbox" do |vb|
+    vb.name = "docker-stack"
+    vb.memory = memory
+    vb.cpus = cpus
+  end
+
   config.vm.provision :docker
-  config.vm.provision :docker_compose
+
+  docker_compose_files.each do |entry|
+    project = entry["project"]
+    location = entry["location"].to_s
+
+    config.vm.provision project,  type: "docker_compose", rebuild: false, 
+      compose_version: docker_compose_version, 
+      project_name: project,
+      yml: [ location ], 
+      command_options: { rm: "-f", up: "-d --timeout 400"},
+      env: compose_env        
+
+    config.vm.provision project + "_echo", type: "shell", inline: "echo " + location
+    config.vm.provision project + "_mem", type: "shell", inline: "free -m"
+  end
+
+  config.vm.hostname = host_name
+  config.hostmanager.aliases = sub_domains
+
+  config.trigger.after :all do |trigger|
+    trigger.ignore = [:destroy, :halt, :suspend]
+    trigger.name = "Message"
+    trigger.info = "Please visit http://" + host_name
+  end
+
 end
