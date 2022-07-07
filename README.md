@@ -85,11 +85,11 @@ For the virtual hosts to work, you need to configure a DNS entry in you local ro
 
 ## Troubleshooting
 
-Problem:
-The registry request to `/registry/shell-descriptors` returns an empty array.
+**Problem:** Due to file renamings it is not possible to down the former `aas` stack.
+ - This stack is now either called `aas_inmemory` or `aas_elastic`. You have to down the orphan `aas` stack manually with `docker compose -f ./docker-compose-21-aas_elastic.yml -p aas down`
 
-Solution:
-Restart the aas-server with `docker compose -f docker-compose-20-aas.yml -p aas restart aas-server`.
+**Problem:** The registry request to `/registry/shell-descriptors` returns an empty array.
+ - Restart the aas-server with `docker compose -f docker-compose-20-aas.yml -p aas restart aas-server`.
 
 
 ## Vagrant
