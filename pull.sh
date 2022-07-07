@@ -5,7 +5,7 @@
 ############################################################
 
 # Docker Compose Command
-COMMAND="up"
+COMMAND="pull"
 IM_STACKS="00 10 20 30 40"
 ES_STACKS="00 10 21 30 40"
 

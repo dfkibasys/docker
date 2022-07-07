@@ -1,90 +1,130 @@
 #!/bin/bash
+
+############################################################
+# Global Variables                                         #
+############################################################
+
+# Docker Compose Command
+COMMAND="down"
+IM_STACKS="00 10 20 30 40"
+ES_STACKS="00 10 21 30 40"
+
 ############################################################
 # Help                                                     #
 ############################################################
 Help()
 {
    # Display Help
-   echo "Perform a 'docker compose down' on all or a single stack."
+   echo "Perform a 'docker compose $COMMAND' on selected stacks."
    echo
-   echo "Syntax: down [-a|s|h]"
+   echo "Syntax: pull -[s|h]"
    echo "options:"
-   echo "-a       Down all stacks"
-   echo "-s name  Down a singe stack (admin, communication, aas, controlcomponents, processcontrol)."
-   echo "-h       Print this Help."
+   echo "-a [im|es]             - $COMMAND all stacks"
+   echo "                         im = AAS stack with InMemory back-end (default)"
+   echo "                         es = AAS stack with ElasticSearch back-end"
+   echo "-s stack1 [stack2 ...] - $COMMAND a singe stack."
+   echo "-h                     - print this help."
    echo
+   echo "The stacks must adhere to the following naming convention:"
+   echo "docker-compose-NUMBER-NAME.yml"
+   echo
+   echo "Then the stacks can either be referenced by number (e.g. 00) or by name (e.g. admin)."
+   echo "The following commands are synonym:"
+   echo
+   echo "$COMMAND -s 20"
+   echo "$COMMAND -s aas"
+   echo
+   echo "or (pay attention to the quotes)"
+   echo
+   echo "$COMMAND -s '00 10'"
+   echo "$COMMAND -s '00 communication'"
+   echo "$COMMAND -s 'admin 10'"
+   echo "$COMMAND -s 'admin communication'"
 }
 
-All()
+Find()
 {
-echo "Down processcontrol"
-docker compose -f docker-compose-40-processcontrol.yml -p processcontrol down
-echo "Down controlcomponents"
-docker compose -f docker-compose-30-controlcomponents.yml -p controlcomponents down
-echo "Down aas"
-docker compose -f docker-compose-20-aas.yml -p aas down
-echo "Down communication"
-docker compose -f docker-compose-10-communication.yml -p communication down
-echo "Down admin"
-docker compose -f docker-compose-00-admin.yml -p admin down
+   PATTERN="docker-compose*[-.]$1[-.]*yml"
+   #echo "Pattern:" $PATTERN
+   #$(find . -type f -name $PATTERN)
+   find . -type f -name $PATTERN
+}
+
+ExtractName()
+{
+   #echo "to extract" $1
+   echo $1 | grep -oP '\./docker-compose-[0-9]+-\K[a-z_]+(?=.\yml)'
 }
 
 Single()
 {
 for value in "$@"
-   do      
-      case $value in
-         admin)
-            echo "Down admin"
-            docker compose -f docker-compose-00-admin.yml -p admin down
-            ;;
-         communication)
-            echo "Down communication"
-            docker compose -f docker-compose-10-communication.yml -p communication down
-            ;;
-         aas)
-            echo "Down aas"
-            docker compose -f docker-compose-20-aas.yml -p aas down
-            ;;
-         controlcomponents)
-            echo "Down controlcomponents"
-            docker compose -f docker-compose-30-controlcomponents.yml -p controlcomponents down
-            ;;
-         processcontrol)
-            echo "Down processcontrol"
-            docker compose -f docker-compose-40-processcontrol.yml -p processcontrol down
-            ;;
-         *)
-            echo "Error: Unknown Stack $1"
-            Help
-            ;;
-      esac
+   do
+      #echo "Process" $value
+      STACK=$(Find $value)
+      echo "Stack found:" $STACK
+      NAME=$(ExtractName $STACK)
+      echo "Stack name:" $NAME
+	  if [[ $COMMAND == pull ]] ; then
+        docker compose -f $STACK $COMMAND 		
+      elif [[ $COMMAND == up ]] ; then
+	    docker compose -f $STACK -p $NAME $COMMAND -d
+	  elif [[ $COMMAND == down ]] ; then 
+	    docker compose -f $STACK -p $NAME $COMMAND
+	  else
+	    echo "unknown COMMAND" $COMMAND
+	  fi
    done
 exit
 }
+
+All()
+{
+case $1 in
+ es)
+	echo "All (elasic)"
+	Single $ES_STACKS
+	;;
+ im)
+	echo "All (inmemory)"
+	Single $IM_STACKS
+	;;
+ *)
+	echo "All (default = inmemory)"
+	Single $IM_STACKS
+	;;
+esac
+}
+
 ############################################################
 ############################################################
 # Main program                                             #
 ############################################################
 ############################################################
 
-# Set variables
-#Stack=""
 
 ############################################################
 # Process the input options. Add options as needed.        #
 ############################################################
 # Get the options
-while getopts ":has:" option; do
+while getopts "hs:a" option; do
    case $option in
       h) # display Help
          Help
          exit;;
-      a) # Enter a stackname
-         All
-         exit;;
       s) # Enter a stackname
          Single $OPTARG
+         exit;;
+      a) # https://stackoverflow.com/questions/11517139/optional-option-argument-with-getopts
+         # Check next positional parameter
+         eval nextopt=\${$OPTIND}
+         # existing or starting with dash?
+         if [[ -n $nextopt && $nextopt != -* ]] ; then
+           OPTIND=$((OPTIND + 1))
+           All $nextopt
+         else
+           All
+         fi		 
          exit;;
      \?) # Invalid option
          echo "Error: Invalid option"

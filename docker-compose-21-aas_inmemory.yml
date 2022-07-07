@@ -29,7 +29,7 @@ services:
       - proxy
                
   aas-registry-dotaas:
-    image: dfkibasys/aas-registry-dotaas-part2-kafka-mem:0.3.0-SNAPSHOT
+    image: dfkibasys/aas-registry-dotaas-part2-kafka-mem:${VERSION}
     container_name: aas-registry-dotaas
     ports:
       - "8020:8080"
