@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ############################################################
-# Global Variables                                         #
+# Config Variables                                         #
 ############################################################
 
 # Docker Compose Command
@@ -36,10 +36,31 @@ Help()
    echo
    echo "or (pay attention to the quotes)"
    echo
-   echo "$COMMAND -s '00 10'"
-   echo "$COMMAND -s '00 communication'"
-   echo "$COMMAND -s 'admin 10'"
-   echo "$COMMAND -s 'admin communication'"
+   if [[ $COMMAND == down ]] ; then
+      echo "$COMMAND -s '10 00'"
+      echo "$COMMAND -s 'communication 00'"
+      echo "$COMMAND -s '10 admin'"
+      echo "$COMMAND -s 'communication admin'"
+   else
+      echo "$COMMAND -s '00 10'"
+      echo "$COMMAND -s '00 communication'"
+      echo "$COMMAND -s 'admin 10'"
+      echo "$COMMAND -s 'admin communication'"
+   fi
+
+}
+
+function Reverse
+{
+   #echo $#
+   #echo $@
+   local reverse=""
+   for value in "$@"
+      do
+	     reverse=$value" "$reverse	  
+	     #echo $reverse	  
+      done
+   echo "$reverse"
 }
 
 Find()
@@ -80,20 +101,28 @@ exit
 
 All()
 {
+STACKS=$IM_STACKS
 case $1 in
  es)
 	echo "All (elasic)"
-	Single $ES_STACKS
+	STACKS=$ES_STACKS
+	#Single $ESTACKS
 	;;
  im)
 	echo "All (inmemory)"
-	Single $IM_STACKS
+	#Single $IM_STACKS
 	;;
  *)
 	echo "All (default = inmemory)"
-	Single $IM_STACKS
+	#Single $IM_STACKS
 	;;
 esac
+
+if [[ $COMMAND == down ]] ; then 
+   echo "reverse"
+   STACKS=$(Reverse $STACKS)
+fi	
+Single $STACKS
 }
 
 ############################################################
