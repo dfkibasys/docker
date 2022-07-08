@@ -37,9 +37,9 @@ docker:
       - project: communication
         location: /vagrant/docker-compose-10-communication.yml
       - project: aas
-        #location: /vagrant/docker-compose-20-aas.yml 
+        #location: /vagrant/docker-compose-21-aas_elastic.yml 
         # we are using the in memory version for a faster startup time here
-        location: /vagrant/docker-compose-21-aas-inmemory.yml
+        location: /vagrant/docker-compose-20-aas_inmemory.yml
       - project: controlcomponents
         location: /vagrant/docker-compose-30-controlcomponents.yml
       - project: processcontrol
