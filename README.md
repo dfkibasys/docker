@@ -13,27 +13,39 @@ This repository contains a stack of Docker-Compose stacks that build upon each o
 
 ## Installation
 
+**Please note:** 
+- The provided docker compose stacks follow a strict naming convention: `docker-compose-NUMBER-NAME.yml` where `NUMBER=[0-9]+` and `NAME=[a-z_]+`. So, you can refer to the `admin` stack either by its name (`admin`) or its number (`00`).
+- We provide two alternative stacks both containing an AAS server and an AAS registry: `aas_inmemory` (or `20`) or `aas_elastic` (or `21`) utilizing the respective back-end providers for the AAS registry. The AAS server 'persists' always in-memory. Only one stack can be active at a time.
+
 1) Clone this repo `git clone https://github.com/BaSys-PC1/docker.git`
 2) Inside the `.env` file, specify the `HOSTNAME` variable. For a local deployment, e.g. for developing purposes on the same machine, `HOSTNAME` can be set to `localhost`. If services need to be accessed from external clients, provide a routable IP address or hostname.
-3) Create the Docker stacks either in one shot by `.\up.sh -a` or individually by
+3) Execute `.\up.sh -h` for checking the possible options.
+4) Create the Docker stacks either in one shot by `.\up.sh -a` or individually by
 ```bash
-.\up.sh -s "admin communication aas controlcomponents processcontrol"
+.\up.sh -s "00 communication 20 30 processcontrol"
 ```
-4) If you create the stacks individually, you do not need to create all of them but a sublist starting from `admin`. In that case, pay attention to a correct sequence of the stacks in the list, e.g.
+5) If you create the stacks individually, you do not need to create all of them but a sublist starting from `admin` (or `00`). In that case, pay attention to a correct sequence of the stacks in the list, e.g.
 ```bash
-.\up.sh -s "admin communication aas"
+.\up.sh -s "admin communication aas_inmemory"
 ```
+6) Upping a single stack also works without '"': `.\up.sh -s 40`
+
 ## Deinstallation
 
-1) Just do a `.\down.sh -a` or individually by
+1) If you did a `.\up.sh -a` before just do a `.\down.sh -a`. You can also down stacks individually (in reverse order) by
 ```bash
-.\down.sh -s "processcontrol controlcomponents aas communication admin"
+.\down.sh -s "processcontrol controlcomponents aas_inmemory communication 00"
 ```
 2) Again, you can partially delete the stacks from the top `processcontrol` stack keeping the reverse order, e.g.
 ```bash
 .\down.sh -s "processcontrol controlcomponents"
 ```
 3) You might also want to delete unused volumes `docker volume prune`
+4) Downing a single stack also works without '"': `.\down.sh -s 40`
+
+## Pulling updated images
+
+It works exactly the same using the `.\pull.sh` bash script
 
 ## Service and Usage
 
@@ -83,13 +95,42 @@ For the virtual hosts to work, you need to configure a DNS entry in you local ro
 192.168.178.59 ur10_1.dockerhost
 ```
 
-## Vagrant
-(currently under development, coming soon)
-
 ## Troubleshooting
 
-Problem:
-The registry request to `/registry/shell-descriptors` returns an empty array.
+**Problem:** Due to file renamings it is not possible to down the former `aas` stack.
+ - This stack is now either called `aas_inmemory` or `aas_elastic`. You have to down the orphan `aas` stack manually with `docker compose -f ./docker-compose-21-aas_elastic.yml -p aas down`
 
-Solution:
-Restart the aas-server with `docker compose -f docker-compose-20-aas.yml restart aas-server`.
+**Problem:** The registry request to `/registry/shell-descriptors` returns an empty array.
+ - Restart the aas-server with `docker compose -f docker-compose-20-aas.yml -p aas restart aas-server`.
+
+
+## Vagrant
+
+Install [Vagrant](https://www.vagrantup.com/) and [Virtualbox](https://www.virtualbox.org/).
+
+The [Vagrantfile](./Vagrantfile) used in this project reads its configuration from the [vagrant-configuration.yaml](./vagrant-configuration.yaml) file.
+
+We use a the [vagrant-hostmanager plugin](https://github.com/devopsgroup-io/vagrant-hostmanager) to alter your /etc/hosts file. You need root access to this file or update the access rights previously so that it is also writable by non-admin users. On a Windows PC, the path to this file is *C:\Windows\System32\drivers\etc\hosts*.
+
+Use this file to alter your settings. You can also reference the docker-compose files you want to deploy in this file. Have a look at the comments in this file.
+
+* Open a shell and use this project as the working directory.
+* Enter *vagrant up* to create the virtual machine and the docker instances
+* Follow the instructions and, if needed, install missing plugins
+* Open the link shown in your command line to go to the main entry point web page
+* Use *vagrant provision* to refresh the setup
+* Use *vagrant destroy -f* to tear down your VM again
+
+### Troubleshooting
+
+```
+There was an error while executing `VBoxManage`, a CLI used by Vagrant
+for controlling VirtualBox. The command and stderr is shown below.
+
+Command: ["startvm", "a011e10f-b990-411f-a044-8dceddd3fc2f", "--type", "headless"]
+
+Stderr: VBoxManage.exe: error: Failed to open/create the internal network 'HostInterfaceNetworking-VirtualBox Host-Only Ethernet Adapter' (VERR_INTNET_FLT_IF_NOT_FOUND).
+VBoxManage.exe: error: Failed to attach the network LUN (VERR_INTNET_FLT_IF_NOT_FOUND)
+VBoxManage.exe: error: Details: code E_FAIL (0x80004005), component ConsoleWrap, interface IConsole
+```
+Solution: https://stackoverflow.com/a/33733454
