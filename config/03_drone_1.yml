@@ -23,7 +23,7 @@ basys:
     id: drone_1
     name: Drone-1
     operationModeJavaPackage: de.dfki.cos.basys.p4p.controlcomponent.drone.opmodes
-    executionMode: AUTO
+    executionMode: SIMULATE
     auto:
       disableExecutionModeChange: false
       disableOccupationCheck: false
@@ -34,8 +34,8 @@ basys:
     simulate:
       disableExecutionModeChange: true
       disableOccupationCheck: true
-      disableServiceMock: true
-      service:
-        implementationJavaClass: de.dfki.cos.basys.p4p.controlcomponent.drone.service.DroneServiceImpl
-        connectionString: tcp://10.2.10.4:1883
-        droneInspectionServiceEndpoint: http://10.2.0.18:5000
+#      disableServiceMock: true
+#      service:
+#        implementationJavaClass: de.dfki.cos.basys.p4p.controlcomponent.drone.service.DroneServiceImpl
+#        connectionString: tcp://10.2.10.4:1883
+#        droneInspectionServiceEndpoint: http://10.2.0.18:5000

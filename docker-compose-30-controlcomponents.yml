@@ -25,8 +25,8 @@ services:
     restart: always
     ports:
       - "8201:8088"
-      - "18201:12685"
-#      - "12685:12685"
+#      - "18201:12685"
+      - "12685:12685"
     environment:
       EXTERNAL_HOSTNAME: ${EXTERNAL_HOSTNAME}
       EXTERNAL_PORT: 8201
@@ -65,7 +65,7 @@ services:
     ports:
       - "8203:8088"
  #     - "18203:12685"
-      - "12685:12685" 
+ #     - "12685:12685" 
     environment:
       EXTERNAL_HOSTNAME: ${EXTERNAL_HOSTNAME}
       EXTERNAL_PORT: 8203
