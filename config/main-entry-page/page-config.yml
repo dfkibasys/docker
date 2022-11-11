@@ -1,0 +1,30 @@
+---
+services:
+- name: "Communication Services"
+  items:
+  - name: AKHQ
+    subdomain: akhq
+  - name: EMQX
+    subdomain: emqx
+- name: Asset Administration Shell Services
+  items:
+  - name: PPR Dashboard
+    subdomain : pprdashboard
+  - name: AAS Registry
+    subdomain: aasregistry
+  - name: AAS Server
+    subdomain: aasserver
+    href: /shells
+  - name: Kibana
+    subdomain: kibana
+  - name: Neo4j
+    subdomain: neo4j
+- name: Process Control Services
+  items: 
+  - name: Camunda
+    subdomain: camunda
+    href: /camunda
+- name: Stack Management Services
+  items:
+  - name: Portainer
+    subdomain: portainer
