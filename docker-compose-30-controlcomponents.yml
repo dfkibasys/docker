@@ -21,7 +21,7 @@ services:
     container_name: mir100_1
     volumes:
       - ./config/03_mir100_1.yml:/workspace/config/application-cc.yml
-      - ./config/03_docker_env.yml:/workspace/config/application-docker.yml
+      - ./config/03_cc-docker_env.yml:/workspace/config/application-docker.yml
       - ./data/opcua-server-certs:/workspace/certs
     restart: always
     ports:
@@ -42,7 +42,7 @@ services:
     container_name: ur10_1
     volumes:
       - ./config/03_ur10_1.yml:/workspace/config/application-cc.yml
-      - ./config/03_docker_env.yml:/workspace/config/application-docker.yml
+      - ./config/03_cc-docker_env.yml:/workspace/config/application-docker.yml
       - ./data/opcua-server-certs:/workspace/certs
     restart: always
     ports:
@@ -63,7 +63,7 @@ services:
     container_name: drone_1
     volumes:
       - ./config/03_drone_1.yml:/workspace/config/application-cc.yml
-      - ./config/03_docker_env.yml:/workspace/config/application-docker.yml
+      - ./config/03_cc-docker_env.yml:/workspace/config/application-docker.yml
       - ./data/opcua-server-certs:/workspace/certs
     restart: always
     ports:
