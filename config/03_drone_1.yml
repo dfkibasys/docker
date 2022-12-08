@@ -7,7 +7,7 @@ basys:
     id: drone_1
     name: Drone-1
     operationModeJavaPackage: de.dfki.cos.basys.p4p.controlcomponent.drone.opmodes
-    executionMode: AUTO
+    executionMode: SIMULATE
     auto:
       disableExecutionModeChange: false
       disableOccupationCheck: false
