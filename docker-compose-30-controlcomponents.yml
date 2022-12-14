@@ -22,7 +22,7 @@ services:
     volumes:
       - ./config/03_mir100_1.yml:/workspace/config/application-cc.yml
       - ./config/03_cc-docker_env.yml:/workspace/config/application-docker.yml
-      #- ./data/opcua-server-certs:/workspace/certs
+      - ./data/opcua-server-certs:/workspace/certs
     restart: always
     ports:
       - "8201:8088"
@@ -43,7 +43,7 @@ services:
     volumes:
       - ./config/03_ur10_1.yml:/workspace/config/application-cc.yml
       - ./config/03_cc-docker_env.yml:/workspace/config/application-docker.yml
- #     - ./data/opcua-server-certs:/workspace/certs
+      - ./data/opcua-server-certs:/workspace/certs
     restart: always
     ports:
       - "8202:8088"
@@ -64,7 +64,7 @@ services:
     volumes:
       - ./config/03_drone_1.yml:/workspace/config/application-cc.yml
       - ./config/03_cc-docker_env.yml:/workspace/config/application-docker.yml
-      #- ./data/opcua-server-certs:/workspace/certs
+      - ./data/opcua-server-certs:/workspace/certs
     restart: always
     ports:
       - "8203:8088"

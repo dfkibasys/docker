@@ -7,7 +7,7 @@ basys:
     id: mir100_1
     name: MiR100-1
     operationModeJavaPackage: de.dfki.cos.basys.p4p.controlcomponent.mir.opmodes
-    executionMode: AUTO
+    executionMode: SIMULATE
     auto:
       disableExecutionModeChange: false
       disableOccupationCheck: false
