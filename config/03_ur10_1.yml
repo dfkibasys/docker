@@ -1,23 +1,7 @@
-spring.application.name: ur10_1
-logging:
-  level:
-    org.springframework.boot.autoconfigure: INFO
-server:
-  port: 8088
-  accessibleEndpoint: http://${EXTERNAL_HOSTNAME}:${EXTERNAL_PORT}
 basys:
-  aasRegistry:
-    type: dotaas
-    service:
-      connectionString: http://aas-registry-dotaas:8080
-  eventTransmitter:
-    type: mqtt
-    service:
-      implementationJavaClass: de.dfki.cos.basys.aas.event.mqtt.MqttEventTransmitter
-      connectionString: tcp://emqx:1883
   opcuaServer:
     certsFolder: ./certs
-    tcpPort: 12685
+    tcpPort: 12686
     httpsPort: 8443
   controlcomponent:
     id: ur10_1
@@ -33,8 +17,3 @@ basys:
     simulate:
       disableExecutionModeChange: true
       disableOccupationCheck: true
-      service:
-        implementationJavaClass: de.dfki.cos.basys.p4p.controlcomponent.ur.service.UrServiceImplROS
-        connectionString: ws://localhost:9100
-        serverName: movsym_action
-        actionNameMove: simrk40_msgs/MoveToSymbolicPositionAction

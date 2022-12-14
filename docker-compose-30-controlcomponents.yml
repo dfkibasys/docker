@@ -20,16 +20,17 @@ services:
     image: dfkibasys/controlcomponent-mir:${VERSION}
     container_name: mir100_1
     volumes:
-      - ./config/03_mir100_1.yml:/workspace/config/application.yml
-  #    - ./data/opcua-server-certs:/workspace/certs
+      - ./config/03_mir100_1.yml:/workspace/config/application-cc.yml
+      - ./config/03_cc-docker_env.yml:/workspace/config/application-docker.yml
+      #- ./data/opcua-server-certs:/workspace/certs
     restart: always
     ports:
       - "8201:8088"
-#      - "18201:12685"
       - "12685:12685"
     environment:
       EXTERNAL_HOSTNAME: ${EXTERNAL_HOSTNAME}
       EXTERNAL_PORT: 8201
+      SPRING_PROFILES_ACTIVE: cc,docker
     networks:
        - controlcomponents
        - communication
@@ -40,15 +41,17 @@ services:
     image: dfkibasys/controlcomponent-ur:${VERSION}
     container_name: ur10_1
     volumes:
-      - ./config/03_ur10_1.yml:/workspace/config/application.yml
+      - ./config/03_ur10_1.yml:/workspace/config/application-cc.yml
+      - ./config/03_cc-docker_env.yml:/workspace/config/application-docker.yml
  #     - ./data/opcua-server-certs:/workspace/certs
     restart: always
     ports:
       - "8202:8088"
-      - "18202:12685"
+      - "12686:12686"
     environment:
       EXTERNAL_HOSTNAME: ${EXTERNAL_HOSTNAME}
       EXTERNAL_PORT: 8202
+      SPRING_PROFILES_ACTIVE: cc,docker
     networks:
        - controlcomponents
        - communication
@@ -59,16 +62,17 @@ services:
     image: dfkibasys/controlcomponent-drone:${VERSION}
     container_name: drone_1
     volumes:
-      - ./config/03_drone_1.yml:/workspace/config/application.yml
-#      - ./data/opcua-server-certs:/workspace/certs
+      - ./config/03_drone_1.yml:/workspace/config/application-cc.yml
+      - ./config/03_cc-docker_env.yml:/workspace/config/application-docker.yml
+      #- ./data/opcua-server-certs:/workspace/certs
     restart: always
     ports:
       - "8203:8088"
- #     - "18203:12685"
- #     - "12685:12685" 
+      - "12687:12687"
     environment:
       EXTERNAL_HOSTNAME: ${EXTERNAL_HOSTNAME}
       EXTERNAL_PORT: 8203
+      SPRING_PROFILES_ACTIVE: cc,docker
     networks:
        - controlcomponents
        - communication

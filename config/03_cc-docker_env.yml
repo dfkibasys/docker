@@ -1,0 +1,9 @@
+server:
+  accessibleEndpoint: http://${EXTERNAL_HOSTNAME}:${EXTERNAL_PORT}
+basys:
+  aasRegistry:
+    service:
+      connectionString: http://aas-registry-dotaas:8080
+  eventTransmitter:
+    service:
+      connectionString: tcp://emqx:1883
