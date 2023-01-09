@@ -4,23 +4,12 @@ volumes:
   clusterentrypage_generated:
 
 services:      
-  # qemu_user_static:
-  #   image: multiarch/qemu-user-static
-  #   privileged: true
-  #   restart: "no"
-  #   command: 
-  #   - --reset 
-  #   - --persistent yes
 
   portainer:
     platform: linux/arm64
-    # depends_on: 
-    # - qemu_user_static
         
   nginx-proxy:
     platform: linux/arm64
-    # depends_on: 
-    # - qemu_user_static
 
   nginx:    
     platform: linux/arm64
@@ -28,6 +17,3 @@ services:
     #user: "0"
     #image: dfkibasys/cluster-entry-page-unprivileged:${VERSION}
     image: dfkibasys/cluster-entry-page:0.4.0-SNAPSHOT
-    # depends_on: 
-    # - qemu_user_static
-    
