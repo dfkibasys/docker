@@ -16,4 +16,3 @@ services:
     # include this to test the unprivileged image
     #user: "0"
     #image: dfkibasys/cluster-entry-page-unprivileged:${VERSION}
-    image: dfkibasys/cluster-entry-page:0.4.0-SNAPSHOT
