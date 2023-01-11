@@ -18,12 +18,12 @@ basys:
     simulate:
       disableExecutionModeChange: true
       disableOccupationCheck: true
-#      service:
-#        implementationJavaClass: de.dfki.cos.basys.p4p.controlcomponent.mir.service.MirServiceROSImpl
-#        connectionString: ws://10.107.0.142:9100
-#        gotoServerName: /movsym/mir100_1
-#        gotoActionName: /simrk40_msgs/MoveToSymbolicPositionAction
-#        pickServerName: /picksym/mir100_1
-#        pickActionName: /simrk40_msgs/PickSymbolicAction
-#        placeServerName: /placesym/mir100_1
-#        placeActionName: /simrk40_msgs/PlaceSymbolicAction
+      service:
+        implementationJavaClass: de.dfki.cos.basys.p4p.controlcomponent.mir.service.MirServiceROSImpl
+        connectionString: ws://10.100.0.6:9100
+        gotoServerName: movsym/mir100_1
+        gotoActionName: simrk40_msgs/MoveToSymbolicPositionAction
+        pickServerName: picksym/mir100_1
+        pickActionName: simrk40_msgs/PickSymbolicAction
+        dropServerName: placesym/mir100_1
+        dropActionName: simrk40_msgs/PlaceSymbolicAction
