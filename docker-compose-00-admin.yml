@@ -44,8 +44,8 @@ services:
     container_name: nginx
     image: dfkibasys/cluster-entry-page:${VERSION}
     restart: always    
-#    ports:
-      #- "80:80"
+    #ports:
+    #  - "80:80"
       #- "443:443"
       #- "8443:8443"
       #- "10022:10022"
