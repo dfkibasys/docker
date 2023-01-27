@@ -14,9 +14,10 @@ basys:
       service:
         implementationJavaClass: de.dfki.cos.basys.p4p.controlcomponent.drone.service.DroneServiceImpl
         connectionString: tcp://10.2.10.1:1883
-        droneInspectionServiceEndpoint: http://10.2.0.18:5000
-        mqttUsername: "drone_control_component"
-        mqttPassword: SECRET
+        properties:
+          droneInspectionServiceEndpoint: http://10.2.0.18:5000
+          mqttUsername: "drone_control_component"
+          mqttPassword: SECRET
     simulate:
       disableExecutionModeChange: true
       disableOccupationCheck: true
