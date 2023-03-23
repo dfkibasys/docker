@@ -1,4 +1,8 @@
 debug: false
+logging:
+  level:
+    root: DEBUG
+    de.dfki.cos.basys: DEBUG
 server:
   port: 8088
 management:
@@ -13,22 +17,22 @@ spring:
         bindings:
           statusSafetyLightCurtain:
             producer:
-              message-key-expression: payload.timestamp
+              message-key-expression: headers['target-protocol']
           statusSignalColumn:
             producer:
-              message-key-expression: payload.timestamp
+              message-key-expression: headers['target-protocol']
           statusInitiator:
             producer:
-              message-key-expression: payload.timestamp
+              message-key-expression: headers['target-protocol']
           statusEstopButton:
             producer:
-              message-key-expression: payload.timestamp
+              message-key-expression: headers['target-protocol']
           statusAckButton:
             producer:
-              message-key-expression: payload.timestamp
+              message-key-expression: headers['target-protocol']
           statusPress:
             producer:
-              message-key-expression: payload.timestamp
+              message-key-expression: headers['target-protocol']
         binder:
           brokers: ${KAFKA_BROKER_ENDPOINT}
       bindings:
