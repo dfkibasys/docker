@@ -107,7 +107,7 @@ mqtt:
   cleanSession: true
   connectionTimeout: 10
   clientId: mqtt-task-channel
-  hostname: ${KAFKA_BROKER_ENDPOINT}
+  hostname: ${MQTT_ENDPOINT}
   port: 1883
 basys:
   mqtt-to-kafka-bridge:
