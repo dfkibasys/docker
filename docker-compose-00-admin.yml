@@ -42,19 +42,20 @@ services:
 
   nginx:    
     container_name: nginx
-    image: nginx:alpine
+    image: dfkibasys/cluster-entry-page:${VERSION}
     restart: always    
-#    ports:
-      #- "80:80"
+    #ports:
+    #  - "80:80"
       #- "443:443"
       #- "8443:8443"
       #- "10022:10022"
       #- "10222:10222"
     volumes:  
-      - ./data/nginx/html:/usr/share/nginx/html
+      - ./config/main-entry-page/:/var/lib/dockerstack/
     environment:
       - VIRTUAL_HOST=${EXTERNAL_HOSTNAME}
       #- VIRTUAL_PORT=80
+      - MUSTACHE_CONFIG=/var/lib/dockerstack/page-config.yml
     networks:
       - admin
       - proxy

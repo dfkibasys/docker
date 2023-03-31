@@ -71,6 +71,14 @@ Find()
    find . -type f -name $PATTERN
 }
 
+FindArm64()
+{
+   PATTERN="arm64-docker-compose*[-.]$1[-.]*yml"
+   #echo "Pattern:" $PATTERN
+   #$(find . -type f -name $PATTERN)
+   find . -type f -name $PATTERN
+}
+
 ExtractName()
 {
    #echo "to extract" $1
@@ -79,6 +87,14 @@ ExtractName()
 
 Single()
 {
+
+
+if [[ $ARM64 == 1 ]] ; then
+   # apply cross platform files
+   echo 'prepare qemu-user-static support for multiarch images'
+   docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+fi
+
 for value in "$@"
    do
       #echo "Process" $value
@@ -86,15 +102,22 @@ for value in "$@"
       echo "Stack found:" $STACK
       NAME=$(ExtractName $STACK)
       echo "Stack name:" $NAME
-	  if [[ $COMMAND == pull ]] ; then
-        docker compose -f $STACK $COMMAND 		
+      
+      ARM64_STACK=''
+      if [[ $ARM64 == 1 ]] ; then
+         ARM64_STACK=$(FindArm64 $value | sed 's/^/-f /' )
+         echo 'Using arm64 stack file ' $ARM64_STACK
+      fi
+
+	   if [[ $COMMAND == pull ]] ; then
+         docker compose -f $STACK $ARM64_STACK $COMMAND 		
       elif [[ $COMMAND == up ]] ; then
-	    docker compose -f $STACK -p $NAME $COMMAND -d
-	  elif [[ $COMMAND == down ]] ; then 
-	    docker compose -f $STACK -p $NAME $COMMAND
-	  else
-	    echo "unknown COMMAND" $COMMAND
-	  fi
+	      docker compose -f $STACK $ARM64_STACK -p $NAME $COMMAND -d
+	   elif [[ $COMMAND == down ]] ; then 
+	      docker compose -f $STACK $ARM64_STACK -p $NAME $COMMAND
+	   else
+	      echo "unknown COMMAND" $COMMAND
+	   fi
    done
 exit
 }

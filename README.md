@@ -134,3 +134,15 @@ VBoxManage.exe: error: Failed to attach the network LUN (VERR_INTNET_FLT_IF_NOT_
 VBoxManage.exe: error: Details: code E_FAIL (0x80004005), component ConsoleWrap, interface IConsole
 ```
 Solution: https://stackoverflow.com/a/33733454
+
+### Testing Arm64 Images
+
+To test for ARM64 processor architectures, we provided files in the sub folder *platformtests/arm64*. 
+
+If you run your scripts with the environment variable ARM64 set to 1, the content of these files is overlayed with the corresponding docker-compose files. These files define platform tags for *linux/arm64*:
+
+``` sh
+ARM64=1 ./up.sh -a
+``` 
+
+We use [qemu-user-static](https://github.com/multiarch/qemu-user-static) in to run docker containers for this different architecture.

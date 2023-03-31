@@ -1,0 +1,18 @@
+version: '3.6'
+
+volumes:
+  clusterentrypage_generated:
+
+services:      
+
+  portainer:
+    platform: linux/arm64
+        
+  nginx-proxy:
+    platform: linux/arm64
+
+  nginx:    
+    platform: linux/arm64
+    # include this to test the unprivileged image
+    #user: "0"
+    #image: dfkibasys/cluster-entry-page-unprivileged:${VERSION}

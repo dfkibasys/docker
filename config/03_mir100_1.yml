@@ -1,20 +1,4 @@
-spring.application.name: mir100_1
-logging:
-  level:
-    org.springframework.boot.autoconfigure: INFO
-server:
-  port: 8088
-  accessibleEndpoint: http://${EXTERNAL_HOSTNAME}:${EXTERNAL_PORT}
 basys:
-  aasRegistry:
-    type: dotaas
-    service:
-      connectionString: http://aas-registry-dotaas:8080
-  eventTransmitter:
-    type: mqtt
-    service:
-      implementationJavaClass: de.dfki.cos.basys.aas.event.mqtt.MqttEventTransmitter
-      connectionString: tcp://emqx:1883
   opcuaServer:
     certsFolder: ./certs
     tcpPort: 12685
@@ -23,14 +7,25 @@ basys:
     id: mir100_1
     name: MiR100-1
     operationModeJavaPackage: de.dfki.cos.basys.p4p.controlcomponent.mir.opmodes
-    executionMode: SIMULATE
-    auto:
-      disableExecutionModeChange: false
-      disableOccupationCheck: false
-      service:
-        implementationJavaClass: de.dfki.cos.basys.p4p.controlcomponent.mir.service.MirServiceImpl
-        connectionString: http://robot-mir-01.mrk40.dfki.lan
-        auth: AUTH_TOKEN
-    simulate:
-      disableExecutionModeChange: true
-      disableOccupationCheck: true
+    initialExecutionMode: SIMULATE
+    executionModes:
+      auto:
+        executionModeChangeDisabled: false
+        occupationCheckDisabled: false
+        service:
+          implementationJavaClass: de.dfki.cos.basys.p4p.controlcomponent.mir.service.MirServiceImpl
+          connectionString: http://robot-mir-01.mrk40.dfki.lan
+          properties:
+            auth: AUTH_TOKEN
+      simulate:
+        executionModeChangeDisabled: true
+        occupationCheckDisabled: true
+  #      service:
+  #        implementationJavaClass: de.dfki.cos.basys.p4p.controlcomponent.mir.service.MirServiceROSImpl
+  #        connectionString: ws://10.107.0.142:9100
+  #        gotoServerName: /movsym/mir100_1
+  #        gotoActionName: /simrk40_msgs/MoveToSymbolicPositionAction
+  #        pickServerName: /picksym/mir100_1
+  #        pickActionName: /simrk40_msgs/PickSymbolicAction
+  #        placeServerName: /placesym/mir100_1
+  #        placeActionName: /simrk40_msgs/PlaceSymbolicAction
