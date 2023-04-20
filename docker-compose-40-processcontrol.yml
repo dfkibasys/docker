@@ -59,6 +59,7 @@ services:
       KAFKA_BROKER_ENDPOINT: kafka:29092
       SCHEMA_REGISTRY_ENDPOINT: http://schema-registry:8081
       MQTT_ENDPOINT: emqx
+      USE_MESSAGE_TIMESTAMP_FOR_MAPPING: false
     depends_on:
       - emqx
     networks:
