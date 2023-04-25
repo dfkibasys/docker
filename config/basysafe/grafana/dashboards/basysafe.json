@@ -727,12 +727,12 @@
                 "1": {
                   "color": "#ff0000",
                   "index": 0,
-                  "text": "nOK"
+                  "text": "Pressed"
                 },
                 "2": {
                   "color": "#00ff00",
                   "index": 1,
-                  "text": "OK"
+                  "text": "Released"
                 }
               },
               "type": "value"
@@ -1344,6 +1344,6 @@
   "timezone": "utc",
   "title": "BaSySafe",
   "uid": "basyxdashboard",
-  "version": 18,
+  "version": 2,
   "weekStart": ""
 }
