@@ -727,12 +727,12 @@
                 "1": {
                   "color": "#ff0000",
                   "index": 0,
-                  "text": "Pressed"
+                  "text": "pressed"
                 },
                 "2": {
                   "color": "#00ff00",
                   "index": 1,
-                  "text": "Released"
+                  "text": "released"
                 }
               },
               "type": "value"
@@ -874,11 +874,11 @@
               "options": {
                 "0": {
                   "index": 0,
-                  "text": "OK"
+                  "text": "released"
                 },
                 "1": {
                   "index": 1,
-                  "text": "nOK"
+                  "text": "pressed"
                 }
               },
               "type": "value"
@@ -928,7 +928,7 @@
           "refId": "A"
         }
       ],
-      "title": "EStop status",
+      "title": "EStop",
       "transformations": [
         {
           "id": "extractFields",
@@ -1344,6 +1344,6 @@
   "timezone": "utc",
   "title": "BaSySafe",
   "uid": "basyxdashboard",
-  "version": 3,
+  "version": 4,
   "weekStart": ""
 }
