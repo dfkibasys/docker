@@ -928,7 +928,7 @@
           "refId": "A"
         }
       ],
-      "title": "EStop",
+      "title": "EStop status",
       "transformations": [
         {
           "id": "extractFields",
@@ -1344,6 +1344,6 @@
   "timezone": "utc",
   "title": "BaSySafe",
   "uid": "basyxdashboard",
-  "version": 2,
+  "version": 3,
   "weekStart": ""
 }
