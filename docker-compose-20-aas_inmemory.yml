@@ -14,13 +14,16 @@ networks:
 services:    
 
   neo4j:
-    image: neo4j:4.4.4-community
+    image: neo4j:5.7-community
     container_name: neo4j
     ports:
       - 7474:7474
       - 7473:7473
       - 7687:7687
+    volumes:
+      - ./data/neo4j:/data
     environment:
+      NEO4J_AUTH: neo4j/dfkibasys
       VIRTUAL_HOST: neo4j.${EXTERNAL_HOSTNAME}
       VIRTUAL_PORT: 7474
     restart: always
@@ -63,3 +66,24 @@ services:
     networks:
        - aas
        - proxy
+
+  aas-knowledgegraph:
+    image: dfkibasys/aas-knowledgegraph:${VERSION}
+    container_name: aas-knowledgegraph
+    depends_on:
+      - aas-registry-dotaas
+      - neo4j
+    #volumes:
+    #  - ./config/02_aas-knowledgegraph.yml:/workspace/config/application.yml      
+    restart: always
+    extra_hosts:
+      - "dockerhost:172.17.0.1"
+    environment:
+      KAFKA_BROKER_ENDPOINT: kafka:29092
+      AAS_REGISTRY_ENDPOINT: http://aas-registry-dotaas:8080
+      NEO4J_ENDPOINT: neo4j://neo4j:7687
+      NEO4J_USERNAME: neo4j
+      NEO4J_PASSWORD: dfkibasys
+    networks:
+       - aas
+       - communication
