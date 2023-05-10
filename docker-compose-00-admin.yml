@@ -10,7 +10,7 @@ networks:
 
 services:      
   portainer:
-    image: portainer/portainer-ce:2.11.1
+    image: portainer/portainer-ce:2.18.2
     container_name: portainer
     restart: always
     ports:
