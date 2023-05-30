@@ -112,7 +112,7 @@ for value in "$@"
 	   if [[ $COMMAND == pull ]] ; then
          docker compose -f $STACK $ARM64_STACK $COMMAND 		
       elif [[ $COMMAND == up ]] ; then
-	      docker compose -f $STACK $ARM64_STACK -p $NAME $COMMAND -d
+	      docker compose -f $STACK $ARM64_STACK -p $NAME $COMMAND -d --remove-orphans
 	   elif [[ $COMMAND == down ]] ; then 
 	      docker compose -f $STACK $ARM64_STACK -p $NAME $COMMAND
 	   else
