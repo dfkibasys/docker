@@ -14,7 +14,7 @@ networks:
 services:    
                
   aas-registry-dotaas:
-    image: dfkibasys/aas-registry-dotaas-part2-kafka-mem:${VERSION}
+    image: dfkibasys/aas-registry-dotaas-part2-kafka-mem:${AAS_REGISTRY_VERSION}
     container_name: aas-registry-dotaas
     ports:
       - "8020:8080"
