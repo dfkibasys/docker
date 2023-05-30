@@ -55,7 +55,7 @@ services:
        - proxy
                
   aas-registry-dotaas:
-    image: dfkibasys/aas-registry-dotaas-part2-kafka-es:${VERSION}
+    image: dfkibasys/aas-registry-dotaas-part2-kafka-es:${AAS_REGISTRY_VERSION}
     container_name: aas-registry-dotaas
     ports:
       - "8020:8080"

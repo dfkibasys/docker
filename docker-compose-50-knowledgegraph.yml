@@ -11,7 +11,7 @@ networks:
     name: basys-proxy
     external: true
 
-services:    
+services:
 
   neo4j:
     image: neo4j:5.7-community
@@ -35,7 +35,7 @@ services:
     image: dfkibasys/aas-knowledgegraph:${VERSION}
     container_name: aas-knowledgegraph
     depends_on:
-      - aas-registry-dotaas
+#      - aas-registry-dotaas
       - neo4j
     #volumes:
     #  - ./config/02_aas-knowledgegraph.yml:/workspace/config/application.yml      
