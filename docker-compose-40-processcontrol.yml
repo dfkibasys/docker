@@ -76,7 +76,7 @@ services:
       SCHEMA_REGISTRY_ENDPOINT: http://schema-registry:8081
       AAS_REGISTRY_ENDPOINT: http://aas-registry-dotaas:8080
     extra_hosts:
-      - "dockerhost:172.17.0.1"
+      - "${EXTERNAL_HOSTNAME}:172.17.0.1"
     networks:
       - communication
       - aas

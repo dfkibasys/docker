@@ -6,8 +6,8 @@
 
 # Docker Compose Command
 COMMAND="up"
-IM_STACKS="00 10 20 30 40"
-ES_STACKS="00 10 21 30 40"
+IM_STACKS="00 10 20 30 40 50"
+ES_STACKS="00 10 21 30 40 50"
 
 ############################################################
 # Help                                                     #
@@ -57,8 +57,8 @@ function Reverse
    local reverse=""
    for value in "$@"
       do
-	     reverse=$value" "$reverse	  
-	     #echo $reverse	  
+	     reverse=$value" "$reverse
+	     #echo $reverse
       done
    echo "$reverse"
 }
@@ -102,7 +102,7 @@ for value in "$@"
       echo "Stack found:" $STACK
       NAME=$(ExtractName $STACK)
       echo "Stack name:" $NAME
-      
+
       ARM64_STACK=''
       if [[ $ARM64 == 1 ]] ; then
          ARM64_STACK=$(FindArm64 $value | sed 's/^/-f /' )
@@ -110,7 +110,7 @@ for value in "$@"
       fi
 
 	   if [[ $COMMAND == pull ]] ; then
-         docker compose -f $STACK $ARM64_STACK $COMMAND 		
+         docker compose -f $STACK $ARM64_STACK $COMMAND
       elif [[ $COMMAND == up ]] ; then
 	      docker compose -f $STACK $ARM64_STACK -p $NAME $COMMAND -d --remove-orphans
 	   elif [[ $COMMAND == down ]] ; then 
@@ -144,7 +144,7 @@ esac
 if [[ $COMMAND == down ]] ; then 
    echo "reverse"
    STACKS=$(Reverse $STACKS)
-fi	
+fi
 Single $STACKS
 }
 
@@ -176,7 +176,7 @@ while getopts "hs:a" option; do
            All $nextopt
          else
            All
-         fi		 
+         fi
          exit;;
      \?) # Invalid option
          echo "Error: Invalid option"

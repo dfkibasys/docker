@@ -41,7 +41,7 @@ services:
     #  - ./config/02_aas-knowledgegraph.yml:/workspace/config/application.yml      
     restart: always
     extra_hosts:
-      - "dockerhost:172.17.0.1"
+      - "${EXTERNAL_HOSTNAME}:172.17.0.1"
     environment:
       KAFKA_BROKER_ENDPOINT: kafka:29092
       AAS_REGISTRY_ENDPOINT: http://aas-registry-dotaas:8080
