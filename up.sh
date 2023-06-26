@@ -22,7 +22,7 @@ Help()
    echo "-a [im|es]             - $COMMAND all stacks"
    echo "                         im = AAS stack with InMemory back-end (default)"
    echo "                         es = AAS stack with ElasticSearch back-end"
-   echo "-s stack1 [stack2 ...] - $COMMAND a singe stack."
+   echo "-s stack1 [stack2 ...] - $COMMAND a single stack."
    echo "-h                     - print this help."
    echo
    echo "The stacks must adhere to the following naming convention:"
@@ -97,7 +97,6 @@ fi
 
 for value in "$@"
    do
-      #echo "Process" $value
       STACK=$(Find $value)
       echo "Stack found:" $STACK
       NAME=$(ExtractName $STACK)
@@ -108,11 +107,16 @@ for value in "$@"
          ARM64_STACK=$(FindArm64 $value | sed 's/^/-f /' )
          echo 'Using arm64 stack file ' $ARM64_STACK
       fi
+      
+      if [[ ! -v ENV ]]; then
+         ENV='stable'
+      fi
+      echo "Setting up '$ENV' environment"
 
 	   if [[ $COMMAND == pull ]] ; then
-         docker compose -f $STACK $ARM64_STACK $COMMAND
+         docker compose -f $STACK $ARM64_STACK --env-file .env.$ENV $COMMAND
       elif [[ $COMMAND == up ]] ; then
-	      docker compose -f $STACK $ARM64_STACK -p $NAME $COMMAND -d --remove-orphans
+	      docker compose -f $STACK $ARM64_STACK --env-file .env.$ENV -p $NAME $COMMAND -d --remove-orphans
 	   elif [[ $COMMAND == down ]] ; then 
 	      docker compose -f $STACK $ARM64_STACK -p $NAME $COMMAND
 	   else
@@ -159,6 +163,7 @@ Single $STACKS
 # Process the input options. Add options as needed.        #
 ############################################################
 # Get the options
+
 while getopts "hs:a" option; do
    case $option in
       h) # display Help
