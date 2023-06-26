@@ -53,24 +53,9 @@ services:
     networks:
        - aas
        - proxy
-
-  neo4j:
-    image: neo4j:4.4.4-community
-    container_name: neo4j
-    ports:
-      - 7474:7474
-      - 7473:7473
-      - 7687:7687
-    environment:
-      VIRTUAL_HOST: neo4j.${EXTERNAL_HOSTNAME}
-      VIRTUAL_PORT: 7474
-    restart: always
-    networks:
-      - aas
-      - proxy
                
   aas-registry-dotaas:
-    image: dfkibasys/aas-registry-dotaas-part2-kafka-es:${VERSION}
+    image: dfkibasys/aas-registry-dotaas-part2-kafka-es:${AAS_REGISTRY_VERSION}
     container_name: aas-registry-dotaas
     ports:
       - "8020:8080"

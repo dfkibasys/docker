@@ -1,0 +1,20 @@
+version: '3.6'
+services:
+
+  # camunda:
+  # # just found this here for the bpm platform but it is tagged with latest
+  # build it for the specific version https://forum.camunda.io/t/installing-camunda-platform-8-on-raspberry-pi-arm/37363
+  #   image: dinolupo/camunda-bpm-platform
+  #   platform: linux/arm64
+  
+  task-channel-camunda-cc:
+    platform: linux/arm64
+
+  task-channel-mqtt-cc:
+    platform: linux/arm64
+
+  cc-task-manager:
+    platform: linux/arm64
+
+  ppr-dashboard:
+    platform: linux/arm64
