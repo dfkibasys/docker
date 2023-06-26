@@ -36,6 +36,27 @@ services:
        - communication
        - aas
        - proxy
+
+  mir100_2:
+    image: dfkibasys/controlcomponent-mir:${VERSION}
+    container_name: mir100_2
+    volumes:
+      - ./config/03_mir100_2.yml:/workspace/config/application-cc.yml
+      - ./config/03_cc-docker_env.yml:/workspace/config/application-docker.yml
+      #- ./data/opcua-server-certs:/workspace/certs
+    restart: always
+    ports:
+      - "8204:8088"
+      - "12688:12688"
+    environment:
+      EXTERNAL_HOSTNAME: ${EXTERNAL_HOSTNAME}
+      EXTERNAL_PORT: 8204
+      SPRING_PROFILES_ACTIVE: cc,docker
+    networks:
+       - controlcomponents
+       - communication
+       - aas
+       - proxy
    
   ur10_1:
     image: dfkibasys/controlcomponent-ur:${VERSION}
