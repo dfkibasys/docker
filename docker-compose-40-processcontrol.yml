@@ -60,6 +60,9 @@ services:
       SCHEMA_REGISTRY_ENDPOINT: http://schema-registry:8081
       MQTT_ENDPOINT: emqx
       USE_MESSAGE_TIMESTAMP_FOR_MAPPING: false
+    labels:
+      logging: "promtail"
+      logging_jobname: "containerlogs"
     depends_on:
       - emqx
     networks:
@@ -76,6 +79,9 @@ services:
       KAFKA_BROKER_ENDPOINT: kafka:29092
       SCHEMA_REGISTRY_ENDPOINT: http://schema-registry:8081
       AAS_REGISTRY_ENDPOINT: http://aas-registry-dotaas:8080
+    labels:
+      logging: "promtail"
+      logging_jobname: "containerlogs"
     extra_hosts:
       - "${EXTERNAL_HOSTNAME}:172.17.0.1"
     networks:
