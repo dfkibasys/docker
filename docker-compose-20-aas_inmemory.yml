@@ -25,6 +25,9 @@ services:
       KAFKA_BOOTSTRAP_SERVERS: PLAINTEXT://kafka:29092
       VIRTUAL_HOST: aasregistry.${EXTERNAL_HOSTNAME}
       VIRTUAL_PORT: 8080
+    labels:
+      logging: "promtail"
+      logging_jobname: "containerlogs"
     networks:
        - aas
        - communication
@@ -44,7 +47,10 @@ services:
     environment:
       EXTERNAL_HOSTNAME: ${EXTERNAL_HOSTNAME}
       VIRTUAL_HOST: aasserver.${EXTERNAL_HOSTNAME}
-      VIRTUAL_PORT: 8088
+      VIRTUAL_PORT: 8088    
+    labels:
+      logging: "promtail"
+      logging_jobname: "containerlogs"
     networks:
        - aas
        - proxy
