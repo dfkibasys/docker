@@ -8,8 +8,10 @@ networks:
     name: basys-proxy
     external: true
 
-services:
+volumes:
+  prometheus_data:
 
+services:
   grafana:
     image: grafana/grafana:9.3.16
     container_name: grafana
