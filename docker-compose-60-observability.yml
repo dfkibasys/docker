@@ -25,9 +25,9 @@ services:
       VIRTUAL_HOST: grafana.${EXTERNAL_HOSTNAME}
       VIRTUAL_PORT: 3000
     volumes:
-      - ./config/basysafe/grafana/dist:/var/lib/grafana/plugins/basys-aaskafkatopic-datasource
-      - ./config/basysafe/grafana/provisioning:/etc/grafana/provisioning
-      - ./config/basysafe/grafana/dashboards:/var/lib/grafana/dashboards
+      - ./config/observability/grafana/dist:/var/lib/grafana/plugins/basys-aaskafkatopic-datasource
+      - ./config/observability/grafana/provisioning:/etc/grafana/provisioning
+      - ./config/observability/grafana/dashboards:/var/lib/grafana/dashboards
     networks:
       - communication
       - proxy
@@ -72,10 +72,10 @@ services:
     image: prom/prometheus:v2.45.0
     container_name: prometheus
     ports:
-      - 9090:9090
+      - 9095:9090
     restart: unless-stopped
     volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./config/observability/prometheus.yml:/etc/prometheus/prometheus.yml
       - prometheus_data:/prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
@@ -105,7 +105,7 @@ services:
       - /var/log:/var/log
       - /var/lib/docker/containers:/var/lib/docker/containers:ro
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./promtail.yml:/etc/promtail/promtail_config.yml
+      - ./config/observability/promtail.yml:/etc/promtail/promtail_config.yml
     restart: unless-stopped
     command: -config.file=/etc/promtail/promtail_config.yml
     networks:

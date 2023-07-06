@@ -1,0 +1,19 @@
+apiVersion: 1
+
+datasources:
+  - name: AAS Kafka Topic
+    type: basys-aaskafkatopic-datasource
+    isDefault: true
+    orgId: 1
+  
+  - name: Prometheus
+    type: prometheus
+    orgId: 1
+    url: http://basys-lnv-1.mrk40.dfki.lan:9095
+
+  - name: Loki
+    type: loki
+    orgId: 1
+    url: http://basys-lnv-1.mrk40.dfki.lan:3100
+
+    
