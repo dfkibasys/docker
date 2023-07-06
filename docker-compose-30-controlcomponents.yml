@@ -31,6 +31,9 @@ services:
       EXTERNAL_HOSTNAME: ${EXTERNAL_HOSTNAME}
       EXTERNAL_PORT: 8201
       SPRING_PROFILES_ACTIVE: cc,docker
+    labels:
+      logging: "promtail"
+      logging_jobname: "containerlogs"
     networks:
        - controlcomponents
        - communication
@@ -52,6 +55,9 @@ services:
       EXTERNAL_HOSTNAME: ${EXTERNAL_HOSTNAME}
       EXTERNAL_PORT: 8204
       SPRING_PROFILES_ACTIVE: cc,docker
+    labels:
+      logging: "promtail"
+      logging_jobname: "containerlogs"
     networks:
        - controlcomponents
        - communication
@@ -73,6 +79,9 @@ services:
       EXTERNAL_HOSTNAME: ${EXTERNAL_HOSTNAME}
       EXTERNAL_PORT: 8202
       SPRING_PROFILES_ACTIVE: cc,docker
+    labels:
+      logging: "promtail"
+      logging_jobname: "containerlogs"
     networks:
        - controlcomponents
        - communication
@@ -94,6 +103,9 @@ services:
       EXTERNAL_HOSTNAME: ${EXTERNAL_HOSTNAME}
       EXTERNAL_PORT: 8203
       SPRING_PROFILES_ACTIVE: cc,docker
+    labels:
+      logging: "promtail"
+      logging_jobname: "containerlogs"
     networks:
        - controlcomponents
        - communication
