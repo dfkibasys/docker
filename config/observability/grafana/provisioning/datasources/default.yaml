@@ -10,10 +10,11 @@ datasources:
     type: prometheus
     orgId: 1
     url: http://basys-lnv-1.mrk40.dfki.lan:9095
+    uid: SNpaCLr4z
 
   - name: Loki
     type: loki
     orgId: 1
     url: http://basys-lnv-1.mrk40.dfki.lan:3100
-
+    uid: SSSyjYr4z
     
