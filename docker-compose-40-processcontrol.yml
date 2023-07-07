@@ -99,7 +99,7 @@ services:
     environment:
       KAFKA_BROKER_ENDPOINT: kafka:29092
       SCHEMA_REGISTRY_ENDPOINT: http://schema-registry:8081
-      MQTT_ENDPOINT: emqx
+      MQTT_BROKER_ENDPOINT: emqx
       USE_MESSAGE_TIMESTAMP_FOR_MAPPING: false
     labels:
       logging: "promtail"
