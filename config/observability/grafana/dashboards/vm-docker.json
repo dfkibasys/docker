@@ -56,10 +56,10 @@
         "enableLogDetails": true,
         "prettifyLogMessage": false,
         "showCommonLabels": false,
-        "showLabels": false,
-        "showTime": true,
+        "showLabels": true,
+        "showTime": false,
         "sortOrder": "Descending",
-        "wrapLogMessage": false
+        "wrapLogMessage": true
       },
       "targets": [
         {
@@ -68,7 +68,7 @@
             "uid": "SSSyjYr4z"
           },
           "editorMode": "code",
-          "expr": "{container=\"$container\"} != `POST /api/v4/jobs/request`",
+          "expr": "{container=~\"$container\"}",
           "key": "Q-651cff5b-8e76-4022-ace6-9b84200bcb94-0",
           "queryType": "range",
           "refId": "A"
@@ -1495,7 +1495,7 @@
           "value": "Prometheus"
         },
         "hide": 2,
-        "includeAll": false,
+        "includeAll": true,
         "label": "datasource",
         "multi": false,
         "name": "DS_PROMETHEUS",
@@ -1586,10 +1586,10 @@
         "current": {
           "selected": false,
           "text": [
-            "drone_1"
+            "All"
           ],
           "value": [
-            "drone_1"
+            "$__all"
           ]
         },
         "datasource": {
