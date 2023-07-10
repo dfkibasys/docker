@@ -90,6 +90,26 @@ services:
       - controlcomponents
       - processcontrol
 
+  mqtt-kafka-bridge:
+    image: dfkibasys/mqtt-kafka-bridge:${VERSION}
+    container_name: mqtt-kafka-bridge
+    restart: always
+    #volumes:
+    #  - ./config/04_mqtt-kafka-bridge.yml:/workspace/config/application.yml
+    environment:
+      KAFKA_BROKER_ENDPOINT: kafka:29092
+      SCHEMA_REGISTRY_ENDPOINT: http://schema-registry:8081
+      MQTT_BROKER_ENDPOINT: emqx
+      USE_MESSAGE_TIMESTAMP_FOR_MAPPING: false
+    labels:
+      logging: "promtail"
+      logging_jobname: "containerlogs"
+    depends_on:
+      - emqx
+    networks:
+      - communication
+      - processcontrol
+
 
   ppr-dashboard:
     image: dfkibasys/ppr-dashboard:dev
