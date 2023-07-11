@@ -1,0 +1,32 @@
+basys:
+  opcuaServer:
+    certsFolder: ./certs
+    tcpPort: 12688
+    httpsPort: 8443
+  controlcomponent:
+    id: mir100_2
+    name: MiR100-2
+    operationModeJavaPackage: de.dfki.cos.basys.p4p.controlcomponent.mir.opmodes
+    initialExecutionMode: SIMULATE
+    executionModes:
+      auto:
+        executionModeChangeDisabled: false
+        occupationCheckDisabled: false
+        service:
+          implementationJavaClass: de.dfki.cos.basys.p4p.controlcomponent.mir.service.MirServiceImpl
+          connectionString: http://robot-mir-03.mrk40.dfki.lan
+          properties:
+            auth: AUTH_TOKEN
+      simulate:
+        executionModeChangeDisabled: false
+        occupationCheckDisabled: true
+        service:
+          implementationJavaClass: de.dfki.cos.basys.p4p.controlcomponent.mir.service.MirServiceROSImpl
+          connectionString: ws://basys-lnv-1.mrk40.dfki.lan:9300
+          properties:
+            gotoServerName: movsym/mir100_2
+            gotoActionName: simrk40_msgs/MoveToSymbolicPositionAction
+            pickServerName: picksym/mir100_2
+            pickActionName: simrk40_msgs/AGVPickSymbolicAction
+            dropServerName: placesym/mir100_2
+            dropActionName: simrk40_msgs/AGVPlaceSymbolicAction

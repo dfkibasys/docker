@@ -6,8 +6,8 @@
 
 # Docker Compose Command
 COMMAND="up"
-IM_STACKS="00 10 20 30 40"
-ES_STACKS="00 10 21 30 40"
+IM_STACKS="00 10 20 30 40 50 60"
+ES_STACKS="00 10 21 30 40 50 60"
 
 ############################################################
 # Help                                                     #
@@ -57,8 +57,8 @@ function Reverse
    local reverse=""
    for value in "$@"
       do
-	     reverse=$value" "$reverse	  
-	     #echo $reverse	  
+	     reverse=$value" "$reverse
+	     #echo $reverse
       done
    echo "$reverse"
 }
@@ -66,6 +66,14 @@ function Reverse
 Find()
 {
    PATTERN="docker-compose*[-.]$1[-.]*yml"
+   #echo "Pattern:" $PATTERN
+   #$(find . -type f -name $PATTERN)
+   find . -type f -name $PATTERN
+}
+
+FindArm64()
+{
+   PATTERN="arm64-docker-compose*[-.]$1[-.]*yml"
    #echo "Pattern:" $PATTERN
    #$(find . -type f -name $PATTERN)
    find . -type f -name $PATTERN
@@ -79,6 +87,14 @@ ExtractName()
 
 Single()
 {
+
+
+if [[ $ARM64 == 1 ]] ; then
+   # apply cross platform files
+   echo 'prepare qemu-user-static support for multiarch images'
+   docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+fi
+
 for value in "$@"
    do
       #echo "Process" $value
@@ -86,15 +102,22 @@ for value in "$@"
       echo "Stack found:" $STACK
       NAME=$(ExtractName $STACK)
       echo "Stack name:" $NAME
-	  if [[ $COMMAND == pull ]] ; then
-        docker compose -f $STACK $COMMAND 		
+
+      ARM64_STACK=''
+      if [[ $ARM64 == 1 ]] ; then
+         ARM64_STACK=$(FindArm64 $value | sed 's/^/-f /' )
+         echo 'Using arm64 stack file ' $ARM64_STACK
+      fi
+
+	   if [[ $COMMAND == pull ]] ; then
+         docker compose -f $STACK $ARM64_STACK $COMMAND
       elif [[ $COMMAND == up ]] ; then
-	    docker compose -f $STACK -p $NAME $COMMAND -d
-	  elif [[ $COMMAND == down ]] ; then 
-	    docker compose -f $STACK -p $NAME $COMMAND
-	  else
-	    echo "unknown COMMAND" $COMMAND
-	  fi
+	      docker compose -f $STACK $ARM64_STACK -p $NAME $COMMAND -d --remove-orphans
+	   elif [[ $COMMAND == down ]] ; then 
+	      docker compose -f $STACK $ARM64_STACK -p $NAME $COMMAND
+	   else
+	      echo "unknown COMMAND" $COMMAND
+	   fi
    done
 exit
 }
@@ -121,7 +144,7 @@ esac
 if [[ $COMMAND == down ]] ; then 
    echo "reverse"
    STACKS=$(Reverse $STACKS)
-fi	
+fi
 Single $STACKS
 }
 
@@ -153,7 +176,7 @@ while getopts "hs:a" option; do
            All $nextopt
          else
            All
-         fi		 
+         fi
          exit;;
      \?) # Invalid option
          echo "Error: Invalid option"

@@ -7,17 +7,19 @@ basys:
     id: wallet_1
     name: Wall-ET
     operationModeJavaPackage: de.dfki.cos.basys.p4p.controlcomponent.wallet.opmodes
-    executionMode: SIMULATE
-    auto:
-      disableExecutionModeChange: false
-      disableOccupationCheck: false
-      service:
-        implementationJavaClass: de.dfki.cos.basys.p4p.controlcomponent.wallet.service.WalletServiceImpl
-        connectionString: ws://10.2.1.11:9090
-        gotoServerName: /move_base
-        gotoActionName: /move_base_msgs/MoveBaseAction
-        liftServerName: /wallet_lift
-        liftActionName: /wallet_msgs/LiftWalletAction
-    simulate:
-      disableExecutionModeChange: true
-      disableOccupationCheck: true
+    initialExecutionMode: SIMULATE
+    executionModes:
+      auto:
+        executionModeChangeDisabled: false
+        occupationCheckDisabled: false
+        service:
+          implementationJavaClass: de.dfki.cos.basys.p4p.controlcomponent.wallet.service.WalletServiceImpl
+          connectionString: ws://10.2.1.11:9090
+          properties:
+            gotoServerName: /move_base
+            gotoActionName: /move_base_msgs/MoveBaseAction
+            liftServerName: /wallet_lift
+            liftActionName: /wallet_msgs/LiftWalletAction
+      simulate:
+        executionModeChangeDisabled: true
+        occupationCheckDisabled: true

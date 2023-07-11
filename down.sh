@@ -6,8 +6,8 @@
 
 # Docker Compose Command
 COMMAND="down"
-IM_STACKS="00 10 20 30 40"
-ES_STACKS="00 10 21 30 40"
+IM_STACKS="00 10 20 30 40 50 60"
+ES_STACKS="00 10 21 30 40 50 60"
 
 ############################################################
 # Help                                                     #

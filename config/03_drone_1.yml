@@ -7,21 +7,23 @@ basys:
     id: drone_1
     name: Drone-1
     operationModeJavaPackage: de.dfki.cos.basys.p4p.controlcomponent.drone.opmodes
-    executionMode: SIMULATE
-    auto:
-      disableExecutionModeChange: false
-      disableOccupationCheck: false
-      service:
-        implementationJavaClass: de.dfki.cos.basys.p4p.controlcomponent.drone.service.DroneServiceImpl
-        connectionString: tcp://10.2.10.1:1883
-        droneInspectionServiceEndpoint: http://10.2.0.18:5000
-        mqttUsername: "drone_control_component"
-        mqttPassword: SECRET
-    simulate:
-      disableExecutionModeChange: true
-      disableOccupationCheck: true
-#      disableServiceMock: true
-#      service:
-#        implementationJavaClass: de.dfki.cos.basys.p4p.controlcomponent.drone.service.DroneServiceImpl
-#        connectionString: tcp://10.2.10.4:1883
-#        droneInspectionServiceEndpoint: http://10.2.0.18:5000
+    initialExecutionMode: SIMULATE
+    executionModes:
+      auto:
+        executionModeChangeDisabled: false
+        occupationCheckDisabled: false
+        service:
+          implementationJavaClass: de.dfki.cos.basys.p4p.controlcomponent.drone.service.DroneServiceImpl
+          connectionString: tcp://10.2.10.1:1883
+          properties:
+            droneInspectionServiceEndpoint: http://10.2.0.18:5000
+            mqttUsername: "drone_control_component"
+            mqttPassword: SECRET
+      simulate:
+        executionModeChangeDisabled: true
+        occupationCheckDisabled: true
+  #      disableServiceMock: true
+  #      service:
+  #        implementationJavaClass: de.dfki.cos.basys.p4p.controlcomponent.drone.service.DroneServiceImpl
+  #        connectionString: tcp://10.2.10.4:1883
+  #        droneInspectionServiceEndpoint: http://10.2.0.18:5000

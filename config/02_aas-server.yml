@@ -12,7 +12,7 @@ basys:
   aas-registry:
     type: dotaas
     service:
-      connectionString: http://aas-registry-dotaas:8080/
+      connectionString: http://aas-registry-dotaas:8080
   aas-server:
     backend: InMemory
 #    source: /workspace/data/mrklab.aasx

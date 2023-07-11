@@ -31,7 +31,7 @@ services:
     networks:
       - processcontrol
       - proxy
-  
+
   task-channel-camunda-cc:
     image: dfkibasys/task-channel-camunda-cc:${VERSION}
     container_name: task-channel-camunda-cc
@@ -59,6 +59,7 @@ services:
       KAFKA_BROKER_ENDPOINT: kafka:29092
       SCHEMA_REGISTRY_ENDPOINT: http://schema-registry:8081
       MQTT_ENDPOINT: emqx
+      USE_MESSAGE_TIMESTAMP_FOR_MAPPING: false
     depends_on:
       - emqx
     networks:
@@ -70,13 +71,13 @@ services:
     container_name: cc-task-manager
     restart: always
     volumes:
-      - ./config/04_cc-task-manager.yml:/workspace/config/application.yml  
+      - ./config/04_cc-task-manager.yml:/workspace/config/application.yml
     environment:
       KAFKA_BROKER_ENDPOINT: kafka:29092
       SCHEMA_REGISTRY_ENDPOINT: http://schema-registry:8081
       AAS_REGISTRY_ENDPOINT: http://aas-registry-dotaas:8080
     extra_hosts:
-      - "dockerhost:172.17.0.1"
+      - "${EXTERNAL_HOSTNAME}:172.17.0.1"
     networks:
       - communication
       - aas

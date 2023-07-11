@@ -1,0 +1,31 @@
+version: '3.6'
+
+networks:
+  communication:
+    name: basys-communication
+    external: true
+  proxy:
+    name: basys-proxy
+    external: true
+
+services:
+
+  grafana:
+    image: grafana/grafana:9.3.8
+    container_name: grafana
+    ports:
+      - 3000:3000
+    environment:
+      GF_AUTH_ANONYMOUS_ORG_ROLE: Admin
+      GF_AUTH_ANONYMOUS_ENABLED: true
+      GF_AUTH_BASIC_ENABLED: false
+      GF_DEFAULT_APP_MODE: development
+      VIRTUAL_HOST: grafana.${EXTERNAL_HOSTNAME}
+      VIRTUAL_PORT: 3000
+    volumes:
+      - ./config/basysafe/grafana/dist:/var/lib/grafana/plugins/basys-aaskafkatopic-datasource
+      - ./config/basysafe/grafana/provisioning:/etc/grafana/provisioning
+      - ./config/basysafe/grafana/dashboards:/var/lib/grafana/dashboards
+    networks:
+      - communication
+      - proxy

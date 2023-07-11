@@ -1,0 +1,16 @@
+version: '3.6'
+
+services:
+  # only arm image available we need to use a newer version
+  #zookeeper:
+  # platform: linux/arm64 
+  #kafka:
+  # platform: linux/arm64
+  #schema-registry:
+  # platform: linux/arm64
+  #rest-proxy:
+  # platform: linux/arm64
+  akhq:
+    platform: linux/arm64    
+  emqx:
+    platform: linux/arm64

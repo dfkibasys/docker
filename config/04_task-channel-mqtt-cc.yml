@@ -1,4 +1,8 @@
 debug: false
+logging:
+  level:
+    root: DEBUG
+    de.dfki.cos.basys: DEBUG
 server:
   port: 8088
 management:
@@ -10,6 +14,25 @@ spring:
   cloud:
     stream:
       kafka:
+        bindings:
+          statusSafetyLightCurtain:
+            producer:
+              message-key-expression: headers['target-protocol']
+          statusSignalColumn:
+            producer:
+              message-key-expression: headers['target-protocol']
+          statusInitiator:
+            producer:
+              message-key-expression: headers['target-protocol']
+          statusEstopButton:
+            producer:
+              message-key-expression: headers['target-protocol']
+          statusAckButton:
+            producer:
+              message-key-expression: headers['target-protocol']
+          statusPress:
+            producer:
+              message-key-expression: headers['target-protocol']
         binder:
           brokers: ${KAFKA_BROKER_ENDPOINT}
       bindings:
@@ -25,6 +48,42 @@ spring:
           binder: kafka-avro
           consumer:
             useNativeDecoding: true
+        statusSafetyLightCurtain:
+          destination: basysafe.safetylightcurtain.status
+          content-type: application/*+avro
+          binder: kafka-avro
+          producer:
+            useNativeEncoding: true
+        statusSignalColumn:
+          destination: basysafe.signalcolumn.status
+          content-type: application/*+avro
+          binder: kafka-avro
+          producer:
+            useNativeEncoding: true
+        statusInitiator:
+          destination: basysafe.initiator.status
+          content-type: application/*+avro
+          binder: kafka-avro
+          producer:
+            useNativeEncoding: true
+        statusEstopButton:
+          destination: basysafe.estopbutton.status
+          content-type: application/*+avro
+          binder: kafka-avro
+          producer:
+            useNativeEncoding: true
+        statusAckButton:
+          destination: basysafe.ackbutton.status
+          content-type: application/*+avro
+          binder: kafka-avro
+          producer:
+            useNativeEncoding: true
+        statusPress:
+          destination: basysafe.press.status
+          content-type: application/*+avro
+          binder: kafka-avro
+          producer:
+            useNativeEncoding: true
       binders:
         #kafka-json:
         #  type: kafka
@@ -54,3 +113,24 @@ mqtt:
   clientId: mqtt-task-channel
   hostname: ${MQTT_ENDPOINT}
   port: 1883
+basys:
+  mqtt-to-kafka-bridge:
+    routes:
+      statusSafetyLightCurtain:
+        source: basysafe/safetylightcurtain/status
+        transformerService: safetyLightCurtainStatusTransformer
+      statusSignalColumn:
+        source: basysafe/signalcolumn/status
+        transformerService: signalColumnStatusTransformer
+      statusInitiator:
+        source: basysafe/initiator/status
+        transformerService: initiatorStatusTransformer
+      statusEstopButton:
+        source: basysafe/estopbutton/status
+        transformerService: estopButtonStatusTransformer
+      statusAckButton:
+        source: basysafe/ackbutton/status
+        transformerService: ackButtonStatusTransformer
+      statusPress:
+        source: basysafe/press/status
+        transformerService: pressStatusTransformer

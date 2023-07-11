@@ -1,0 +1,11 @@
+version: '3.6'
+
+services:    
+  mir100_1:
+    platform: linux/arm64
+    
+  ur10_1:
+    platform: linux/arm64
+    
+  drone_1:
+    platform: linux/arm64

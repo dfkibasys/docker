@@ -1,0 +1,13 @@
+version: '3.6'
+
+
+services:    
+
+  neo4j:
+    platform: linux/arm64
+               
+  aas-registry-dotaas:
+    platform: linux/arm64
+
+  aas-server:
+    platform: linux/arm64
