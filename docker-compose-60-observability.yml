@@ -95,7 +95,7 @@ services:
     restart: unless-stopped
     command: -config.file=/etc/loki/local-config.yaml
     volumes:
-      - ./config/loki.yml:/etc/loki/local-config.yaml
+      - ./config/observability/loki.yml:/etc/loki/local-config.yaml
     networks:
       - communication
       - proxy
