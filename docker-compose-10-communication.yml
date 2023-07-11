@@ -190,7 +190,7 @@ services:
   akhq:
     # build:
     #   context: .
-    image: tchiotludo/akhq:dev
+    image: tchiotludo/akhq:0.24.0
     container_name: akhq
     environment:
       AKHQ_CONFIGURATION: |
