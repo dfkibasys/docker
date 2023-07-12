@@ -1341,7 +1341,7 @@
   "timepicker": {
     "hidden": false
   },
-  "timezone": "utc",
+  "timezone": "browser",
   "title": "BaSySafe",
   "uid": "basyxdashboard",
   "version": 4,
