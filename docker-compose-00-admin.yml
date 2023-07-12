@@ -33,8 +33,6 @@ services:
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
       - ./config/nginx-proxy/aasregistry.legacy.conf:/etc/nginx/vhost.d/aasregistry.${EXTERNAL_HOSTNAME}:ro
-      - ./config/nginx-proxy/camunda.dockerhost.conf:/etc/nginx/vhost.d/camunda.dockerhost
-
     environment:
       - DEFAULT_HOST=${EXTERNAL_HOSTNAME}
     networks:
