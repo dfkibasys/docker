@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_149hkfo" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.13.0">
+  <bpmn:process id="testMir100TransportSimulatedPick" name="testMir100TransportSimulatedPick" isExecutable="true">
+    <bpmn:endEvent id="EndEvent_1dd2a21">
+      <bpmn:incoming>Flow_1o02vqz</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:serviceTask id="ServiceTask_14nckqi" name="MiR fährt UR an" camunda:modelerTemplate="de.dfki.cos.basys.operationMode" camunda:type="external" camunda:topic="ControlComponent">
+      <bpmn:extensionElements>
+        <camunda:field name="_componentId" />
+        <camunda:inputOutput>
+          <camunda:inputParameter name="requestType">OperationModeRequest</camunda:inputParameter>
+          <camunda:inputParameter name="outputParameters">[]</camunda:inputParameter>
+          <camunda:inputParameter name="token">MVSYM</camunda:inputParameter>
+          <camunda:inputParameter name="componentId">
+            <camunda:script scriptFormat="freemarker">${componentId}</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="inputParameters">
+            <camunda:script scriptFormat="freemarker">[
+{ "name": "position", "type" : "STRING", "value": "StationCA02"}
+]</camunda:script>
+          </camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_043isv4</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1ckll7f</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="SequenceFlow_1ckll7f" sourceRef="ServiceTask_14nckqi" targetRef="Activity_0aiukyb" />
+    <bpmn:startEvent id="Event_1d6z67t">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="componentId" label="Component ID" type="string" defaultValue="mir100_1" />
+          <camunda:formField id="pick_stationType" label="PICK Station Type" type="string" defaultValue="not used for now" />
+          <camunda:formField id="pick_loadType" label="PICK Load Type" type="string" defaultValue="TypeBoard" />
+          <camunda:formField id="pick_stationName" label="PICK Station Name" type="string" defaultValue="EMShelf01" />
+          <camunda:formField id="pick_quantity" label="PICK Quantity" type="long" defaultValue="1" />
+          <camunda:formField id="moveSimulated" label="MOVE Simulated" type="boolean" defaultValue="true" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:outgoing>Flow_11fgkde</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:serviceTask id="Activity_0t31mf6" name="Enter SIMULATE Mode" camunda:modelerTemplate="de.dfki.cos.basys.executionMode" camunda:type="external" camunda:topic="ControlComponent">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="requestType">ExecutionModeRequest</camunda:inputParameter>
+          <camunda:inputParameter name="componentId">
+            <camunda:script scriptFormat="freemarker">${componentId}</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="token">SIMULATE</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0rqflo5</bpmn:incoming>
+      <bpmn:outgoing>Flow_1hit1eh</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_1hit1eh" sourceRef="Activity_0t31mf6" targetRef="Activity_1h9zsf7" />
+    <bpmn:serviceTask id="Activity_16611xn" name="MiR fährt Regal an" camunda:modelerTemplate="de.dfki.cos.basys.operationMode" camunda:type="external" camunda:topic="ControlComponent">
+      <bpmn:extensionElements>
+        <camunda:field name="_componentId" />
+        <camunda:inputOutput>
+          <camunda:inputParameter name="requestType">OperationModeRequest</camunda:inputParameter>
+          <camunda:inputParameter name="outputParameters">[]</camunda:inputParameter>
+          <camunda:inputParameter name="token">MVSYM</camunda:inputParameter>
+          <camunda:inputParameter name="inputParameters">
+            <camunda:script scriptFormat="freemarker">[
+{ "name": "position", "type" : "STRING", "value": "StationWH01"}
+]</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="componentId">
+            <camunda:script scriptFormat="freemarker">${componentId}</camunda:script>
+          </camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1l0zhgl</bpmn:incoming>
+      <bpmn:outgoing>Flow_0rqflo5</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_1h9zsf7" name="MiR nimmt Material auf" camunda:modelerTemplate="de.dfki.cos.basys.operationMode" camunda:type="external" camunda:topic="ControlComponent">
+      <bpmn:extensionElements>
+        <camunda:field name="_componentId" />
+        <camunda:inputOutput>
+          <camunda:inputParameter name="requestType">OperationModeRequest</camunda:inputParameter>
+          <camunda:inputParameter name="outputParameters">[]</camunda:inputParameter>
+          <camunda:inputParameter name="componentId">
+            <camunda:script scriptFormat="freemarker">${componentId}</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="token">PICK</camunda:inputParameter>
+          <camunda:inputParameter name="inputParameters">
+            <camunda:script scriptFormat="freemarker">[
+{ "name": "pick_stationType", "type" : "STRING", "value": "${pick_stationType}"},
+{ "name": "pick_loadType", "type" : "STRING", "value": "${pick_loadType}"},
+{ "name": "pick_stationName", "type" : "STRING", "value": "${pick_stationName}"},
+{ "name": "pick_loadId", "type" : "STRING", "value": "${pick_loadId}"},
+{ "name": "pick_quantity", "type" : "INT", "value": "${pick_quantity}"}
+]</camunda:script>
+          </camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1hit1eh</bpmn:incoming>
+      <bpmn:outgoing>Flow_0qhrh1s</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_0aiukyb" name="Enter SIMULATE Mode" camunda:modelerTemplate="de.dfki.cos.basys.executionMode" camunda:type="external" camunda:topic="ControlComponent">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="requestType">ExecutionModeRequest</camunda:inputParameter>
+          <camunda:inputParameter name="componentId">
+            <camunda:script scriptFormat="freemarker">${componentId}</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="token">SIMULATE</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_1ckll7f</bpmn:incoming>
+      <bpmn:outgoing>Flow_1g9vfth</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_0y4chql" name="MiR lädt Material ab" camunda:modelerTemplate="de.dfki.cos.basys.operationMode" camunda:type="external" camunda:topic="ControlComponent">
+      <bpmn:extensionElements>
+        <camunda:field name="_componentId" />
+        <camunda:inputOutput>
+          <camunda:inputParameter name="requestType">OperationModeRequest</camunda:inputParameter>
+          <camunda:inputParameter name="outputParameters">[]</camunda:inputParameter>
+          <camunda:inputParameter name="componentId">
+            <camunda:script scriptFormat="freemarker">${componentId}</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="token">DROP</camunda:inputParameter>
+          <camunda:inputParameter name="inputParameters">
+            <camunda:script scriptFormat="freemarker">[
+{ "name": "drop_stationType", "type" : "STRING", "value": "${pick_stationType}"},
+{ "name": "drop_loadType", "type" : "STRING", "value": "${pick_loadType}"},
+{ "name": "drop_stationName", "type" : "STRING", "value": "${pick_stationName}"},
+{ "name": "drop_loadId", "type" : "STRING", "value": "${pick_loadId}"},
+{ "name": "drop_quantity", "type" : "INT", "value": "${pick_quantity}"}
+]</camunda:script>
+          </camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1g9vfth</bpmn:incoming>
+      <bpmn:outgoing>Flow_1o02vqz</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_1g9vfth" sourceRef="Activity_0aiukyb" targetRef="Activity_0y4chql" />
+    <bpmn:sequenceFlow id="Flow_1o02vqz" sourceRef="Activity_0y4chql" targetRef="EndEvent_1dd2a21" />
+    <bpmn:exclusiveGateway id="Gateway_018jvh8">
+      <bpmn:incoming>Flow_11fgkde</bpmn:incoming>
+      <bpmn:outgoing>Flow_1ivqjkh</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1qy6rpd</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_11fgkde" sourceRef="Event_1d6z67t" targetRef="Gateway_018jvh8" />
+    <bpmn:serviceTask id="Activity_14cfzg3" name="Enter SIMULATE Mode" camunda:modelerTemplate="de.dfki.cos.basys.executionMode" camunda:type="external" camunda:topic="ControlComponent">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="requestType">ExecutionModeRequest</camunda:inputParameter>
+          <camunda:inputParameter name="componentId">
+            <camunda:script scriptFormat="freemarker">${componentId}</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="token">SIMULATE</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1ivqjkh</bpmn:incoming>
+      <bpmn:outgoing>Flow_0wxbyuf</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_12lb9v1" name="Enter AUTO Mode" camunda:modelerTemplate="de.dfki.cos.basys.executionMode" camunda:type="external" camunda:topic="ControlComponent">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="requestType">ExecutionModeRequest</camunda:inputParameter>
+          <camunda:inputParameter name="componentId">
+            <camunda:script scriptFormat="freemarker">${componentId}</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="token">AUTO</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1qy6rpd</bpmn:incoming>
+      <bpmn:outgoing>Flow_0twiiwb</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_1ivqjkh" sourceRef="Gateway_018jvh8" targetRef="Activity_14cfzg3">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${moveSimulated}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1qy6rpd" sourceRef="Gateway_018jvh8" targetRef="Activity_12lb9v1">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">!${moveSimulated}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:exclusiveGateway id="Gateway_1ha11wj">
+      <bpmn:incoming>Flow_0wxbyuf</bpmn:incoming>
+      <bpmn:incoming>Flow_0twiiwb</bpmn:incoming>
+      <bpmn:outgoing>Flow_1l0zhgl</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_0wxbyuf" sourceRef="Activity_14cfzg3" targetRef="Gateway_1ha11wj" />
+    <bpmn:sequenceFlow id="Flow_0twiiwb" sourceRef="Activity_12lb9v1" targetRef="Gateway_1ha11wj" />
+    <bpmn:sequenceFlow id="Flow_1l0zhgl" sourceRef="Gateway_1ha11wj" targetRef="Activity_16611xn" />
+    <bpmn:sequenceFlow id="Flow_0rqflo5" sourceRef="Activity_16611xn" targetRef="Activity_0t31mf6" />
+    <bpmn:exclusiveGateway id="Gateway_0vso10j">
+      <bpmn:incoming>Flow_0qhrh1s</bpmn:incoming>
+      <bpmn:outgoing>Flow_0nxopay</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1ohe407</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:serviceTask id="Activity_08ck17y" name="Enter SIMULATE Mode" camunda:modelerTemplate="de.dfki.cos.basys.executionMode" camunda:type="external" camunda:topic="ControlComponent">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="requestType">ExecutionModeRequest</camunda:inputParameter>
+          <camunda:inputParameter name="componentId">
+            <camunda:script scriptFormat="freemarker">${componentId}</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="token">SIMULATE</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0nxopay</bpmn:incoming>
+      <bpmn:outgoing>Flow_1qbywby</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="Gateway_0qyur5s">
+      <bpmn:incoming>Flow_1qbywby</bpmn:incoming>
+      <bpmn:incoming>Flow_00nlg3z</bpmn:incoming>
+      <bpmn:outgoing>Flow_043isv4</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:serviceTask id="Activity_1dsuvwy" name="Enter AUTO Mode" camunda:modelerTemplate="de.dfki.cos.basys.executionMode" camunda:type="external" camunda:topic="ControlComponent">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="requestType">ExecutionModeRequest</camunda:inputParameter>
+          <camunda:inputParameter name="componentId">
+            <camunda:script scriptFormat="freemarker">${componentId}</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="token">AUTO</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1ohe407</bpmn:incoming>
+      <bpmn:outgoing>Flow_00nlg3z</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_0nxopay" sourceRef="Gateway_0vso10j" targetRef="Activity_08ck17y">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${moveSimulated}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1ohe407" sourceRef="Gateway_0vso10j" targetRef="Activity_1dsuvwy">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">!${moveSimulated}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1qbywby" sourceRef="Activity_08ck17y" targetRef="Gateway_0qyur5s" />
+    <bpmn:sequenceFlow id="Flow_00nlg3z" sourceRef="Activity_1dsuvwy" targetRef="Gateway_0qyur5s" />
+    <bpmn:sequenceFlow id="Flow_0qhrh1s" sourceRef="Activity_1h9zsf7" targetRef="Gateway_0vso10j" />
+    <bpmn:sequenceFlow id="Flow_043isv4" sourceRef="Gateway_0qyur5s" targetRef="ServiceTask_14nckqi" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="testMir100TransportSimulatedPick">
+      <bpmndi:BPMNShape id="EndEvent_1dd2a21_di" bpmnElement="EndEvent_1dd2a21">
+        <dc:Bounds x="1022" y="592" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_14nckqi_di" bpmnElement="ServiceTask_14nckqi" bioc:stroke="rgb(30, 136, 229)" bioc:fill="rgb(187, 222, 251)">
+        <dc:Bounds x="560" y="570" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1d6z67t_di" bpmnElement="Event_1d6z67t">
+        <dc:Bounds x="152" y="202" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0wngo4r_di" bpmnElement="Activity_0t31mf6">
+        <dc:Bounds x="730" y="180" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_18dedio" bpmnElement="Activity_16611xn" bioc:stroke="rgb(30, 136, 229)" bioc:fill="rgb(187, 222, 251)">
+        <dc:Bounds x="560" y="180" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_1l14kow" bpmnElement="Activity_1h9zsf7" bioc:stroke="rgb(30, 136, 229)" bioc:fill="rgb(187, 222, 251)">
+        <dc:Bounds x="890" y="180" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_0em66sm" bpmnElement="Activity_0aiukyb">
+        <dc:Bounds x="730" y="570" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_1vsvymt" bpmnElement="Activity_0y4chql" bioc:stroke="rgb(30, 136, 229)" bioc:fill="rgb(187, 222, 251)">
+        <dc:Bounds x="890" y="570" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_018jvh8_di" bpmnElement="Gateway_018jvh8" isMarkerVisible="true">
+        <dc:Bounds x="245" y="195" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_0nv6dde" bpmnElement="Activity_14cfzg3">
+        <dc:Bounds x="320" y="80" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_1rqhyfb" bpmnElement="Activity_12lb9v1">
+        <dc:Bounds x="320" y="290" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1ha11wj_di" bpmnElement="Gateway_1ha11wj" isMarkerVisible="true">
+        <dc:Bounds x="445" y="195" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_0tj8yqc" bpmnElement="Gateway_0vso10j" isMarkerVisible="true">
+        <dc:Bounds x="245" y="585" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_17rb2vp" bpmnElement="Activity_08ck17y">
+        <dc:Bounds x="320" y="470" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_1xsfepe" bpmnElement="Gateway_0qyur5s" isMarkerVisible="true">
+        <dc:Bounds x="445" y="585" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_1ut833g" bpmnElement="Activity_1dsuvwy">
+        <dc:Bounds x="320" y="680" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1ckll7f_di" bpmnElement="SequenceFlow_1ckll7f">
+        <di:waypoint x="660" y="610" />
+        <di:waypoint x="730" y="610" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1hit1eh_di" bpmnElement="Flow_1hit1eh">
+        <di:waypoint x="830" y="220" />
+        <di:waypoint x="890" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1g9vfth_di" bpmnElement="Flow_1g9vfth">
+        <di:waypoint x="830" y="610" />
+        <di:waypoint x="890" y="610" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1o02vqz_di" bpmnElement="Flow_1o02vqz">
+        <di:waypoint x="990" y="610" />
+        <di:waypoint x="1022" y="610" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_11fgkde_di" bpmnElement="Flow_11fgkde">
+        <di:waypoint x="188" y="220" />
+        <di:waypoint x="245" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1ivqjkh_di" bpmnElement="Flow_1ivqjkh">
+        <di:waypoint x="270" y="195" />
+        <di:waypoint x="270" y="120" />
+        <di:waypoint x="320" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1qy6rpd_di" bpmnElement="Flow_1qy6rpd">
+        <di:waypoint x="270" y="245" />
+        <di:waypoint x="270" y="330" />
+        <di:waypoint x="320" y="330" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0wxbyuf_di" bpmnElement="Flow_0wxbyuf">
+        <di:waypoint x="420" y="120" />
+        <di:waypoint x="470" y="120" />
+        <di:waypoint x="470" y="195" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0twiiwb_di" bpmnElement="Flow_0twiiwb">
+        <di:waypoint x="420" y="330" />
+        <di:waypoint x="470" y="330" />
+        <di:waypoint x="470" y="245" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1l0zhgl_di" bpmnElement="Flow_1l0zhgl">
+        <di:waypoint x="495" y="220" />
+        <di:waypoint x="560" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0rqflo5_di" bpmnElement="Flow_0rqflo5">
+        <di:waypoint x="660" y="220" />
+        <di:waypoint x="730" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_0icbdcg" bpmnElement="Flow_0nxopay">
+        <di:waypoint x="270" y="585" />
+        <di:waypoint x="270" y="510" />
+        <di:waypoint x="320" y="510" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_1umbqyn" bpmnElement="Flow_1ohe407">
+        <di:waypoint x="270" y="635" />
+        <di:waypoint x="270" y="720" />
+        <di:waypoint x="320" y="720" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_1p65c28" bpmnElement="Flow_1qbywby">
+        <di:waypoint x="420" y="510" />
+        <di:waypoint x="470" y="510" />
+        <di:waypoint x="470" y="585" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_08n4qsn" bpmnElement="Flow_00nlg3z">
+        <di:waypoint x="420" y="720" />
+        <di:waypoint x="470" y="720" />
+        <di:waypoint x="470" y="635" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0qhrh1s_di" bpmnElement="Flow_0qhrh1s">
+        <di:waypoint x="990" y="220" />
+        <di:waypoint x="1030" y="220" />
+        <di:waypoint x="1030" y="410" />
+        <di:waypoint x="170" y="410" />
+        <di:waypoint x="170" y="610" />
+        <di:waypoint x="245" y="610" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_043isv4_di" bpmnElement="Flow_043isv4">
+        <di:waypoint x="495" y="610" />
+        <di:waypoint x="560" y="610" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
