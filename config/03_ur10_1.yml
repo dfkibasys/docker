@@ -18,3 +18,17 @@ basys:
       simulate:
         executionModeChangeDisabled: true
         occupationCheckDisabled: true
+        service:
+          implementationJavaClass: de.dfki.cos.basys.p4p.controlcomponent.ur.service.UrServiceImplROS
+          connectionString: ws://localhost:9100
+          properties:
+            movSymServerName: /movsym/ur10_1
+            movSymActionName: /simrk40_msgs/MoveToSymbolicPositionAction
+            ppSymServerName: /ppsym/ur10_1
+            ppSymActionName: /simrk40_msgs/PickAndPlaceSymbolicAction
+            pickSymServerName: /picksym/ur10_1
+            pickSymActionName: /simrk40_msgs/PickSymbolicAction
+            placeSymServerName: /placesym/ur10_1
+            placeSymActionName: /simrk40_msgs/PlaceSymbolicAction
+            joinSymServerName: /joinsym/ur10_1
+            joinSymActionName: /simrk40_msgs/JoinSymbolicAction
