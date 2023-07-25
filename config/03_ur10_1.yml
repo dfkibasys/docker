@@ -20,7 +20,7 @@ basys:
         occupationCheckDisabled: true
         service:
           implementationJavaClass: de.dfki.cos.basys.p4p.controlcomponent.ur.service.UrServiceImplROS
-          connectionString: ws://localhost:9100
+          connectionString: ws://basys-lnv-1.mrk40.dfki.lan:9100
           properties:
             movSymServerName: /movsym/ur10_1
             movSymActionName: /simrk40_msgs/MoveToSymbolicPositionAction
