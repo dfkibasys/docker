@@ -9,6 +9,8 @@ services:
   items:
   - name: PPR Dashboard
     subdomain: pprdashboard
+  - name: AAS Web GUI
+    subdomain: aasgui
   - name: AAS Registry
     subdomain: aasregistry
   - name: AAS Server
