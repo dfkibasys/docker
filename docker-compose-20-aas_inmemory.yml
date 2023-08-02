@@ -56,7 +56,7 @@ services:
        - proxy
 
   aas-web-gui:
-    image: eclipsebasyx/aas-gui:v230703
+    image: dfkibasys/aas-web-gui:${VERSION}
     container_name: aas-web-gui
     ports:
       - "3300:3000"
