@@ -113,7 +113,7 @@ services:
        - proxy
 
   scale_controller:
-    image: dfkibasys/controlcomponent-scalecontroller:${VERSION}
+    image: dfkibasys/controlcomponent-scalecontroller:latest
     container_name: scale_controller
     volumes:
       - ./config/03_scale_controller.yml:/workspace/config/application-cc.yml
