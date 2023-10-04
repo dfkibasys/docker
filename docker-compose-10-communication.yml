@@ -239,3 +239,13 @@ services:
     networks:
       - communication
       - proxy
+
+  service-registry:
+    image: dfkibasys/service-registry:latest
+    container_name: service-registry
+    ports:
+      - "8761:8761"
+    restart: always
+    networks:
+      - communication
+      - proxy
