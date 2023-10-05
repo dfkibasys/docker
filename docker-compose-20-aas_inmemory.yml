@@ -56,17 +56,20 @@ services:
        - proxy
 
   aas-web-gui:
-    image: eclipsebasyx/aas-gui:v230703
+    image: dfkibasys/aas-web-gui:${VERSION}
     container_name: aas-web-gui
     ports:
       - "3300:3000"
     environment:
       CHOKIDAR_USEPOLLING: "true"
-      VITE_REGISTRY_PATH: aasregistry.${EXTERNAL_HOSTNAME}
-      VITE_AAS_SERVER_PATH: aasserver.${EXTERNAL_HOSTNAME}
+      VITE_REGISTRY_PATH: http://aasregistry.${EXTERNAL_HOSTNAME}
+      VITE_AAS_SERVER_PATH: http://aasserver.${EXTERNAL_HOSTNAME}/shells
   #    VITE_PRIMARY_COLOR: "<primary_color>"
       VIRTUAL_HOST: aasgui.${EXTERNAL_HOSTNAME}
       VIRTUAL_PORT: 3000
   #  volumes:
   #    - <local_path_to_logo>:/app/src/assets/Logo
   #    - <local_path_to_plugins>:/app/src/UserPlugins
+    networks:
+       - aas
+       - proxy

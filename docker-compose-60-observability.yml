@@ -96,6 +96,10 @@ services:
     command: -config.file=/etc/loki/local-config.yaml
     volumes:
       - ./config/observability/loki.yml:/etc/loki/local-config.yaml
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "128m"
     networks:
       - communication
       - proxy

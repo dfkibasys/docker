@@ -112,3 +112,27 @@ services:
        - aas
        - proxy
 
+  scale_controller:
+    image: dfkibasys/controlcomponent-scalecontroller:latest
+    container_name: scale_controller
+    volumes:
+      - ./config/03_scale_controller.yml:/workspace/config/application-cc.yml
+      - ./config/03_cc-docker_env.yml:/workspace/config/application-docker.yml
+      #- ./data/opcua-server-certs:/workspace/certs
+    restart: always
+    ports:
+      - "8205:8088"
+      - "12689:12689"
+    environment:
+      EXTERNAL_HOSTNAME: ${EXTERNAL_HOSTNAME}
+      EXTERNAL_PORT: 8205
+      SPRING_PROFILES_ACTIVE: cc,docker
+    labels:
+      logging: "promtail"
+      logging_jobname: "containerlogs"
+    networks:
+       - controlcomponents
+       - communication
+       - aas
+       - proxy
+
