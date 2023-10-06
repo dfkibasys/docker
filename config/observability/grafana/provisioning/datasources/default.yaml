@@ -2,9 +2,12 @@ apiVersion: 1
 
 datasources:
   - name: AAS Kafka Topic
-    type: basys-aaskafkatopic-datasource
+    type: basys-streaming-datasource
     isDefault: true
     orgId: 1
+    jsonData:
+      kafkaUrl: "kafka:29092"
+      schemaRegistryUrl: "http://schema-registry:8081"
   
   - name: Prometheus
     type: prometheus
