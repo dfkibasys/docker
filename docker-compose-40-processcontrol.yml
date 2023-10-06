@@ -63,8 +63,6 @@ services:
     labels:
       logging: "promtail"
       logging_jobname: "containerlogs"
-    depends_on:
-      - emqx
     networks:
       - communication
       - processcontrol
@@ -104,15 +102,13 @@ services:
     labels:
       logging: "promtail"
       logging_jobname: "containerlogs"
-    depends_on:
-      - emqx
     networks:
       - communication
       - processcontrol
 
 
   ppr-dashboard:
-    image: dfkibasys/ppr-dashboard:dev
+    image: dfkibasys/ppr-dashboard:${PPR_DASHBOARD_VERSION}
     container_name: ppr-dashboard
     ports:
       - "8090:80"
@@ -121,10 +117,18 @@ services:
       VITE_CAMUNDA_REST_URL: "http://camunda.${EXTERNAL_HOSTNAME}"
       VITE_AAS_REGISTRY_URL: "http://aasregistry.${EXTERNAL_HOSTNAME}"
       VITE_AJAX_REQUEST_DOMAIN: "http://pprdashboard.${EXTERNAL_HOSTNAME}/engine-rest"
+      # remove the VUE_APP ENVs when we go to a new stable version
+      # using both we can switch between stable and dev
+      VUE_APP_MQTT_BROKER_URL: "ws://${EXTERNAL_HOSTNAME}:8083/mqtt"
+      VUE_APP_CAMUNDA_REST_URL: "http://camunda.${EXTERNAL_HOSTNAME}"
+      VUE_APP_AAS_REGISTRY_URL: "http://aasregistry.${EXTERNAL_HOSTNAME}"
+      VUE_APP_AJAX_REQUEST_DOMAIN: "http://pprdashboard.${EXTERNAL_HOSTNAME}/engine-rest"
       NGINX_PROXY: "http://camunda:8080/engine-rest/"
       VIRTUAL_HOST: pprdashboard.${EXTERNAL_HOSTNAME}
       VIRTUAL_PORT: 80
     restart: always
+    depends_on:
+      - camunda
     networks:
       - communication
       - aas

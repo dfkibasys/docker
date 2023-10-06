@@ -15,11 +15,13 @@ services:
     restart: always
     ports:
       - "9090:9000"
+    command: --admin-password-file=/secrets/admin-password
     environment:
       - VIRTUAL_HOST=portainer.${EXTERNAL_HOSTNAME}
       - VIRTUAL_PORT=9000
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      - ./data/portainer/admin-password:/secrets/admin-password
     networks:
       - admin
       - proxy

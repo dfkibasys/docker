@@ -118,7 +118,7 @@ for value in "$@"
       elif [[ $COMMAND == up ]] ; then
 	      docker compose -f $STACK $ARM64_STACK --env-file .env.$ENV -p $NAME $COMMAND -d --remove-orphans
 	   elif [[ $COMMAND == down ]] ; then 
-	      docker compose -f $STACK $ARM64_STACK -p $NAME $COMMAND
+	      docker compose -f $STACK $ARM64_STACK --env-file .env.$ENV -p $NAME $COMMAND
 	   else
 	      echo "unknown COMMAND" $COMMAND
 	   fi

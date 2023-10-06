@@ -8,6 +8,10 @@
 COMMAND="down"
 IM_STACKS="00 10 20 30 40 50 60"
 ES_STACKS="00 10 21 30 40 50 60"
+if [[ ! -v ENV ]]; then
+   ENV='stable'
+fi
+echo "Setting up '$ENV' environment"
 
 ############################################################
 # Help                                                     #
@@ -87,11 +91,11 @@ for value in "$@"
       NAME=$(ExtractName $STACK)
       echo "Stack name:" $NAME
 	  if [[ $COMMAND == pull ]] ; then
-        docker compose -f $STACK $COMMAND 		
+        docker compose -f $STACK --env-file .env.$ENV $COMMAND 		
       elif [[ $COMMAND == up ]] ; then
-	    docker compose -f $STACK -p $NAME $COMMAND -d
+	    docker compose -f $STACK -p $NAME --env-file .env.$ENV $COMMAND -d  --wait
 	  elif [[ $COMMAND == down ]] ; then 
-	    docker compose -f $STACK -p $NAME $COMMAND
+	    docker compose -f $STACK -p $NAME --env-file .env.$ENV $COMMAND
 	  else
 	    echo "unknown COMMAND" $COMMAND
 	  fi
