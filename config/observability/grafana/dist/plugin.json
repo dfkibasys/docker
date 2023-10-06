@@ -1,15 +1,15 @@
 {
   "$schema": "https://raw.githubusercontent.com/grafana/grafana/master/docs/sources/developers/plugins/plugin.schema.json",
   "type": "datasource",
-  "name": "AAS Kafka Topic",
-  "id": "basys-aaskafkatopic-datasource",
+  "name": "Streaming",
+  "id": "basys-streaming-datasource",
   "metrics": true,
   "backend": true,
-  "executable": "gpx_aas_kafka_topic",
+  "executable": "gpx_streaming",
   "info": {
-    "description": "Streaming data source plugin that accesses a kafka topic based on an aas entry",
+    "description": "Kafka streaming data source",
     "author": {
-      "name": "gerhard.sonnenberg@dfki.de"
+      "name": "Basys"
     },
     "keywords": ["datasource"],
     "logos": {
@@ -19,7 +19,7 @@
     "links": [],
     "screenshots": [],
     "version": "1.0.0",
-    "updated": "2023-03-31"
+    "updated": "2023-10-02"
   },
   "dependencies": {
     "grafanaDependency": "^9.3.8",

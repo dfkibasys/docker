@@ -126,7 +126,7 @@
             "type": "basys-aaskafkatopic-datasource",
             "uid": "PA4512E1D2B2491FC"
           },
-          "queryText": "basysafe.initiator.status",
+          "topic": "basysafe.initiator.status",
           "refId": "A"
         }
       ],
@@ -268,7 +268,7 @@
             "type": "basys-aaskafkatopic-datasource",
             "uid": "PA4512E1D2B2491FC"
           },
-          "queryText": "basysafe.safetylightcurtain.status",
+          "topic": "basysafe.safetylightcurtain.status",
           "refId": "A"
         }
       ],
@@ -647,7 +647,7 @@
             "type": "basys-aaskafkatopic-datasource",
             "uid": "PA4512E1D2B2491FC"
           },
-          "queryText": "basysafe.press.status",
+          "topic": "basysafe.press.status",
           "refId": "A"
         }
       ],
@@ -788,7 +788,7 @@
             "type": "basys-aaskafkatopic-datasource",
             "uid": "PA4512E1D2B2491FC"
           },
-          "queryText": "basysafe.estopbutton.status",
+          "topic": "basysafe.estopbutton.status",
           "refId": "A"
         }
       ],
@@ -924,7 +924,7 @@
             "type": "basys-aaskafkatopic-datasource",
             "uid": "PA4512E1D2B2491FC"
           },
-          "queryText": "basysafe.estopbutton.status",
+          "topic": "basysafe.estopbutton.status",
           "refId": "A"
         }
       ],
@@ -1073,7 +1073,7 @@
             "type": "basys-aaskafkatopic-datasource",
             "uid": "PA4512E1D2B2491FC"
           },
-          "queryText": "basysafe.ackbutton.status",
+          "topic": "basysafe.ackbutton.status",
           "refId": "A"
         }
       ],
@@ -1276,7 +1276,7 @@
             "type": "basys-aaskafkatopic-datasource",
             "uid": "PA4512E1D2B2491FC"
           },
-          "queryText": "basysafe.signalcolumn.status",
+          "topic": "basysafe.signalcolumn.status",
           "refId": "A"
         }
       ],
