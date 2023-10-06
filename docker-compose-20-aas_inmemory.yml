@@ -56,7 +56,7 @@ services:
        - proxy
 
   aas-web-gui:
-    image: dfkibasys/aas-web-gui:${VERSION}
+    image: dfkibasys/aas-web-gui:${AAS_WEBUI_VERSION}
     container_name: aas-web-gui
     ports:
       - "3300:3000"
