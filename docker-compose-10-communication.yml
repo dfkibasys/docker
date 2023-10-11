@@ -243,6 +243,9 @@ services:
   service-registry:
     image: dfkibasys/service-registry:latest
     container_name: service-registry
+    environment:
+      - VIRTUAL_HOST=serviceregistry.${EXTERNAL_HOSTNAME}
+      - VIRTUAL_PORT=8761
     ports:
       - "8761:8761"
     restart: always
