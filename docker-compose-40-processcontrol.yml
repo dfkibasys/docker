@@ -134,3 +134,23 @@ services:
       - aas
       - processcontrol
       - proxy
+
+  wgs-management-service:
+    image: dfkibasys/wgs-management-service:latest
+    container: wgs-management-service
+    environment:
+      AAS_REGISTRY_ENDPOINT: http://aasregistry.${EXTERNAL_HOSTNAME}
+      WGS_DASHBOARD_ENDPOINT: ""
+      NEO4J_ENDPOINT: http://neo4j.${EXTERNAL_HOSTNAME}
+      NEO4J_USERNAME: neo4j
+      NEO4J_PASSWORD: dfkibasys
+      KAFKA_BROKER_ENDPOINT: kafka:29092
+      SCHEMA_REGISTRY_ENDPOINT: http://schema-registry:8081
+      EUREKA_SERVER_ENDPOINT: service-registry/eureka
+      MQTT_BROKER_ENDPOINT: emqx
+    restart: always
+    networks:
+      - communication
+      - aas
+      - processcontrol
+
