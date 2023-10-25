@@ -137,7 +137,7 @@ services:
 
   wgs-management-service:
     image: dfkibasys/wgs-management-service:latest
-    container: wgs-management-service
+    container_name: wgs-management-service
     environment:
       AAS_REGISTRY_ENDPOINT: http://aasregistry.${EXTERNAL_HOSTNAME}
       WGS_DASHBOARD_ENDPOINT: http://hybrit-lnv-1.mrk40.dfki.lan:3002
