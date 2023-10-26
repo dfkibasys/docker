@@ -1,0 +1,80 @@
+[
+{
+	"name": "WGS Dashboard Request",
+	"id": "de.dfki.cos.basys.wgsdashboard",
+	"appliesTo": [
+		"bpmn:ServiceTask"
+	],
+	"properties": [
+		{
+			"label": "camunda:type",
+			"type": "Hidden",
+			"value": "external",
+			"editable": false,
+			"binding": {
+				"type": "property",
+				"name": "camunda:type"
+			}
+		},
+		{
+			"label": "camunda:topic",
+			"type": "Hidden",
+			"value": "WGSDashboard",
+			"editable": false,
+			"binding": {
+				"type": "property",
+				"name": "camunda:topic"
+			}
+		},	
+		{
+			"label": "ComponentId",
+			"type": "String",
+			"description": "Enter a ComponentId, you can also use variables ${componentId} here.",
+			"binding": {
+				"type": "camunda:inputParameter",
+				"name": "componentId",				
+				"scriptFormat": "freemarker"
+			},
+			"constraints": {
+				"notEmpty": true
+			}
+		},
+		{
+			"label": "WorkstepId",
+			"type": "String",
+			"binding": {
+				"type": "camunda:inputParameter",
+				"name": "workstepId"
+			},
+			"constraints": {
+				"notEmpty": true
+			}
+		},
+		{
+			"label": "Input Parameters",
+			"type": "Text",
+			"description": "Enter a JSON array containing input parameters with properties 'name', 'type' and 'valueString'. You can also use variables, e.g. ${paramValue}, here.",
+			"value" : "[]",
+			"binding": {
+				"name": "inputParameters",
+				"type": "camunda:inputParameter",
+				"scriptFormat": "freemarker"
+			}
+		},
+		{
+			"label": "Output Parameters",
+			"type": "Text",
+			"description": "Enter a JSON array containing expected output parameters with properties 'name' and 'type'.",
+			"value" : "[]",
+			"binding": {
+				"name": "outputParameters",
+				"type": "camunda:inputParameter"
+			}
+		}
+	],
+	"entriesVisible": {
+      "_all": false,
+	  "name": true
+    }
+}
+]
