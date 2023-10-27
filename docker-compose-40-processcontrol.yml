@@ -33,7 +33,7 @@ services:
       - proxy
 
   task-channel-camunda-cc:
-    image: dfkibasys/task-channel-camunda-cc:${VERSION}
+    image: dfkibasys/task-channel-camunda-cc:0.5.2-SNAPSHOT
     container_name: task-channel-camunda-cc
     restart: always
     volumes:
