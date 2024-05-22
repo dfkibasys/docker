@@ -13,7 +13,7 @@ volumes:
 
 services:
   grafana:
-    image: grafana/grafana:9.3.16
+    image: grafana/grafana:10.2.3
     container_name: grafana
     ports:
       - 3000:3000
@@ -22,6 +22,7 @@ services:
       GF_AUTH_ANONYMOUS_ENABLED: true
       GF_AUTH_BASIC_ENABLED: false
       GF_DEFAULT_APP_MODE: development
+      GF_SERVER_DOMAIN: grafana.${EXTERNAL_HOSTNAME}
       VIRTUAL_HOST: grafana.${EXTERNAL_HOSTNAME}
       VIRTUAL_PORT: 3000
     volumes:
