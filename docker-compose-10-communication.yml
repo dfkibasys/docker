@@ -222,7 +222,7 @@ services:
 
   emqx:
     container_name: emqx
-    image: emqx/emqx:4.3.22
+    image: emqx/emqx:4.4.19
     environment:
       - EMQX_NAME=emqx
       - EMQX_HOST=127.0.0.1
