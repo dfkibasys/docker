@@ -88,7 +88,7 @@ for value in "$@"
       echo "Stack name:" $NAME
 
       if [[ ! -v ENV ]]; then
-         ENV='stable'
+         ENV='dev'
       fi
       echo "Setting up '$ENV' environment"
 

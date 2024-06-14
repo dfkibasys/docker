@@ -109,7 +109,7 @@ for value in "$@"
       fi
       
       if [[ ! -v ENV ]]; then
-         ENV='stable'
+         ENV='dev'
       fi
       echo "Setting up '$ENV' environment"
 

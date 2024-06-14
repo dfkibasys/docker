@@ -9,7 +9,7 @@ COMMAND="down"
 IM_STACKS="00 10 20 30 40 50 60"
 ES_STACKS="00 10 21 30 40 50 60"
 if [[ ! -v ENV ]]; then
-   ENV='stable'
+   ENV='dev'
 fi
 echo "Setting up '$ENV' environment"
 
