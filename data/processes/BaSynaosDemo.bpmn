@@ -409,20 +409,20 @@
     <bpmn:sequenceFlow id="Flow_11hrqx6" sourceRef="Activity_17h003r" targetRef="Event_0pgg0kl" />
   </bpmn:process>
   <bpmn:process id="process_deliver_product_parts" name="process_deliver_product_parts" isExecutable="true">
-    <bpmn:serviceTask id="Activity_0531bw7" name="Drive to StationCA02" camunda:modelerTemplate="de.dfki.cos.basys.operationMode" camunda:type="external" camunda:topic="ControlComponent">
+    <bpmn:serviceTask id="Activity_0531bw7" name="Drive to StationCA01" camunda:modelerTemplate="de.dfki.cos.basys.operationMode" camunda:type="external" camunda:topic="ControlComponent">
       <bpmn:extensionElements>
         <camunda:field name="_componentId" />
         <camunda:inputOutput>
           <camunda:inputParameter name="requestType">OperationModeRequest</camunda:inputParameter>
           <camunda:inputParameter name="outputParameters">[]</camunda:inputParameter>
           <camunda:inputParameter name="token">MVSYM</camunda:inputParameter>
-          <camunda:inputParameter name="inputParameters">
-            <camunda:script scriptFormat="freemarker">[
-{ "name": "position", "type" : "STRING", "value": "StationCA02"}
-]</camunda:script>
-          </camunda:inputParameter>
           <camunda:inputParameter name="componentId">
             <camunda:script scriptFormat="freemarker">${transportUnit1Id}</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="inputParameters">
+            <camunda:script scriptFormat="freemarker">[
+{ "name": "position", "type" : "STRING", "value": "StationCA01"}
+]</camunda:script>
           </camunda:inputParameter>
         </camunda:inputOutput>
       </bpmn:extensionElements>
