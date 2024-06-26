@@ -1,5 +1,3 @@
-version: '3.6'
-
 networks:
   communication:
     name: basys-communication
@@ -21,7 +19,7 @@ volumes:
 services:
 
   zookeeper:
-    image: confluentinc/cp-zookeeper:6.2.1
+    image: confluentinc/cp-zookeeper:6.2.15
     hostname: zookeeper
     container_name: zookeeper
     volumes:
@@ -37,7 +35,7 @@ services:
       - communication
 
   kafka:
-    image: confluentinc/cp-kafka:6.2.1
+    image: confluentinc/cp-kafka:6.2.15
     hostname: kafka
     container_name: kafka
     volumes:
@@ -66,7 +64,7 @@ services:
       - communication
 
   schema-registry:
-    image: confluentinc/cp-schema-registry:6.2.1
+    image: confluentinc/cp-schema-registry:6.2.15
     hostname: schema-registry
     container_name: schema-registry
     depends_on:
@@ -81,94 +79,8 @@ services:
     networks:
       - communication
 
-# connect:
-#   image: cnfldemos/kafka-connect-datagen:0.5.0-6.2.1
-#   hostname: connect
-#   container_name: connect
-#   depends_on:
-#     - kafka
-#     - schema-registry
-#   ports:
-#     - "8083:8083"
-#   restart: always
-#   environment:
-#     CONNECT_BOOTSTRAP_SERVERS: 'kafka:29092'
-#     CONNECT_REST_ADVERTISED_HOST_NAME: connect
-#     CONNECT_REST_PORT: 8083
-#     CONNECT_GROUP_ID: compose-connect-group
-#     CONNECT_CONFIG_STORAGE_TOPIC: docker-connect-configs
-#     CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR: 1
-#     CONNECT_OFFSET_FLUSH_INTERVAL_MS: 10000
-#     CONNECT_OFFSET_STORAGE_TOPIC: docker-connect-offsets
-#     CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR: 1
-#     CONNECT_STATUS_STORAGE_TOPIC: docker-connect-status
-#     CONNECT_STATUS_STORAGE_REPLICATION_FACTOR: 1
-#     CONNECT_KEY_CONVERTER: org.apache.kafka.connect.storage.StringConverter
-#     CONNECT_VALUE_CONVERTER: io.confluent.connect.avro.AvroConverter
-#     CONNECT_VALUE_CONVERTER_SCHEMA_REGISTRY_URL: http://schema-registry:8081
-#     CONNECT_PLUGIN_PATH: "/usr/share/java,/usr/share/confluent-hub-components"
-#     CONNECT_LOG4J_LOGGERS: org.apache.zookeeper=ERROR,org.I0Itec.zkclient=ERROR,org.reflections=ERROR
-#
-# ksqldb-server:
-#   image: confluentinc/cp-ksqldb-server:6.2.1
-#   hostname: ksqldb-server
-#   container_name: ksqldb-server
-#   depends_on:
-#     - kafka
-#     - connect
-#   ports:
-#     - "8088:8088"
-#   restart: always
-#   environment:
-#     KSQL_CONFIG_DIR: "/etc/ksql"
-#     KSQL_BOOTSTRAP_SERVERS: "kafka:29092"
-#     KSQL_HOST_NAME: ksqldb-server
-#     KSQL_LISTENERS: "http://0.0.0.0:8088"
-#     KSQL_CACHE_MAX_BYTES_BUFFERING: 0
-#     KSQL_KSQL_SCHEMA_REGISTRY_URL: "http://schema-registry:8081"
-#     KSQL_PRODUCER_INTERCEPTOR_CLASSES: "io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor"
-#     KSQL_CONSUMER_INTERCEPTOR_CLASSES: "io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor"
-#     KSQL_KSQL_CONNECT_URL: "http://connect:8083"
-#     KSQL_KSQL_LOGGING_PROCESSING_TOPIC_REPLICATION_FACTOR: 1
-#     KSQL_KSQL_LOGGING_PROCESSING_TOPIC_AUTO_CREATE: 'true'
-#     KSQL_KSQL_LOGGING_PROCESSING_STREAM_AUTO_CREATE: 'true'
-#
-# ksqldb-cli:
-#   image: confluentinc/cp-ksqldb-cli:6.2.1
-#   container_name: ksqldb-cli
-#   restart: always
-#   depends_on:
-#     - kafka
-#     - connect
-#     - ksqldb-server
-#   entrypoint: /bin/sh
-#   tty: true
-#
-# ksql-datagen:
-#   image: confluentinc/ksqldb-examples:6.2.1
-#   hostname: ksql-datagen
-#   container_name: ksql-datagen
-#   restart: always
-#   depends_on:
-#     - ksqldb-server
-#     - kafka
-#     - schema-registry
-#     - connect
-#   command: "bash -c 'echo Waiting for Kafka to be ready... && \
-#                      cub kafka-ready -b kafka:29092 1 40 && \
-#                      echo Waiting for Confluent Schema Registry to be ready... && \
-#                      cub sr-ready schema-registry 8081 40 && \
-#                      echo Waiting a few seconds for topic creation to finish... && \
-#                      sleep 11 && \
-#                      tail -f /dev/null'"
-#   environment:
-#     KSQL_CONFIG_DIR: "/etc/ksql"
-#     STREAMS_BOOTSTRAP_SERVERS: kafka:29092
-#     STREAMS_SCHEMA_REGISTRY_HOST: schema-registry
-#     STREAMS_SCHEMA_REGISTRY_PORT: 8081
-#
   rest-proxy:
-    image: confluentinc/cp-kafka-rest:6.2.1
+    image: confluentinc/cp-kafka-rest:6.2.15
     depends_on:
       - kafka
       - schema-registry
@@ -192,8 +104,6 @@ services:
       - communication    
 
   akhq:
-    # build:
-    #   context: .
     image: tchiotludo/akhq:0.25.0
     container_name: akhq
     environment:

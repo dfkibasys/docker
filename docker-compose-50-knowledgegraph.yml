@@ -1,5 +1,3 @@
-version: '3.6'
-
 networks:
   aas:
     name: basys-aas
@@ -14,7 +12,7 @@ networks:
 services:
 
   neo4j:
-    image: neo4j:5.7-community
+    image: neo4j:5.20-community
     container_name: neo4j
     ports:
       - 7474:7474

@@ -1,5 +1,3 @@
-version: '3.6'
-
 networks:
   communication:
     name: basys-communication
@@ -20,7 +18,7 @@ networks:
 services:
 
   camunda:
-    image: camunda/camunda-bpm-platform:7.16.0
+    image: camunda/camunda-bpm-platform:7.21.0
     container_name: camunda
     ports:
         - "9080:8080"

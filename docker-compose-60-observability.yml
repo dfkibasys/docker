@@ -1,5 +1,3 @@
-version: '3.6'
-
 networks:
   communication:
     name: basys-communication
@@ -13,7 +11,7 @@ volumes:
 
 services:
   grafana:
-    image: grafana/grafana:10.2.3
+    image: grafana/grafana:10.2.7
     container_name: grafana
     ports:
       - 3000:3000
@@ -34,7 +32,7 @@ services:
       - proxy
 
   node-exporter:
-    image: prom/node-exporter:v1.6.0
+    image: prom/node-exporter:v1.8.1
     container_name: node-exporter
     restart: unless-stopped
     volumes:
@@ -52,7 +50,7 @@ services:
       - communication
 
   cadvisor:
-    image: gcr.io/cadvisor/cadvisor:v0.47.2
+    image: gcr.io/cadvisor/cadvisor:v0.49.1
     container_name: cadvisor
     privileged: true
     devices:
@@ -70,7 +68,7 @@ services:
       - communication
 
   prometheus:
-    image: prom/prometheus:v2.45.0
+    image: prom/prometheus:v2.52.0
     container_name: prometheus
     ports:
       - 9095:9090
@@ -89,7 +87,7 @@ services:
       - proxy
 
   loki:
-    image: grafana/loki:2.8.0
+    image: grafana/loki:2.9.8
     container_name: loki
     ports:
       - "3100:3100"
@@ -106,7 +104,7 @@ services:
       - proxy
 
   promtail:
-    image: grafana/promtail:2.8.0
+    image: grafana/promtail:2.9.8
     container_name: promtail
     volumes:
       - /var/log:/var/log
