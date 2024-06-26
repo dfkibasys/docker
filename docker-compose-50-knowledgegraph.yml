@@ -56,7 +56,7 @@ services:
     depends_on:
       - aas-knowledgegraph
     ports:
-     - "8089:8082"
+     - "8091:8082"
     restart: always
     environment:
       VIRTUAL_HOST: rimirec.${EXTERNAL_HOSTNAME}
