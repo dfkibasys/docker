@@ -15,7 +15,7 @@ networks:
 services:    
 
   mir100_1:
-    image: dfkibasys/controlcomponent-mir:0.5.2-SNAPSHOT
+    image: dfkibasys/controlcomponent-mir:${MIR_100_CC_VERSION}
     container_name: mir100_1
     volumes:
       - ./config/03_mir100_1.yml:/workspace/config/application-cc.yml
@@ -39,7 +39,7 @@ services:
        - proxy
 
   mir100_2:
-    image: dfkibasys/controlcomponent-mir:${VERSION}
+    image: dfkibasys/controlcomponent-mir:${MIR_100_CC_VERSION}
     container_name: mir100_2
     volumes:
       - ./config/03_mir100_2.yml:/workspace/config/application-cc.yml
@@ -63,7 +63,7 @@ services:
        - proxy
 
   mir100_3:
-    image: dfkibasys/controlcomponent-mir:${VERSION}
+    image: dfkibasys/controlcomponent-mir:${MIR_100_CC_VERSION}
     container_name: mir100_3
     volumes:
       - ./config/03_mir100_3.yml:/workspace/config/application-cc.yml
