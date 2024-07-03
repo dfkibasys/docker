@@ -144,3 +144,48 @@ services:
     networks:
     - aas-v3
     - proxy
+
+  mnestix:
+    image: mnestix/mnestix:prod
+    container_name: mnestix
+    environment:
+      # Connection to Repository Service:
+      ReverseProxy__Clusters__repoCluster__Destinations__destination1__Address: "http://aas-environment.${EXTERNAL_HOSTNAME}"
+      # Features Configuration
+      Features__AasRegistryMiddleware: true
+      Features__UseMongoDbBasedAasIdStorage: true
+      Features__AllowRetrievingAllShellsAndSubmodels: true
+      Features__UseAuthentication: false
+      # MongoDB Configuration
+      BasyxDbConnectionConfiguration__MongoConnectionString: "mongodb://mongoAdmin:mongoPassword@mongo:27017/?authSource=admin"
+      BasyxDbConnectionConfiguration__DatabaseName: aasenvironments
+      BasyxDbConnectionConfiguration__AasCollectionName: "aas-repo"
+      BasyxDbConnectionConfiguration__LookupServiceCollectionName: lookupservice
+      # ASP.NET Core URLs
+      ASPNETCORE_URLS: "http://+:5064"
+      # Frontend Configuration
+      REACT_APP_AD_CLIENT_ID: "Example"
+      REACT_APP_AD_TENANT_ID: "Example"
+      REACT_APP_APPLICATION_ID_URI: "api://mnestix-test-web-api/"
+      REACT_APP_USE_AUTHENTICATION_FEATURE_FLAG: false
+      REACT_APP_LOCK_TIMESERIES_PERIOD_FEATURE_FLAG: true
+      REACT_APP_USE_COMPARISON_FEATURE_FLAG: true
+      REACT_APP_USE_AAS_LIST_FEATURE_FLAG: true
+      THEME_PRIMARY_COLOR: "#D7DBDD"
+      THEME_SECONDARY_COLOR: "#6ABFA3"
+      THEME_LOGO_MIME_TYPE: "image/svg+xml"
+      VIRTUAL_HOST: mnestix.${EXTERNAL_HOSTNAME}
+      VIRTUAL_PORT: 5064
+    volumes:
+      - ./data/mnestix/logo.svg:/app/public/logo
+    depends_on:
+      aas-environment:
+        condition: service_healthy # only after the healthcheck in aas is successful, the mnestix container is being created
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "5"
+        max-size: "100m"
+    networks:
+    - aas-v3
+    - proxy
