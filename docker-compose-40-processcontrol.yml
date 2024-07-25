@@ -125,6 +125,10 @@ services:
       VUE_APP_CAMUNDA_REST_URL: "http://camunda.${EXTERNAL_HOSTNAME}"
       VUE_APP_AAS_REGISTRY_URL: "http://aasregistry.${EXTERNAL_HOSTNAME}"
       VUE_APP_AJAX_REQUEST_DOMAIN: "http://pprdashboard.${EXTERNAL_HOSTNAME}/engine-rest"
+      VITE_MQTT_BROKER_URL: "ws://${EXTERNAL_HOSTNAME}:8083/mqtt"
+      VITE_CAMUNDA_REST_URL: "http://camunda.${EXTERNAL_HOSTNAME}"
+      VITE_AAS_REGISTRY_URL: "http://aasregistry.${EXTERNAL_HOSTNAME}"
+      VITE_AJAX_REQUEST_DOMAIN: "http://pprdashboard.${EXTERNAL_HOSTNAME}/engine-rest"
       NGINX_PROXY: "http://camunda:8080/engine-rest/"
       VIRTUAL_HOST: pprdashboard.${EXTERNAL_HOSTNAME}
       VIRTUAL_PORT: 8080
