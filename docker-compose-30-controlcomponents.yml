@@ -1,5 +1,3 @@
-version: '3.6'
-
 networks:
   controlcomponents:
     name: basys-controlcomponents
@@ -17,12 +15,12 @@ networks:
 services:    
 
   mir100_1:
-    image: dfkibasys/controlcomponent-mir:${VERSION}
+    image: dfkibasys/controlcomponent-mir:${MIR_100_CC_VERSION}
     container_name: mir100_1
     volumes:
       - ./config/03_mir100_1.yml:/workspace/config/application-cc.yml
       - ./config/03_cc-docker_env.yml:/workspace/config/application-docker.yml
-      - ./data/opcua-server-certs:/workspace/certs
+      #- ./data/opcua-server-certs:/workspace/certs
     restart: always
     ports:
       - "8201:8088"
@@ -41,7 +39,7 @@ services:
        - proxy
 
   mir100_2:
-    image: dfkibasys/controlcomponent-mir:${VERSION}
+    image: dfkibasys/controlcomponent-mir:${MIR_100_CC_VERSION}
     container_name: mir100_2
     volumes:
       - ./config/03_mir100_2.yml:/workspace/config/application-cc.yml
@@ -63,6 +61,30 @@ services:
        - communication
        - aas
        - proxy
+
+  mir100_3:
+    image: dfkibasys/controlcomponent-mir:${MIR_100_CC_VERSION}
+    container_name: mir100_3
+    volumes:
+      - ./config/03_mir100_3.yml:/workspace/config/application-cc.yml
+      - ./config/03_cc-docker_env.yml:/workspace/config/application-docker.yml
+      #- ./data/opcua-server-certs:/workspace/certs
+    restart: always
+    ports:
+      - "8207:8088"
+      - "12691:12691"
+    environment:
+      EXTERNAL_HOSTNAME: ${EXTERNAL_HOSTNAME}
+      EXTERNAL_PORT: 8207
+      SPRING_PROFILES_ACTIVE: cc,docker
+    labels:
+      logging: "promtail"
+      logging_jobname: "containerlogs"
+    networks:
+       - controlcomponents
+       - communication
+       - aas
+       - proxy
    
   ur10_1:
     image: dfkibasys/controlcomponent-ur:${VERSION}
@@ -70,7 +92,7 @@ services:
     volumes:
       - ./config/03_ur10_1.yml:/workspace/config/application-cc.yml
       - ./config/03_cc-docker_env.yml:/workspace/config/application-docker.yml
-      - ./data/opcua-server-certs:/workspace/certs
+      #- ./data/opcua-server-certs:/workspace/certs
     restart: always
     ports:
       - "8202:8088"
@@ -94,7 +116,7 @@ services:
     volumes:
       - ./config/03_drone_1.yml:/workspace/config/application-cc.yml
       - ./config/03_cc-docker_env.yml:/workspace/config/application-docker.yml
-      - ./data/opcua-server-certs:/workspace/certs
+      #- ./data/opcua-server-certs:/workspace/certs
     restart: always
     ports:
       - "8203:8088"
@@ -102,6 +124,54 @@ services:
     environment:
       EXTERNAL_HOSTNAME: ${EXTERNAL_HOSTNAME}
       EXTERNAL_PORT: 8203
+      SPRING_PROFILES_ACTIVE: cc,docker
+    labels:
+      logging: "promtail"
+      logging_jobname: "containerlogs"
+    networks:
+       - controlcomponents
+       - communication
+       - aas
+       - proxy
+
+  assembly_work_station_1_hl:
+    image: dfkibasys/controlcomponent-workstation:latest
+    container_name: assembly_work_station_1_hl
+    volumes:
+      - ./config/03_assembly_work_station_1_hl.yml:/workspace/config/application-cc.yml
+      - ./config/03_cc-docker_env.yml:/workspace/config/application-docker.yml
+      #- ./data/opcua-server-certs:/workspace/certs
+    restart: always
+    ports:
+      - "8205:8088"
+      - "12689:12689"
+    environment:
+      EXTERNAL_HOSTNAME: ${EXTERNAL_HOSTNAME}
+      EXTERNAL_PORT: 8205
+      SPRING_PROFILES_ACTIVE: cc,docker
+    labels:
+      logging: "promtail"
+      logging_jobname: "containerlogs"
+    networks:
+       - controlcomponents
+       - communication
+       - aas
+       - proxy
+
+  assembly_work_station_1_ll:
+    image: dfkibasys/controlcomponent-workstation:latest
+    container_name: assembly_work_station_1_ll
+    volumes:
+      - ./config/03_assembly_work_station_1_ll.yml:/workspace/config/application-cc.yml
+      - ./config/03_cc-docker_env.yml:/workspace/config/application-docker.yml
+      #- ./data/opcua-server-certs:/workspace/certs
+    restart: always
+    ports:
+      - "8206:8088"
+      - "12690:12690"
+    environment:
+      EXTERNAL_HOSTNAME: ${EXTERNAL_HOSTNAME}
+      EXTERNAL_PORT: 8206
       SPRING_PROFILES_ACTIVE: cc,docker
     labels:
       logging: "promtail"

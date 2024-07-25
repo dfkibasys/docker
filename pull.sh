@@ -6,8 +6,8 @@
 
 # Docker Compose Command
 COMMAND="pull"
-IM_STACKS="00 10 20 30 40 50 60"
-ES_STACKS="00 10 21 30 40 50 60"
+IM_STACKS="00 10 20 22 30 40 50 60"
+ES_STACKS="00 10 21 22 30 40 50 60"
 
 ############################################################
 # Help                                                     #
@@ -74,7 +74,7 @@ Find()
 ExtractName()
 {
    #echo "to extract" $1
-   echo $1 | grep -oP '\./docker-compose-[0-9]+-\K[a-z_]+(?=.\yml)'
+   echo $1 | grep -oP '\./docker-compose-[0-9]+-\K[a-z_0-9]+(?=.\yml)'
 }
 
 Single()
@@ -88,7 +88,7 @@ for value in "$@"
       echo "Stack name:" $NAME
 
       if [[ ! -v ENV ]]; then
-         ENV='stable'
+         ENV='dev'
       fi
       echo "Setting up '$ENV' environment"
 
