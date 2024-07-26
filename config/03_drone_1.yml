@@ -17,8 +17,8 @@ basys:
           connectionString: tcp://10.2.10.1:1883
           properties:
             droneInspectionServiceEndpoint: http://10.2.0.18:5000
-            mqttUsername: "drone_control_component"
-            mqttPassword: SECRET
+            mqttUsername: drone_control_component
+            mqttPassword: secret
       simulate:
         executionModeChangeDisabled: true
         occupationCheckDisabled: true

@@ -115,10 +115,6 @@ services:
     ports:
       - "8090:8080"
     environment:
-      VITE_MQTT_BROKER_URL: "ws://${EXTERNAL_HOSTNAME}:8083/mqtt"
-      VITE_CAMUNDA_REST_URL: "http://camunda.${EXTERNAL_HOSTNAME}"
-      VITE_AAS_REGISTRY_URL: "http://aasregistry.${EXTERNAL_HOSTNAME}"
-      VITE_AJAX_REQUEST_DOMAIN: "http://pprdashboard.${EXTERNAL_HOSTNAME}/engine-rest"
       # remove the VUE_APP ENVs when we go to a new stable version
       # using both we can switch between stable and dev
       VUE_APP_MQTT_BROKER_URL: "ws://${EXTERNAL_HOSTNAME}:8083/mqtt"
