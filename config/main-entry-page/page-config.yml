@@ -5,10 +5,10 @@ services:
     subdomain: akhq
   - name: EMQX
     subdomain: emqx
+  - name: Service Registry
+    subdomain: serviceregistry
 - name: Asset Administration Shell Services
   items:
-  - name: PPR Dashboard
-    subdomain: pprdashboard
   - name: AAS Web GUI
     subdomain: aasgui
   - name: AAS Registry
@@ -20,11 +20,25 @@ services:
     subdomain: kibana
   - name: Neo4j
     subdomain: neo4j
+- name: Asset Administration Shell Services v3
+  items:
+  - name: AAS Web GUI
+    subdomain: aasgui-v3
+  - name: AAS Environment
+    subdomain: aas-environment
+  - name: AAS Registry
+    subdomain: aas-registry-v3
+  - name: Submodel Registry
+    subdomain: sm-registry-v3
+  - name: Mnestix
+    subdomain: mnestix
 - name: Process Control Services
   items:
   - name: Camunda
     subdomain: camunda
     href: /camunda
+  - name: PPR Dashboard
+    subdomain: pprdashboard
 - name: Stack Management Services
   items:
   - name: Portainer
