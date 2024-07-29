@@ -125,6 +125,7 @@ services:
       VITE_CAMUNDA_REST_URL: "http://camunda.${EXTERNAL_HOSTNAME}"
       VITE_AAS_REGISTRY_URL: "http://aasregistry.${EXTERNAL_HOSTNAME}"
       VITE_AJAX_REQUEST_DOMAIN: "http://pprdashboard.${EXTERNAL_HOSTNAME}/engine-rest"
+      VITE_ENABLE_BASYSAFE_INTEGRATION: false
       NGINX_PROXY: "http://camunda:8080/engine-rest/"
       VIRTUAL_HOST: pprdashboard.${EXTERNAL_HOSTNAME}
       VIRTUAL_PORT: 8080
