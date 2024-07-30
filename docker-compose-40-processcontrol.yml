@@ -141,12 +141,39 @@ services:
       - processcontrol
       - proxy
 
+  wgs-server:
+    image: dfkibasys/wgs-server
+    container_name: wgs-server
+    environment:
+      MQTT_BROKER: ws://${EXTERNAL_HOSTNAME}:8083/mqtt
+      VIRTUAL_HOST: wgs-server.${EXTERNAL_HOSTNAME}
+      VIRTUAL_PORT: 3002
+    restart: always
+    networks:
+      - communication
+      - processcontrol
+      - proxy
+
+  wgs-client:
+    image: dfkibasys/wgs-client
+    container_name: wgs-client
+    environment:
+      SERVER_URL: http://wgs-server.${EXTERNAL_HOSTNAME}
+      SERVER_WS_URL: ws://wgs-server.${EXTERNAL_HOSTNAME}
+      VIRTUAL_HOST: wgs-client.${EXTERNAL_HOSTNAME}
+      VIRTUAL_PORT: 4200
+    restart: always
+    networks:
+      - communication
+      - processcontrol
+      - proxy
+
   wgs-management-service:
     image: dfkibasys/wgs-management-service:latest
     container_name: wgs-management-service
     environment:
       AAS_REGISTRY_ENDPOINT: http://aasregistry.${EXTERNAL_HOSTNAME}
-      WGS_DASHBOARD_ENDPOINT: http://hybrit-lnv-1.mrk40.dfki.lan:3002/
+      WGS_DASHBOARD_ENDPOINT: http://wgs-server.${EXTERNAL_HOSTNAME}
       NEO4J_ENDPOINT: neo4j://neo4j.${EXTERNAL_HOSTNAME}:7687
       NEO4J_USERNAME: neo4j
       NEO4J_PASSWORD: dfkibasys
