@@ -39,6 +39,8 @@ services:
     href: /camunda
   - name: PPR Dashboard
     subdomain: pprdashboard
+  - name: Worker Guidance System
+    subdomain: wgs-client
 - name: Stack Management Services
   items:
   - name: Portainer
