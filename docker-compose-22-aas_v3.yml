@@ -150,7 +150,7 @@ services:
     container_name: mnestix
     environment:
       # Connection to Repository Service:
-      ReverseProxy__Clusters__repoCluster__Destinations__destination1__Address: "http://aas-environment.${EXTERNAL_HOSTNAME}"
+      ReverseProxy__Clusters__repoCluster__Destinations__destination1__Address: "http://aas-environment:8081"
       # Features Configuration
       Features__AasRegistryMiddleware: true
       Features__UseMongoDbBasedAasIdStorage: true

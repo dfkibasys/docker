@@ -26,6 +26,7 @@ services:
     subdomain: aasgui-v3
   - name: AAS Environment
     subdomain: aas-environment
+    href: /swagger-ui/index.html
   - name: AAS Registry
     subdomain: aas-registry-v3
   - name: Submodel Registry
