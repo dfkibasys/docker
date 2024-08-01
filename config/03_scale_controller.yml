@@ -1,0 +1,23 @@
+basys:
+  opcuaServer:
+    certsFolder: ./certs
+    tcpPort: 12689
+    httpsPort: 8443
+  controlcomponent:
+    id: scale_controller
+    name: Scale-Controller
+    operationModeJavaPackage: de.dfki.cos.basys.p4p.controlcomponent.scalecontroller.opmodes
+    initialExecutionMode: AUTO
+    executionModes:
+      auto:
+        executionModeChangeDisabled: false
+        occupationCheckDisabled: false
+        service:
+          implementationJavaClass: de.dfki.cos.basys.p4p.controlcomponent.scalecontroller.service.ScaleControllerServiceMqttImpl
+          connectionString: tcp://10.2.10.4:1883
+          properties:
+            topic: "scale"
+            qos: 0
+      simulate:
+        executionModeChangeDisabled: true
+        occupationCheckDisabled: true

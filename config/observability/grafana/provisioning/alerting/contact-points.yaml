@@ -1,0 +1,20 @@
+
+apiVersion: 1
+contactPoints:
+    - orgId: 1
+      name: Teams
+      receivers:
+        - uid: cd2c8175-d124-4863-9456-87cddd3c5a4a
+          type: teams
+          settings:
+            sectiontitle: basys-lnv-1
+            url: <exampleWebHook>
+          disableResolveMessage: false
+    - orgId: 1
+      name: email receiver
+      receivers:
+        - uid: d817a06a-75b3-425a-8748-7316a4587c3a
+          type: email
+          settings:
+            addresses: <example@email.com>
+          disableResolveMessage: false

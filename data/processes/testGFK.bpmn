@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0i5sp1i" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.8.1" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.15.0">
+  <bpmn:collaboration id="Collaboration_05mh7vh">
+    <bpmn:participant id="Participant_0o6kw2h" name="Handarbeitsplatz Demo" processRef="testGFK2" />
+    <bpmn:participant id="Participant_0qlz1uj" name="HAP Demo Loop" processRef="Process_0g6bmjy" />
+  </bpmn:collaboration>
+  <bpmn:process id="testGFK2" name="testGFK2" isExecutable="true">
+    <bpmn:serviceTask id="Activity_1nam8n6" name="PnP: Muttern" camunda:modelerTemplate="de.dfki.cos.basys.operationMode" camunda:type="external" camunda:topic="ControlComponent">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="requestType">OperationModeRequest</camunda:inputParameter>
+          <camunda:inputParameter name="outputParameters">[]</camunda:inputParameter>
+          <camunda:inputParameter name="token">PP_SYM</camunda:inputParameter>
+          <camunda:inputParameter name="componentId">
+            <camunda:script scriptFormat="freemarker">assembly_work_station_1</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="inputParameters">
+            <camunda:script scriptFormat="freemarker">[
+{ "name": "pps_workstep_id", "type" : "STRING", "value": "workstep_1"},
+{ "name": "pps_material", "type" : "STRING", "value": "Mutter"},
+{ "name": "pps_mat_location", "type" : "STRING", "value": "box_01"},
+{ "name": "pps_quantity", "type" : "LONG", "value": "4"}
+]</camunda:script>
+          </camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1ozoe1v</bpmn:incoming>
+      <bpmn:outgoing>Flow_0iqxttk</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_1uhi5vy" name="PnP: Unterschale" camunda:modelerTemplate="de.dfki.cos.basys.operationMode" camunda:type="external" camunda:topic="ControlComponent">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="requestType">OperationModeRequest</camunda:inputParameter>
+          <camunda:inputParameter name="outputParameters">[]</camunda:inputParameter>
+          <camunda:inputParameter name="token">PP_SYM</camunda:inputParameter>
+          <camunda:inputParameter name="componentId">
+            <camunda:script scriptFormat="freemarker">assembly_work_station_1</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="inputParameters">
+            <camunda:script scriptFormat="freemarker">[
+{ "name": "pps_workstep_id", "type" : "STRING", "value": "workstep_2"},
+{ "name": "pps_material", "type" : "STRING", "value": "Unterschale"},
+{ "name": "pps_mat_location", "type" : "STRING", "value": "box_02"},
+{ "name": "pps_quantity", "type" : "LONG", "value": "1"}
+]</camunda:script>
+          </camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0iqxttk</bpmn:incoming>
+      <bpmn:outgoing>Flow_08a6ddr</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_0q0yj3u" name="PnP: Microcontroller" camunda:modelerTemplate="de.dfki.cos.basys.operationMode" camunda:type="external" camunda:topic="ControlComponent">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="requestType">OperationModeRequest</camunda:inputParameter>
+          <camunda:inputParameter name="outputParameters">[]</camunda:inputParameter>
+          <camunda:inputParameter name="token">PP_SYM</camunda:inputParameter>
+          <camunda:inputParameter name="componentId">
+            <camunda:script scriptFormat="freemarker">assembly_work_station_1</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="inputParameters">
+            <camunda:script scriptFormat="freemarker">[
+{ "name": "pps_workstep_id", "type" : "STRING", "value": "workstep_3"},
+{ "name": "pps_material", "type" : "STRING", "value": "Microcontroller"},
+{ "name": "pps_mat_location", "type" : "STRING", "value": "box_03"},
+{ "name": "pps_quantity", "type" : "LONG", "value": "1"}
+]</camunda:script>
+          </camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_08a6ddr</bpmn:incoming>
+      <bpmn:outgoing>Flow_1p18dk4</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_174qw1n" name="PnP: Oberschale" camunda:modelerTemplate="de.dfki.cos.basys.operationMode" camunda:type="external" camunda:topic="ControlComponent">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="requestType">OperationModeRequest</camunda:inputParameter>
+          <camunda:inputParameter name="outputParameters">[]</camunda:inputParameter>
+          <camunda:inputParameter name="token">PP_SYM</camunda:inputParameter>
+          <camunda:inputParameter name="componentId">
+            <camunda:script scriptFormat="freemarker">assembly_work_station_1</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="inputParameters">
+            <camunda:script scriptFormat="freemarker">[
+{ "name": "pps_workstep_id", "type" : "STRING", "value": "workstep_4"},
+{ "name": "pps_material", "type" : "STRING", "value": "Oberschale"},
+{ "name": "pps_mat_location", "type" : "STRING", "value": "box_04"},
+{ "name": "pps_quantity", "type" : "LONG", "value": "1"}
+]</camunda:script>
+          </camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1p18dk4</bpmn:incoming>
+      <bpmn:outgoing>Flow_1nzl6b4</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_19h3ued" name="PnP: Erste Schraube" camunda:modelerTemplate="de.dfki.cos.basys.operationMode" camunda:type="external" camunda:topic="ControlComponent">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="requestType">OperationModeRequest</camunda:inputParameter>
+          <camunda:inputParameter name="outputParameters">[]</camunda:inputParameter>
+          <camunda:inputParameter name="token">PP_SYM</camunda:inputParameter>
+          <camunda:inputParameter name="componentId">
+            <camunda:script scriptFormat="freemarker">assembly_work_station_1</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="inputParameters">
+            <camunda:script scriptFormat="freemarker">[
+{ "name": "pps_workstep_id", "type" : "STRING", "value": "workstep_5"},
+{ "name": "pps_material", "type" : "STRING", "value": "Schraube"},
+{ "name": "pps_mat_location", "type" : "STRING", "value": "box_05"},
+{ "name": "pps_quantity", "type" : "LONG", "value": "1"}
+]</camunda:script>
+          </camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1nzl6b4</bpmn:incoming>
+      <bpmn:outgoing>Flow_040x8vk</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_0y2qgbq" name="PnP: Zweite Schraube" camunda:modelerTemplate="de.dfki.cos.basys.operationMode" camunda:type="external" camunda:topic="ControlComponent">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="requestType">OperationModeRequest</camunda:inputParameter>
+          <camunda:inputParameter name="outputParameters">[]</camunda:inputParameter>
+          <camunda:inputParameter name="token">PP_SYM</camunda:inputParameter>
+          <camunda:inputParameter name="componentId">
+            <camunda:script scriptFormat="freemarker">assembly_work_station_1</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="inputParameters">
+            <camunda:script scriptFormat="freemarker">[
+{ "name": "pps_workstep_id", "type" : "STRING", "value": "workstep_6"},
+{ "name": "pps_material", "type" : "STRING", "value": "Schraube"},
+{ "name": "pps_mat_location", "type" : "STRING", "value": "box_05"},
+{ "name": "pps_quantity", "type" : "LONG", "value": "1"}
+]</camunda:script>
+          </camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_040x8vk</bpmn:incoming>
+      <bpmn:outgoing>Flow_08qjqtk</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_02b1pw1" name="PnP: Restliche Schrauben" camunda:modelerTemplate="de.dfki.cos.basys.operationMode" camunda:type="external" camunda:topic="ControlComponent">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="requestType">OperationModeRequest</camunda:inputParameter>
+          <camunda:inputParameter name="outputParameters">[]</camunda:inputParameter>
+          <camunda:inputParameter name="token">PP_SYM</camunda:inputParameter>
+          <camunda:inputParameter name="componentId">
+            <camunda:script scriptFormat="freemarker">assembly_work_station_1</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="inputParameters">
+            <camunda:script scriptFormat="freemarker">[
+{ "name": "pps_workstep_id", "type" : "STRING", "value": "workstep_7"},
+{ "name": "pps_material", "type" : "STRING", "value": "Schraube"},
+{ "name": "pps_mat_location", "type" : "STRING", "value": "box_05"},
+{ "name": "pps_quantity", "type" : "LONG", "value": "2"}
+]</camunda:script>
+          </camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_08qjqtk</bpmn:incoming>
+      <bpmn:outgoing>Flow_0rhjet9</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="Event_1wusa51">
+      <bpmn:incoming>Flow_0rhjet9</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_08qjqtk" sourceRef="Activity_0y2qgbq" targetRef="Activity_02b1pw1" />
+    <bpmn:sequenceFlow id="Flow_040x8vk" sourceRef="Activity_19h3ued" targetRef="Activity_0y2qgbq" />
+    <bpmn:sequenceFlow id="Flow_1nzl6b4" sourceRef="Activity_174qw1n" targetRef="Activity_19h3ued" />
+    <bpmn:sequenceFlow id="Flow_1p18dk4" sourceRef="Activity_0q0yj3u" targetRef="Activity_174qw1n" />
+    <bpmn:sequenceFlow id="Flow_08a6ddr" sourceRef="Activity_1uhi5vy" targetRef="Activity_0q0yj3u" />
+    <bpmn:sequenceFlow id="Flow_0iqxttk" sourceRef="Activity_1nam8n6" targetRef="Activity_1uhi5vy" />
+    <bpmn:sequenceFlow id="Flow_0rhjet9" sourceRef="Activity_02b1pw1" targetRef="Event_1wusa51" />
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_1ozoe1v</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_1ozoe1v" sourceRef="StartEvent_1" targetRef="Activity_1nam8n6" />
+  </bpmn:process>
+  <bpmn:process id="Process_0g6bmjy" name="HAP Demo Loop" isExecutable="true">
+    <bpmn:startEvent id="Event_00tcrsz">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="numberOfProcesses" label="Number of processes" type="long" defaultValue="1" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:outgoing>Flow_0kh9ak6</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:callActivity id="Activity_0nq91ve" name="HAP Demo" calledElement="testGFK2">
+      <bpmn:extensionElements>
+        <camunda:in businessKey="#{execution.processBusinessKey}" />
+        <camunda:in variables="all" />
+        <camunda:out variables="all" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0kh9ak6</bpmn:incoming>
+      <bpmn:outgoing>Flow_1u4ljpo</bpmn:outgoing>
+      <bpmn:multiInstanceLoopCharacteristics isSequential="true">
+        <bpmn:loopCardinality xsi:type="bpmn:tFormalExpression">${numberOfProcesses}</bpmn:loopCardinality>
+      </bpmn:multiInstanceLoopCharacteristics>
+    </bpmn:callActivity>
+    <bpmn:endEvent id="Event_0nk6pix">
+      <bpmn:incoming>Flow_1u4ljpo</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0kh9ak6" sourceRef="Event_00tcrsz" targetRef="Activity_0nq91ve" />
+    <bpmn:sequenceFlow id="Flow_1u4ljpo" sourceRef="Activity_0nq91ve" targetRef="Event_0nk6pix" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_05mh7vh">
+      <bpmndi:BPMNShape id="Participant_0o6kw2h_di" bpmnElement="Participant_0o6kw2h" isHorizontal="true">
+        <dc:Bounds x="140" y="220" width="1200" height="139" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_08qjqtk_di" bpmnElement="Flow_08qjqtk">
+        <di:waypoint x="1070" y="297" />
+        <di:waypoint x="1110" y="297" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_040x8vk_di" bpmnElement="Flow_040x8vk">
+        <di:waypoint x="930" y="297" />
+        <di:waypoint x="970" y="297" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1nzl6b4_di" bpmnElement="Flow_1nzl6b4">
+        <di:waypoint x="790" y="297" />
+        <di:waypoint x="830" y="297" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1p18dk4_di" bpmnElement="Flow_1p18dk4">
+        <di:waypoint x="650" y="297" />
+        <di:waypoint x="690" y="297" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_08a6ddr_di" bpmnElement="Flow_08a6ddr">
+        <di:waypoint x="510" y="297" />
+        <di:waypoint x="550" y="297" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0iqxttk_di" bpmnElement="Flow_0iqxttk">
+        <di:waypoint x="370" y="297" />
+        <di:waypoint x="410" y="297" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1ozoe1v_di" bpmnElement="Flow_1ozoe1v">
+        <di:waypoint x="228" y="297" />
+        <di:waypoint x="270" y="297" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0rhjet9_di" bpmnElement="Flow_0rhjet9">
+        <di:waypoint x="1210" y="297" />
+        <di:waypoint x="1282" y="297" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="192" y="279" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0bdtba2_di" bpmnElement="Activity_1nam8n6">
+        <dc:Bounds x="270" y="257" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1uhi5vy_di" bpmnElement="Activity_1uhi5vy">
+        <dc:Bounds x="410" y="257" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0q0yj3u_di" bpmnElement="Activity_0q0yj3u">
+        <dc:Bounds x="550" y="257" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_174qw1n_di" bpmnElement="Activity_174qw1n">
+        <dc:Bounds x="690" y="257" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_19h3ued_di" bpmnElement="Activity_19h3ued">
+        <dc:Bounds x="830" y="257" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0y2qgbq_di" bpmnElement="Activity_0y2qgbq">
+        <dc:Bounds x="970" y="257" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_02b1pw1_di" bpmnElement="Activity_02b1pw1">
+        <dc:Bounds x="1110" y="257" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1wusa51_di" bpmnElement="Event_1wusa51">
+        <dc:Bounds x="1282" y="279" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Participant_0qlz1uj_di" bpmnElement="Participant_0qlz1uj" isHorizontal="true">
+        <dc:Bounds x="140" y="80" width="360" height="120" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0kh9ak6_di" bpmnElement="Flow_0kh9ak6">
+        <di:waypoint x="238" y="140" />
+        <di:waypoint x="290" y="140" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1u4ljpo_di" bpmnElement="Flow_1u4ljpo">
+        <di:waypoint x="390" y="140" />
+        <di:waypoint x="442" y="140" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Event_00tcrsz_di" bpmnElement="Event_00tcrsz">
+        <dc:Bounds x="202" y="122" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1pdkon7_di" bpmnElement="Activity_0nq91ve">
+        <dc:Bounds x="290" y="100" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0nk6pix_di" bpmnElement="Event_0nk6pix">
+        <dc:Bounds x="442" y="122" width="36" height="36" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

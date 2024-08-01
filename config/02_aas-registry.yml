@@ -4,7 +4,7 @@ servlet:
       values:
         Access-Control-Allow-Origin: "*"
         Access-Control-Max-Age: 10000
-    - path: /registry/search
+    - path: /search
       values:
         Access-Control-Allow-Origin: "*"
         Access-Control-Allow-Methods: POST,OPTIONS

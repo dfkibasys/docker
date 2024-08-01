@@ -1,3 +1,4 @@
 # local env files
 .env.local
 /.vagrant
+data/neo4j/

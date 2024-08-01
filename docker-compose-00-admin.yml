@@ -1,5 +1,3 @@
-version: '3.6'
-    
 networks:
   admin:
     name: basys-admin
@@ -10,31 +8,31 @@ networks:
 
 services:      
   portainer:
-    image: portainer/portainer-ce:2.18.2
+    image: portainer/portainer-ce:2.20.3
     container_name: portainer
     restart: always
     ports:
       - "9090:9000"
+    command: --admin-password-file=/secrets/admin-password
     environment:
       - VIRTUAL_HOST=portainer.${EXTERNAL_HOSTNAME}
       - VIRTUAL_PORT=9000
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      - ./data/portainer/admin-password:/secrets/admin-password
     networks:
       - admin
       - proxy
 
   nginx-proxy:
-    image: nginxproxy/nginx-proxy
+    image: nginxproxy/nginx-proxy:1.6.0-alpine
     container_name: proxy
     restart: always
     ports:
       - "80:80"
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
-#      - ./data/proxy/proxy.conf:/etc/nginx/proxy.conf
-      - ./config/nginx-proxy/camunda.dockerhost.conf:/etc/nginx/vhost.d/camunda.dockerhost
-
+      - ./config/nginx-proxy/aasregistry.legacy.conf:/etc/nginx/vhost.d/aasregistry.${EXTERNAL_HOSTNAME}:ro
     environment:
       - DEFAULT_HOST=${EXTERNAL_HOSTNAME}
     networks:

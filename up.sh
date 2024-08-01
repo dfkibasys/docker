@@ -6,8 +6,8 @@
 
 # Docker Compose Command
 COMMAND="up"
-IM_STACKS="00 10 20 30 40"
-ES_STACKS="00 10 21 30 40"
+IM_STACKS="00 10 20 22 30 40 50 60"
+ES_STACKS="00 10 21 22 30 40 50 60"
 
 ############################################################
 # Help                                                     #
@@ -22,7 +22,7 @@ Help()
    echo "-a [im|es]             - $COMMAND all stacks"
    echo "                         im = AAS stack with InMemory back-end (default)"
    echo "                         es = AAS stack with ElasticSearch back-end"
-   echo "-s stack1 [stack2 ...] - $COMMAND a singe stack."
+   echo "-s stack1 [stack2 ...] - $COMMAND a single stack."
    echo "-h                     - print this help."
    echo
    echo "The stacks must adhere to the following naming convention:"
@@ -57,8 +57,8 @@ function Reverse
    local reverse=""
    for value in "$@"
       do
-	     reverse=$value" "$reverse	  
-	     #echo $reverse	  
+	     reverse=$value" "$reverse
+	     #echo $reverse
       done
    echo "$reverse"
 }
@@ -82,7 +82,7 @@ FindArm64()
 ExtractName()
 {
    #echo "to extract" $1
-   echo $1 | grep -oP '\./docker-compose-[0-9]+-\K[a-z_]+(?=.\yml)'
+   echo $1 | grep -oP '\./docker-compose-[0-9]+-\K[a-z_0-9]+(?=.\yml)'
 }
 
 Single()
@@ -97,24 +97,28 @@ fi
 
 for value in "$@"
    do
-      #echo "Process" $value
       STACK=$(Find $value)
       echo "Stack found:" $STACK
       NAME=$(ExtractName $STACK)
       echo "Stack name:" $NAME
-      
+
       ARM64_STACK=''
       if [[ $ARM64 == 1 ]] ; then
          ARM64_STACK=$(FindArm64 $value | sed 's/^/-f /' )
          echo 'Using arm64 stack file ' $ARM64_STACK
       fi
+      
+      if [[ ! -v ENV ]]; then
+         ENV='dev'
+      fi
+      echo "Setting up '$ENV' environment"
 
 	   if [[ $COMMAND == pull ]] ; then
-         docker compose -f $STACK $ARM64_STACK $COMMAND 		
+         docker compose -f $STACK $ARM64_STACK --env-file .env.$ENV $COMMAND
       elif [[ $COMMAND == up ]] ; then
-	      docker compose -f $STACK $ARM64_STACK -p $NAME $COMMAND -d --remove-orphans
+	      docker compose -f $STACK $ARM64_STACK --env-file .env.$ENV -p $NAME $COMMAND -d --remove-orphans
 	   elif [[ $COMMAND == down ]] ; then 
-	      docker compose -f $STACK $ARM64_STACK -p $NAME $COMMAND
+	      docker compose -f $STACK $ARM64_STACK --env-file .env.$ENV -p $NAME $COMMAND
 	   else
 	      echo "unknown COMMAND" $COMMAND
 	   fi
@@ -144,7 +148,7 @@ esac
 if [[ $COMMAND == down ]] ; then 
    echo "reverse"
    STACKS=$(Reverse $STACKS)
-fi	
+fi
 Single $STACKS
 }
 
@@ -159,6 +163,7 @@ Single $STACKS
 # Process the input options. Add options as needed.        #
 ############################################################
 # Get the options
+
 while getopts "hs:a" option; do
    case $option in
       h) # display Help
@@ -176,7 +181,7 @@ while getopts "hs:a" option; do
            All $nextopt
          else
            All
-         fi		 
+         fi
          exit;;
      \?) # Invalid option
          echo "Error: Invalid option"

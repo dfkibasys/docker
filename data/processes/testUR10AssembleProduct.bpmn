@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_149hkfo" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.13.0">
+  <bpmn:collaboration id="Collaboration_02ui9fe">
+    <bpmn:participant id="Participant_07oc76y" name="Test UR10 Assemble Product" processRef="TestUR10AssembleProduct" />
+    <bpmn:participant id="Participant_0wejmk2" name="Assemble Product" processRef="process_assemble_product" />
+  </bpmn:collaboration>
+  <bpmn:process id="TestUR10AssembleProduct" name="TestUR10AssembleProduct" isExecutable="true">
+    <bpmn:sequenceFlow id="Flow_11t8tnr" sourceRef="Event_1d6z67t" targetRef="Activity_1mkr0m9" />
+    <bpmn:sequenceFlow id="Flow_0m0fr36" sourceRef="Activity_1mkr0m9" targetRef="Event_0pbe8d2" />
+    <bpmn:startEvent id="Event_1d6z67t">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="transportUnit1Id" label="Logistics Unit 1 ID" type="string" defaultValue="mir100_1" />
+          <camunda:formField id="pick_quantity" label="PICK Quantity" type="long" defaultValue="1" />
+          <camunda:formField id="moveSimulated" label="MOVE Simulated" type="boolean" defaultValue="true" />
+          <camunda:formField id="productionUnitId" label="Production Unit Id" type="string" defaultValue="ur10_1" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:outgoing>Flow_11t8tnr</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:callActivity id="Activity_1mkr0m9" name="Assemble Product" calledElement="process_assemble_product">
+      <bpmn:extensionElements>
+        <camunda:in businessKey="#{execution.processBusinessKey}" />
+        <camunda:out variables="all" />
+        <camunda:in variables="all" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_11t8tnr</bpmn:incoming>
+      <bpmn:outgoing>Flow_0m0fr36</bpmn:outgoing>
+    </bpmn:callActivity>
+    <bpmn:endEvent id="Event_0pbe8d2">
+      <bpmn:incoming>Flow_0m0fr36</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+  <bpmn:process id="process_assemble_product" name="process_assemble_product" isExecutable="true">
+    <bpmn:startEvent id="Event_18wxxhb">
+      <bpmn:outgoing>Flow_14n88x5</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:endEvent id="Event_0l7s3q4">
+      <bpmn:incoming>Flow_19q3enz</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:serviceTask id="Activity_1fsq1rq" name="Deliver&#10;Assembled Product" camunda:modelerTemplate="de.dfki.cos.basys.operationMode" camunda:type="external" camunda:topic="ControlComponent">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="requestType">OperationModeRequest</camunda:inputParameter>
+          <camunda:inputParameter name="outputParameters">[]</camunda:inputParameter>
+          <camunda:inputParameter name="componentId">
+            <camunda:script scriptFormat="freemarker">${productionUnitId}</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="token">PP_SYM</camunda:inputParameter>
+          <camunda:inputParameter name="inputParameters">
+            <camunda:script scriptFormat="freemarker">[
+{ "name": "pps_source_location", "type" : "STRING", "value": "EMAssemblyStage01"},
+{ "name": "pps_object_type", "type" : "STRING", "value": "TypeBoxedRaspberryPi"},
+{ "name": "pps_target_location", "type" : "STRING", "value": "EMPartsStorage02"}
+]</camunda:script>
+          </camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0oup032</bpmn:incoming>
+      <bpmn:outgoing>Flow_19q3enz</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_19wy6jy" name="Join Board and Case Bottom Parts" camunda:modelerTemplate="de.dfki.cos.basys.operationMode" camunda:type="external" camunda:topic="ControlComponent">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="requestType">OperationModeRequest</camunda:inputParameter>
+          <camunda:inputParameter name="outputParameters">[]</camunda:inputParameter>
+          <camunda:inputParameter name="componentId">
+            <camunda:script scriptFormat="freemarker">${productionUnitId}</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="token">JOIN_SYM</camunda:inputParameter>
+          <camunda:inputParameter name="inputParameters">
+            <camunda:script scriptFormat="freemarker">[
+{ "name": "object_type_a", "type" : "STRING", "value": "TypeCaseTop"},
+{ "name": "object_type_b", "type" : "STRING", "value": "TypeCaseBottomWithBoard"}
+]</camunda:script>
+          </camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0i5m3kx</bpmn:incoming>
+      <bpmn:outgoing>Flow_0oup032</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_0sdkdht" name="Pick Case Top Part" camunda:modelerTemplate="de.dfki.cos.basys.operationMode" camunda:type="external" camunda:topic="ControlComponent">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="requestType">OperationModeRequest</camunda:inputParameter>
+          <camunda:inputParameter name="outputParameters">[]</camunda:inputParameter>
+          <camunda:inputParameter name="componentId">
+            <camunda:script scriptFormat="freemarker">${productionUnitId}</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="token">PICK_SYM</camunda:inputParameter>
+          <camunda:inputParameter name="inputParameters">
+            <camunda:script scriptFormat="freemarker">[
+{ "name": "pick_source_location", "type" : "STRING", "value": "EMPartsStorage04"},
+{ "name": "pick_object_type", "type" : "STRING", "value": "TypeCaseTop"}
+]</camunda:script>
+          </camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0wyjt6k</bpmn:incoming>
+      <bpmn:outgoing>Flow_0i5m3kx</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_0umu8vb" name="Join Board and Case Bottom Parts" camunda:modelerTemplate="de.dfki.cos.basys.operationMode" camunda:type="external" camunda:topic="ControlComponent">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="requestType">OperationModeRequest</camunda:inputParameter>
+          <camunda:inputParameter name="outputParameters">[]</camunda:inputParameter>
+          <camunda:inputParameter name="componentId">
+            <camunda:script scriptFormat="freemarker">${productionUnitId}</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="token">JOIN_SYM</camunda:inputParameter>
+          <camunda:inputParameter name="inputParameters">
+            <camunda:script scriptFormat="freemarker">[
+{ "name": "object_type_a", "type" : "STRING", "value": "TypeBoard"},
+{ "name": "object_type_b", "type" : "STRING", "value": "TypeCaseBottom"}
+]</camunda:script>
+          </camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_08grk1b</bpmn:incoming>
+      <bpmn:outgoing>Flow_0wyjt6k</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_17m3o9l" name="Pick Board Part" camunda:modelerTemplate="de.dfki.cos.basys.operationMode" camunda:type="external" camunda:topic="ControlComponent">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="requestType">OperationModeRequest</camunda:inputParameter>
+          <camunda:inputParameter name="outputParameters">[]</camunda:inputParameter>
+          <camunda:inputParameter name="componentId">
+            <camunda:script scriptFormat="freemarker">${productionUnitId}</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="token">PICK_SYM</camunda:inputParameter>
+          <camunda:inputParameter name="inputParameters">
+            <camunda:script scriptFormat="freemarker">[
+{ "name": "pick_source_location", "type" : "STRING", "value": "EMPartsStorage03"},
+{ "name": "pick_object_type", "type" : "STRING", "value": "TypeBoard"}
+]</camunda:script>
+          </camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1lpeaxu</bpmn:incoming>
+      <bpmn:outgoing>Flow_08grk1b</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_0mcr2jt" name="Provide&#10;Case Bottom Part" camunda:modelerTemplate="de.dfki.cos.basys.operationMode" camunda:type="external" camunda:topic="ControlComponent">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="requestType">OperationModeRequest</camunda:inputParameter>
+          <camunda:inputParameter name="outputParameters">[]</camunda:inputParameter>
+          <camunda:inputParameter name="componentId">
+            <camunda:script scriptFormat="freemarker">${productionUnitId}</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="token">PP_SYM</camunda:inputParameter>
+          <camunda:inputParameter name="inputParameters">
+            <camunda:script scriptFormat="freemarker">[
+{ "name": "pps_source_location", "type" : "STRING", "value": "EMPartsStorage01"},
+{ "name": "pps_object_type", "type" : "STRING", "value": "TypeCaseBottom"},
+{ "name": "pps_target_location", "type" : "STRING", "value": "EMAssemblyStage01"}
+]</camunda:script>
+          </camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_14n88x5</bpmn:incoming>
+      <bpmn:outgoing>Flow_1lpeaxu</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_0x041n8" name="Move to START position" camunda:modelerTemplate="de.dfki.cos.basys.operationMode" camunda:type="external" camunda:topic="ControlComponent">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="requestType">OperationModeRequest</camunda:inputParameter>
+          <camunda:inputParameter name="outputParameters">[]</camunda:inputParameter>
+          <camunda:inputParameter name="componentId">
+            <camunda:script scriptFormat="freemarker">${productionUnitId}</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="token">MOVE_SYM</camunda:inputParameter>
+          <camunda:inputParameter name="inputParameters">
+            <camunda:script scriptFormat="freemarker">[
+{ "name": "position", "type" : "STRING", "value": "__START__"}
+]</camunda:script>
+          </camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_14n88x5" sourceRef="Event_18wxxhb" targetRef="Activity_0mcr2jt" />
+    <bpmn:sequenceFlow id="Flow_19q3enz" sourceRef="Activity_1fsq1rq" targetRef="Event_0l7s3q4" />
+    <bpmn:sequenceFlow id="Flow_0oup032" sourceRef="Activity_19wy6jy" targetRef="Activity_1fsq1rq" />
+    <bpmn:sequenceFlow id="Flow_0i5m3kx" sourceRef="Activity_0sdkdht" targetRef="Activity_19wy6jy" />
+    <bpmn:sequenceFlow id="Flow_0wyjt6k" sourceRef="Activity_0umu8vb" targetRef="Activity_0sdkdht" />
+    <bpmn:sequenceFlow id="Flow_08grk1b" sourceRef="Activity_17m3o9l" targetRef="Activity_0umu8vb" />
+    <bpmn:sequenceFlow id="Flow_1lpeaxu" sourceRef="Activity_0mcr2jt" targetRef="Activity_17m3o9l" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_02ui9fe">
+      <bpmndi:BPMNShape id="Participant_07oc76y_di" bpmnElement="Participant_07oc76y" isHorizontal="true">
+        <dc:Bounds x="160" y="80" width="440" height="250" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1d6z67t_di" bpmnElement="Event_1d6z67t">
+        <dc:Bounds x="222" y="192" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_1nuo9h5" bpmnElement="Activity_1mkr0m9">
+        <dc:Bounds x="350" y="170" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0pbe8d2_di" bpmnElement="Event_0pbe8d2">
+        <dc:Bounds x="522" y="192" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_11t8tnr_di" bpmnElement="Flow_11t8tnr">
+        <di:waypoint x="258" y="210" />
+        <di:waypoint x="350" y="210" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0m0fr36_di" bpmnElement="Flow_0m0fr36">
+        <di:waypoint x="450" y="210" />
+        <di:waypoint x="522" y="210" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Participant_0wejmk2_di" bpmnElement="Participant_0wejmk2" isHorizontal="true">
+        <dc:Bounds x="660" y="80" width="1420" height="330" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_18wxxhb_di" bpmnElement="Event_18wxxhb">
+        <dc:Bounds x="752" y="182" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0l7s3q4_di" bpmnElement="Event_0l7s3q4">
+        <dc:Bounds x="1982" y="182" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_1kabukw" bpmnElement="Activity_1fsq1rq">
+        <dc:Bounds x="1720" y="160" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_0vxr7cf" bpmnElement="Activity_19wy6jy">
+        <dc:Bounds x="1560" y="160" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_0so7ett" bpmnElement="Activity_0sdkdht">
+        <dc:Bounds x="1400" y="160" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_0o7ws1x" bpmnElement="Activity_0umu8vb">
+        <dc:Bounds x="1250" y="160" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_0uztgss" bpmnElement="Activity_17m3o9l">
+        <dc:Bounds x="1090" y="160" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_18g8oa6_di" bpmnElement="Activity_0mcr2jt">
+        <dc:Bounds x="950" y="160" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_01nje8f" bpmnElement="Activity_0x041n8">
+        <dc:Bounds x="840" y="300" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_14n88x5_di" bpmnElement="Flow_14n88x5">
+        <di:waypoint x="788" y="200" />
+        <di:waypoint x="950" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_19q3enz_di" bpmnElement="Flow_19q3enz">
+        <di:waypoint x="1820" y="200" />
+        <di:waypoint x="1982" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0oup032_di" bpmnElement="Flow_0oup032">
+        <di:waypoint x="1660" y="200" />
+        <di:waypoint x="1720" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0i5m3kx_di" bpmnElement="Flow_0i5m3kx">
+        <di:waypoint x="1500" y="200" />
+        <di:waypoint x="1560" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0wyjt6k_di" bpmnElement="Flow_0wyjt6k">
+        <di:waypoint x="1350" y="200" />
+        <di:waypoint x="1400" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_08grk1b_di" bpmnElement="Flow_08grk1b">
+        <di:waypoint x="1190" y="200" />
+        <di:waypoint x="1250" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1lpeaxu_di" bpmnElement="Flow_1lpeaxu">
+        <di:waypoint x="1050" y="200" />
+        <di:waypoint x="1090" y="200" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

@@ -1,0 +1,191 @@
+networks:
+  aas-v3:
+    name: basys-aas-v3
+    internal: true
+  communication:
+    name: basys-communication
+    external: true
+  proxy:
+    name: basys-proxy
+    external: true
+
+volumes:
+  mongo-volume:
+
+services:
+  mongo:
+    image: mongo:7.0.5-jammy
+    container_name: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongoAdmin
+      MONGO_INITDB_ROOT_PASSWORD: mongoPassword
+    networks:
+    - aas-v3
+    #volumes:
+    #-  mongo-volume:/data/db 
+    #healthcheck:
+    #  test: mongo
+    #  interval: 10s
+    #  start_period: 5s
+    #  retries: 15
+    #healthcheck:
+    #  test: echo 'db.stats().ok' | mongo mongo:27017/test --quiet
+    #  interval: 10s
+    #  timeout: 10s
+    #  retries: 10
+    #  start_period: 10s
+
+  aas-registry-v3:
+    image:  eclipsebasyx/aas-registry-kafka-mongodb:${BASYX_VERSION}
+    #image:  eclipsebasyx/aas-registry-log-mem:${BASYX_VERSION}
+    restart: always
+    container_name: aas-registry-v3
+    ports: 
+    - 8087:8080
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: PLAINTEXT://kafka:29092
+      VIRTUAL_HOST: aas-registry-v3.${EXTERNAL_HOSTNAME}
+      VIRTUAL_PORT: "8080"
+      BASYX_CORS_ALLOWED_ORIGINS: "*"
+      BASYX_CORS_ALLOWED_METHODS: "GET,POST,PATCH,DELETE,PUT,OPTIONS,HEAD"
+      SPRING_DATA_MONGODB_URI: mongodb://mongoAdmin:mongoPassword@mongo:27017
+    labels:
+      logging: "promtail"
+      logging_jobname: "containerlogs"
+    networks:
+    - aas-v3
+    - communication
+    - proxy
+    depends_on:
+    - mongo
+
+  sm-registry-v3:
+    image:  eclipsebasyx/submodel-registry-kafka-mongodb:${BASYX_VERSION}
+    #image:  eclipsebasyx/submodel-registry-log-mem:${BASYX_VERSION}
+    restart: always
+    container_name: sm-registry-v3
+    ports: 
+    - 8088:8080
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: PLAINTEXT://kafka:29092
+      VIRTUAL_HOST: sm-registry-v3.${EXTERNAL_HOSTNAME}
+      VIRTUAL_PORT: "8080"
+      BASYX_CORS_ALLOWED_ORIGINS: "*"
+      BASYX_CORS_ALLOWED_METHODS: "GET,POST,PATCH,DELETE,PUT,OPTIONS,HEAD"
+      SPRING_DATA_MONGODB_URI: mongodb://mongoAdmin:mongoPassword@mongo:27017
+    labels:
+      logging: "promtail"
+      logging_jobname: "containerlogs"
+    networks:
+    - aas-v3
+    - communication
+    - proxy
+    depends_on:
+    - mongo
+
+  aas-environment:
+    image: eclipsebasyx/aas-environment:${BASYX_VERSION}
+    container_name: aas-environment
+    #restart: always
+    ports:
+    - 8089:8081
+    environment:
+      BASYX_AASREPOSITORY_FEATURE_REGISTRYINTEGRATION: http://aas-registry-v3:8080
+      BASYX_SUBMODELREPOSITORY_FEATURE_REGISTRYINTEGRATION: http://sm-registry-v3:8080
+      BASYX_AASREPOSITORY_FEATURE_AASXUPLOAD_ENABLED: true
+      BASYX_CORS_ALLOWED_ORIGINS: "*"
+      BASYX_CORS_ALLOWED_METHODS: "GET,POST,PATCH,DELETE,PUT,OPTIONS,HEAD"
+      BASYX_EXTERNALURL: http://aas-environment.${EXTERNAL_HOSTNAME}
+      VIRTUAL_HOST: aas-environment.${EXTERNAL_HOSTNAME}
+      VIRTUAL_PORT: 8081
+      BASYX_ENVIRONMENT: file:/files/aasx/
+      SPRING_DATA_MONGODB_HOST: mongo
+      SPRING_DATA_MONGODB_PORT: 27017
+      SPRING_DATA_MONGODB_DATABASE: aasenvironments
+      SPRING_DATA_MONGODB_AUTHENTICATION-DATABASE: admin
+      SPRING_DATA_MONGODB_USERNAME: mongoAdmin
+      SPRING_DATA_MONGODB_PASSWORD: mongoPassword
+      BASYX_BACKEND: MongoDB #InMemory
+    volumes:
+    - ./data/aasx/v3/:/files/aasx/:ro
+    labels:
+      logging: "promtail"
+      logging_jobname: "containerlogs"
+    networks:
+    - aas-v3
+    - proxy
+    depends_on:
+      aas-registry-v3:
+        condition: service_healthy
+      sm-registry-v3:
+        condition: service_healthy
+
+  aasgui-v3:
+    image: eclipsebasyx/aas-gui:${AAS_WEBUI_V3_VERSION}
+    container_name: aasgui-v3
+    environment:
+      CHOKIDAR_USEPOLLING: "true"
+      # vite settings are defined in the .env file
+      VITE_AAS_REGISTRY_PATH: ${AAS_REGISTRY_PATH}
+      VITE_SUBMODEL_REGISTRY_PATH: ${SUBMODEL_REGISTRY_PATH}
+      VITE_AAS_REPO_PATH: ${AAS_REPO_PATH}
+      VITE_SUBMODEL_REPO_PATH: ${SUBMODEL_REPO_PATH}
+      VITE_CD_REPO_PATH: ${CD_REPO_PATH}
+      VIRTUAL_HOST: aasgui-v3.${EXTERNAL_HOSTNAME}
+      VIRTUAL_PORT: 3000
+    depends_on:
+      aas-registry-v3:
+        condition: service_healthy
+      sm-registry-v3:
+        condition: service_healthy    
+      aas-environment:
+        condition: service_healthy
+    networks:
+    - aas-v3
+    - proxy
+
+  mnestix:
+    image: mnestix/mnestix:prod
+    container_name: mnestix
+    environment:
+      # Connection to Repository Service:
+      ReverseProxy__Clusters__repoCluster__Destinations__destination1__Address: "http://aas-environment:8081"
+      # Features Configuration
+      Features__AasRegistryMiddleware: true
+      Features__UseMongoDbBasedAasIdStorage: true
+      Features__AllowRetrievingAllShellsAndSubmodels: true
+      Features__UseAuthentication: false
+      # MongoDB Configuration
+      BasyxDbConnectionConfiguration__MongoConnectionString: "mongodb://mongoAdmin:mongoPassword@mongo:27017/?authSource=admin"
+      BasyxDbConnectionConfiguration__DatabaseName: aasenvironments
+      BasyxDbConnectionConfiguration__AasCollectionName: "aas-repo"
+      BasyxDbConnectionConfiguration__LookupServiceCollectionName: lookupservice
+      # ASP.NET Core URLs
+      ASPNETCORE_URLS: "http://+:5064"
+      # Frontend Configuration
+      REACT_APP_AD_CLIENT_ID: "Example"
+      REACT_APP_AD_TENANT_ID: "Example"
+      REACT_APP_APPLICATION_ID_URI: "api://mnestix-test-web-api/"
+      REACT_APP_USE_AUTHENTICATION_FEATURE_FLAG: false
+      REACT_APP_LOCK_TIMESERIES_PERIOD_FEATURE_FLAG: true
+      REACT_APP_USE_COMPARISON_FEATURE_FLAG: true
+      REACT_APP_USE_AAS_LIST_FEATURE_FLAG: true
+      THEME_PRIMARY_COLOR: "#D7DBDD"
+      THEME_SECONDARY_COLOR: "#6ABFA3"
+      THEME_LOGO_MIME_TYPE: "image/svg+xml"
+      VIRTUAL_HOST: mnestix.${EXTERNAL_HOSTNAME}
+      VIRTUAL_PORT: 5064
+    volumes:
+      - ./data/mnestix/logo.svg:/app/public/logo
+    depends_on:
+      aas-environment:
+        condition: service_healthy # only after the healthcheck in aas is successful, the mnestix container is being created
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "5"
+        max-size: "100m"
+    networks:
+    - aas-v3
+    - proxy

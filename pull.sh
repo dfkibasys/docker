@@ -6,8 +6,8 @@
 
 # Docker Compose Command
 COMMAND="pull"
-IM_STACKS="00 10 20 30 40"
-ES_STACKS="00 10 21 30 40"
+IM_STACKS="00 10 20 22 30 40 50 60"
+ES_STACKS="00 10 21 22 30 40 50 60"
 
 ############################################################
 # Help                                                     #
@@ -22,7 +22,7 @@ Help()
    echo "-a [im|es]             - $COMMAND all stacks"
    echo "                         im = AAS stack with InMemory back-end (default)"
    echo "                         es = AAS stack with ElasticSearch back-end"
-   echo "-s stack1 [stack2 ...] - $COMMAND a singe stack."
+   echo "-s stack1 [stack2 ...] - $COMMAND a single stack."
    echo "-h                     - print this help."
    echo
    echo "The stacks must adhere to the following naming convention:"
@@ -74,7 +74,7 @@ Find()
 ExtractName()
 {
    #echo "to extract" $1
-   echo $1 | grep -oP '\./docker-compose-[0-9]+-\K[a-z_]+(?=.\yml)'
+   echo $1 | grep -oP '\./docker-compose-[0-9]+-\K[a-z_0-9]+(?=.\yml)'
 }
 
 Single()
@@ -86,15 +86,21 @@ for value in "$@"
       echo "Stack found:" $STACK
       NAME=$(ExtractName $STACK)
       echo "Stack name:" $NAME
-	  if [[ $COMMAND == pull ]] ; then
-        docker compose -f $STACK $COMMAND 		
+
+      if [[ ! -v ENV ]]; then
+         ENV='dev'
+      fi
+      echo "Setting up '$ENV' environment"
+
+	   if [[ $COMMAND == pull ]] ; then
+         docker compose -f $STACK --env-file .env.$ENV $COMMAND
       elif [[ $COMMAND == up ]] ; then
-	    docker compose -f $STACK -p $NAME $COMMAND -d
-	  elif [[ $COMMAND == down ]] ; then 
-	    docker compose -f $STACK -p $NAME $COMMAND
-	  else
-	    echo "unknown COMMAND" $COMMAND
-	  fi
+	      docker compose -f $STACK --env-file .env.$ENV -p $NAME $COMMAND -d --remove-orphans
+	   elif [[ $COMMAND == down ]] ; then 
+	     docker compose -f $STACK -p $NAME $COMMAND
+	   else
+	     echo "unknown COMMAND" $COMMAND
+	   fi
    done
 exit
 }

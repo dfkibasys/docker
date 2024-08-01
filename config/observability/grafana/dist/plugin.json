@@ -1,0 +1,28 @@
+{
+  "$schema": "https://raw.githubusercontent.com/grafana/grafana/master/docs/sources/developers/plugins/plugin.schema.json",
+  "type": "datasource",
+  "name": "Streaming",
+  "id": "basys-streaming-datasource",
+  "metrics": true,
+  "backend": true,
+  "executable": "gpx_streaming",
+  "info": {
+    "description": "Kafka streaming data source",
+    "author": {
+      "name": "Basys"
+    },
+    "keywords": ["datasource"],
+    "logos": {
+      "small": "img/logo.svg",
+      "large": "img/logo.svg"
+    },
+    "links": [],
+    "screenshots": [],
+    "version": "1.0.0",
+    "updated": "2023-10-02"
+  },
+  "dependencies": {
+    "grafanaDependency": "^9.3.8",
+    "plugins": []
+  }
+}

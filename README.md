@@ -146,3 +146,12 @@ ARM64=1 ./up.sh -a
 ``` 
 
 We use [qemu-user-static](https://github.com/multiarch/qemu-user-static) in to run docker containers for this different architecture.
+
+### Testing Snapshot Images
+
+We use images in the docker-compose stacks that are tested previously. Image version names are defined in the *.env* files. By default *.env.stable* is considered for environment variables. If you want to use different variables, you can use another environment file by setting the 'ENV' variable when running the scripts:
+``` sh
+ENV=dev ./up.sh -a
+ENV=dev ./pull.sh -s 30
+``` 
+In the example above, the file *.env.dev* is choosen, and therefore snapshot docker images are used.
